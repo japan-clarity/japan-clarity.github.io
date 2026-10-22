@@ -174,6 +174,34 @@ retained in both languages:
 - IPSS projections labeled as scenarios everywhere, with assumption-dependent
   high/low bounds disclosed.
 
+### 1.7 Final documentation sanitization (same-day follow-up)
+
+A follow-up review found that this report — written *after* the history
+purge — had itself re-introduced the literal development `DATABASE_URL`
+value and environment-specific host paths into three commits. A plain
+follow-up commit would have kept the literals inside the delivered history,
+so the three affected commits were rewritten once more (structure,
+messages, authorship, and dates preserved; second-pass mapping in §2):
+
+- `docs/REMEDIATION.md`: the finding now describes the `DATABASE_URL` value
+  without quoting it; the history-verification command shows a placeholder
+  instead of the literal; the backup bundle is referenced without the
+  host-specific absolute path.
+- `docs/RECOVERY.md`: the backup-bundle reference was sanitized the same
+  way.
+
+Verification after the second rewrite:
+
+- `git grep` for the literal `DATABASE_URL` value across `git rev-list
+  --all` → **0 matches** (the value now exists only in the private,
+  off-repository backup bundles).
+- `git log --all --oneline -- .env` → **0 commits** (unchanged from §1.1).
+- Remote commit `9e8e68e` remains an ancestor of `main`; the push remains a
+  normal fast-forward (§1.2).
+- Gates re-run on the final tree: `tsc` **0 errors**; `lint` **0 errors /
+  0 warnings**; `validate:research` **259 checks / 0 failures**;
+  `export:static` + `verify:export` **57 checks / 0 failures**.
+
 ---
 
 ## 2. Commit mapping (history rewrite)
@@ -197,12 +225,23 @@ Release tag: **`v1.0.0-rc1`** (annotated, at the tip of `main`).
 > history is the backup bundle in the development workspace host, outside the
 > repository.
 
+**Second-pass rewrite (final documentation sanitization, same day):** the
+three commits that had carried the literal values in this report were
+rewritten once more — `265804f`→`ccdb3ba`, `d531605`→`a3d5668`,
+`2a9345c`→`9d3a6e5` — followed by this sanitization commit (the new
+tip of `main`, tagged `v1.0.0-rc1`; see §1.7). The superseded intermediate
+hashes exist only in the off-repository backup bundles
+(`pre-remediation.bundle`, `pre-final-cleanup.bundle`).
+
 ## 3. Deployment status (honest)
 
 - **No push was performed and no deployment is claimed.** This environment
   has no GitHub credentials (no `gh` CLI, no credential helper, no tokens).
 - The release candidate is fully prepared locally, including the remote
   reconciliation merge, so the owner's push is a normal (non-force) push.
-- Follow `docs/DEPLOYMENT.md` (updated this session): review → push →
-  switch Pages source to GitHub Actions → independently verify the live
-  Actions run and the deployed site.
+- Follow `docs/DEPLOYMENT.md` (updated during the remediation): review →
+  push → switch Pages source to GitHub Actions → independently verify the
+  live Actions run and the deployed site.
+- The final documentation sanitization (§1.7) is included in the tagged
+  release candidate; no push has been performed at any point in any
+  session.

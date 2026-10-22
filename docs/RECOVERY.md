@@ -1,6 +1,7 @@
 # Japan Clarity — Recovery Checkpoint
 
-**Checkpoint date:** 2026-10-22 (updated in the remediation session)
+**Checkpoint date:** 2026-10-22 (updated in the remediation session and the
+final pre-deployment cleanup)
 **Release candidate:** tag `v1.0.0-rc1` on `main` (history rewritten — see
 `docs/REMEDIATION.md` §2 for the old→new commit mapping)
 **State:** platform complete and verified; Chapter 01 published with disclosed
@@ -42,6 +43,13 @@ minimization, copy corrections, re-verification).
    scaffold/dependency minimization (67→13 runtime deps); two copy-level
    factual errors corrected after an independent audit; all gates and browser
    regressions re-run green. Full report: `docs/REMEDIATION.md`.
+9. **Final documentation sanitization (2026-10-22, same-day follow-up)** —
+   the literal development `DATABASE_URL` value and environment-specific
+   host paths were removed from `docs/REMEDIATION.md` and this file; the
+   three commits that had carried them were rewritten so the delivered
+   history contains neither (verified: 0 reachable matches; second-pass
+   mapping in `docs/REMEDIATION.md` §2); all gates re-run green on the
+   final tree.
 
 ## Completed but not fully verified
 
@@ -86,6 +94,10 @@ minimization, copy corrections, re-verification).
   `pre-remediation.bundle` on the development workspace host (outside the
   repository; the environment-specific absolute path is recorded only in the
   private workspace) — do not re-import it into the public repo.
+- A second bundle, `pre-final-cleanup.bundle`, snapshots the release
+  candidate immediately before the documentation-sanitization rewrite
+  (same handling rules: workspace-only, never re-imported into the public
+  repository).
 - Data drift is detected automatically: `bun run validate:research` compares
   the generated module against `extracted-series.json` by content hash.
 - The shared agent worklog is `worklog.md` (workspace-only, not committed).
