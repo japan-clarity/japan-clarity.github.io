@@ -71,7 +71,11 @@ server.log
 
 # Raw evidence archives — kept in the development workspace, not the public repo.
 # Notes, extraction scripts, and World Bank API responses (CC BY 4.0) ARE committed.
-/research/chapter01/raw/statb/
-/research/chapter01/raw/mhlw/
-/research/chapter01/raw/ipss/
-/research/reference-inspection/raw/repos/
+/research/chapter01/raw/
+/research/reference-inspection/raw/
+
+# Development-environment tooling (sandbox-only, not part of the public project)
+/.zscripts/
+/Caddyfile
+/mini-services/
+/scripts/dev-daemon.py
