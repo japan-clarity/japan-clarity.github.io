@@ -1,0 +1,268 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Japan Clarity — dark, calm, neutral design system (specification section 5).
+ *
+ * Deep Charcoal  #0F141A  main background
+ * Slate Dark     #151C24  secondary background / cards
+ * Muted Slate    #1B2530  reading-section background
+ * Soft Off-White #E8EEF3  main headings
+ * Cool Light Grey#C7D1DA  body text
+ * Muted Grey Blue#93A1AE  secondary text
+ * Dark Border    #2A3642  dividers
+ * Muted Teal     #6FA3A8  primary accent (controls, links, data series 1)
+ * Soft Sand      #C8B38E  secondary accent (data series 2)
+ * Dusty Blue Grey#7F93A6  supporting accent (data series 3)
+ *
+ * The site is intentionally dark-only; light mode is not offered.
+ */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-heading: var(--heading);
+  --color-surface: var(--surface);
+  --color-block: var(--block);
+  --color-teal: var(--teal);
+  --color-sand: var(--sand);
+  --color-bluegrey: var(--bluegrey);
+  --font-sans: var(--font-sans-stack);
+  --font-serif: var(--font-serif-stack);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.5rem;
+
+  --background: #0f141a;
+  --foreground: #c7d1da;
+  --heading: #e8eef3;
+  --surface: #151c24;
+  --block: #1b2530;
+  --teal: #6fa3a8;
+  --sand: #c8b38e;
+  --bluegrey: #7f93a6;
+
+  --card: #151c24;
+  --card-foreground: #c7d1da;
+  --popover: #151c24;
+  --popover-foreground: #c7d1da;
+  --primary: #6fa3a8;
+  --primary-foreground: #0f141a;
+  --secondary: #1b2530;
+  --secondary-foreground: #e8eef3;
+  --muted: #1b2530;
+  --muted-foreground: #93a1ae;
+  --accent: #22303e;
+  --accent-foreground: #e8eef3;
+  --destructive: #c08a8a;
+  --border: #2a3642;
+  --input: #2a3642;
+  --ring: #6fa3a8;
+
+  --chart-1: #6fa3a8;
+  --chart-2: #c8b38e;
+  --chart-3: #7f93a6;
+  --chart-4: #a39283;
+  --chart-5: #8fa6b5;
+
+  /*
+   * System font stacks (no external font downloads):
+   * Japanese-optimized sans (Gothic) for UI/body and Mincho (serif) for
+   * editorial headings — verified-license system fonts only.
+   */
+  --font-sans-stack:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Yu Gothic",
+    "Noto Sans JP", Meiryo, sans-serif;
+  --font-serif-stack:
+    "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia,
+    "Times New Roman", serif;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  background-color: var(--background);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans-stack);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Focus visibility (WCAG 2.2 AA) */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(111, 163, 168, 0.32);
+  color: #e8eef3;
+}
+
+/* Custom scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2a3642 transparent;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a3642;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a4956;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/*
+ * Long-form reading typography.
+ * Japanese: generous line height (≈2.05), no artificial letter-spacing.
+ * English (and any other lang): comfortable 1.75.
+ */
+.reading-prose {
+  max-width: 44rem;
+}
+.reading-prose p {
+  margin-block: 1.1em;
+  line-height: 1.75;
+}
+html[lang="ja-JP"] .reading-prose p {
+  line-height: 2.05;
+}
+.reading-prose p:first-child {
+  margin-top: 0;
+}
+.reading-prose ul {
+  margin-block: 1.1em;
+  padding-left: 1.4rem;
+  display: grid;
+  gap: 0.55em;
+}
+.reading-prose li {
+  line-height: 1.75;
+  padding-left: 0.25em;
+}
+html[lang="ja-JP"] .reading-prose li {
+  line-height: 1.95;
+}
+.reading-prose ul li::marker {
+  color: var(--teal);
+}
+.reading-prose strong {
+  color: var(--heading);
+  font-weight: 600;
+}
+
+/* Japanese headings must wrap safely without overflow */
+h1,
+h2,
+h3,
+h4 {
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
+/* Skip link */
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  transition: transform 150ms ease;
+  background: var(--surface);
+  color: var(--heading);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.5rem 1rem;
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* Subtle entrance for reading sections */
+@keyframes jc-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise-in {
+  animation: jc-rise 420ms ease both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise-in {
+    animation: none;
+  }
+}
+
+/* ECharts touch behavior: let the page scroll vertically on touch devices
+   while the chart still receives taps for tooltips. */
+.jc-chart-canvas {
+  touch-action: pan-y;
+}
+
+/* Data table styling used by chart table view */
+.jc-data-table th {
+  font-weight: 600;
+  color: var(--heading);
+}
+.jc-data-table td.num {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}

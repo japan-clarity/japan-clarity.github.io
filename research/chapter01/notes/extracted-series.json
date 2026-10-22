@@ -1,0 +1,4290 @@
+{
+ "accessDate": "2026-10-22",
+ "vital": {
+  "counts": {
+   "1899": {
+    "births": 1386981,
+    "deaths": 932087,
+    "natural": 454894,
+    "marriages": 297372,
+    "divorces": 66545
+   },
+   "1900": {
+    "births": 1420534,
+    "deaths": 910744,
+    "natural": 509790,
+    "marriages": 346528,
+    "divorces": 63828
+   },
+   "1901": {
+    "births": 1501591,
+    "deaths": 925810,
+    "natural": 575781,
+    "marriages": 378457,
+    "divorces": 63442
+   },
+   "1902": {
+    "births": 1510835,
+    "deaths": 959126,
+    "natural": 551709,
+    "marriages": 394165,
+    "divorces": 64139
+   },
+   "1903": {
+    "births": 1489816,
+    "deaths": 931008,
+    "natural": 558808,
+    "marriages": 370961,
+    "divorces": 65392
+   },
+   "1904": {
+    "births": 1440371,
+    "deaths": 955400,
+    "natural": 484971,
+    "marriages": 398930,
+    "divorces": 63913
+   },
+   "1905": {
+    "births": 1452770,
+    "deaths": 1004661,
+    "natural": 448109,
+    "marriages": 350898,
+    "divorces": 60061
+   },
+   "1906": {
+    "births": 1394295,
+    "deaths": 955256,
+    "natural": 439039,
+    "marriages": 352857,
+    "divorces": 65398
+   },
+   "1907": {
+    "births": 1614472,
+    "deaths": 1016798,
+    "natural": 597674,
+    "marriages": 432949,
+    "divorces": 61058
+   },
+   "1908": {
+    "births": 1662815,
+    "deaths": 1029447,
+    "natural": 633368,
+    "marriages": 461254,
+    "divorces": 60226
+   },
+   "1909": {
+    "births": 1693850,
+    "deaths": 1091264,
+    "natural": 602586,
+    "marriages": 437882,
+    "divorces": 58936
+   },
+   "1910": {
+    "births": 1712857,
+    "deaths": 1064234,
+    "natural": 648623,
+    "marriages": 441222,
+    "divorces": 59432
+   },
+   "1911": {
+    "births": 1747803,
+    "deaths": 1043906,
+    "natural": 703897,
+    "marriages": 433117,
+    "divorces": 58067
+   },
+   "1912": {
+    "births": 1737674,
+    "deaths": 1037016,
+    "natural": 700658,
+    "marriages": 430422,
+    "divorces": 59143
+   },
+   "1913": {
+    "births": 1757441,
+    "deaths": 1027257,
+    "natural": 730184,
+    "marriages": 431287,
+    "divorces": 59536
+   },
+   "1914": {
+    "births": 1808402,
+    "deaths": 1101815,
+    "natural": 706587,
+    "marriages": 452932,
+    "divorces": 59992
+   },
+   "1915": {
+    "births": 1799326,
+    "deaths": 1093793,
+    "natural": 705533,
+    "marriages": 445210,
+    "divorces": 59943
+   },
+   "1916": {
+    "births": 1804822,
+    "deaths": 1187832,
+    "natural": 616990,
+    "marriages": 433680,
+    "divorces": 60254
+   },
+   "1917": {
+    "births": 1812413,
+    "deaths": 1199669,
+    "natural": 612744,
+    "marriages": 447970,
+    "divorces": 55812
+   },
+   "1918": {
+    "births": 1791992,
+    "deaths": 1493162,
+    "natural": 298830,
+    "marriages": 500580,
+    "divorces": 56474
+   },
+   "1919": {
+    "births": 1778685,
+    "deaths": 1281965,
+    "natural": 496720,
+    "marriages": 480136,
+    "divorces": 56812
+   },
+   "1920": {
+    "births": 2025564,
+    "deaths": 1422096,
+    "natural": 603468,
+    "marriages": 546207,
+    "divorces": 55511
+   },
+   "1921": {
+    "births": 1990876,
+    "deaths": 1288570,
+    "natural": 702306,
+    "marriages": 519217,
+    "divorces": 53402
+   },
+   "1922": {
+    "births": 1969314,
+    "deaths": 1286941,
+    "natural": 682373,
+    "marriages": 515916,
+    "divorces": 53053
+   },
+   "1923": {
+    "births": 2043297,
+    "deaths": 1332485,
+    "natural": 710812,
+    "marriages": 512689,
+    "divorces": 51212
+   },
+   "1924": {
+    "births": 1998520,
+    "deaths": 1254946,
+    "natural": 743574,
+    "marriages": 513130,
+    "divorces": 51770
+   },
+   "1925": {
+    "births": 2086091,
+    "deaths": 1210706,
+    "natural": 875385,
+    "marriages": 521438,
+    "divorces": 51687
+   },
+   "1926": {
+    "births": 2104405,
+    "deaths": 1160734,
+    "natural": 943671,
+    "marriages": 502847,
+    "divorces": 50119
+   },
+   "1927": {
+    "births": 2060737,
+    "deaths": 1214323,
+    "natural": 846414,
+    "marriages": 487850,
+    "divorces": 50626
+   },
+   "1928": {
+    "births": 2135852,
+    "deaths": 1236711,
+    "natural": 899141,
+    "marriages": 499555,
+    "divorces": 49119
+   },
+   "1929": {
+    "births": 2077026,
+    "deaths": 1261228,
+    "natural": 815798,
+    "marriages": 497410,
+    "divorces": 51222
+   },
+   "1930": {
+    "births": 2085101,
+    "deaths": 1170867,
+    "natural": 914234,
+    "marriages": 506674,
+    "divorces": 51259
+   },
+   "1931": {
+    "births": 2102784,
+    "deaths": 1240891,
+    "natural": 861893,
+    "marriages": 496574,
+    "divorces": 50609
+   },
+   "1932": {
+    "births": 2182742,
+    "deaths": 1175344,
+    "natural": 1007398,
+    "marriages": 515270,
+    "divorces": 51437
+   },
+   "1933": {
+    "births": 2121253,
+    "deaths": 1193987,
+    "natural": 927266,
+    "marriages": 486058,
+    "divorces": 49282
+   },
+   "1934": {
+    "births": 2043783,
+    "deaths": 1234684,
+    "natural": 809099,
+    "marriages": 512654,
+    "divorces": 48610
+   },
+   "1935": {
+    "births": 2190704,
+    "deaths": 1161936,
+    "natural": 1028768,
+    "marriages": 556730,
+    "divorces": 48528
+   },
+   "1936": {
+    "births": 2101969,
+    "deaths": 1230278,
+    "natural": 871691,
+    "marriages": 549116,
+    "divorces": 46167
+   },
+   "1937": {
+    "births": 2180734,
+    "deaths": 1207899,
+    "natural": 972835,
+    "marriages": 674500,
+    "divorces": 46500
+   },
+   "1938": {
+    "births": 1928321,
+    "deaths": 1259805,
+    "natural": 668516,
+    "marriages": 538831,
+    "divorces": 44656
+   },
+   "1939": {
+    "births": 1901573,
+    "deaths": 1268760,
+    "natural": 632813,
+    "marriages": 554321,
+    "divorces": 45970
+   },
+   "1940": {
+    "births": 2115867,
+    "deaths": 1186595,
+    "natural": 929272,
+    "marriages": 666575,
+    "divorces": 48556
+   },
+   "1941": {
+    "births": 2277283,
+    "deaths": 1149559,
+    "natural": 1127724,
+    "marriages": 791625,
+    "divorces": 49424
+   },
+   "1942": {
+    "births": 2233660,
+    "deaths": 1166630,
+    "natural": 1067030,
+    "marriages": 679044,
+    "divorces": 46268
+   },
+   "1943": {
+    "births": 2253535,
+    "deaths": 1213811,
+    "natural": 1039724,
+    "marriages": 743842,
+    "divorces": 49705
+   },
+   "1947": {
+    "births": 2678792,
+    "deaths": 1138238,
+    "natural": 1540554,
+    "marriages": 934170,
+    "divorces": 79551
+   },
+   "1948": {
+    "births": 2681624,
+    "deaths": 950610,
+    "natural": 1731014,
+    "marriages": 953999,
+    "divorces": 79032
+   },
+   "1949": {
+    "births": 2696638,
+    "deaths": 945444,
+    "natural": 1751194,
+    "marriages": 842170,
+    "divorces": 82575
+   },
+   "1950": {
+    "births": 2337507,
+    "deaths": 904876,
+    "natural": 1432631,
+    "marriages": 715081,
+    "divorces": 83689
+   },
+   "1951": {
+    "births": 2137689,
+    "deaths": 838998,
+    "natural": 1298691,
+    "marriages": 671905,
+    "divorces": 82331
+   },
+   "1952": {
+    "births": 2005162,
+    "deaths": 765068,
+    "natural": 1240094,
+    "marriages": 676995,
+    "divorces": 79021
+   },
+   "1953": {
+    "births": 1868040,
+    "deaths": 772547,
+    "natural": 1095493,
+    "marriages": 682077,
+    "divorces": 75255
+   },
+   "1954": {
+    "births": 1769580,
+    "deaths": 721491,
+    "natural": 1048089,
+    "marriages": 697809,
+    "divorces": 76759
+   },
+   "1955": {
+    "births": 1730692,
+    "deaths": 693523,
+    "natural": 1037169,
+    "marriages": 714861,
+    "divorces": 75267
+   },
+   "1956": {
+    "births": 1665278,
+    "deaths": 724460,
+    "natural": 940818,
+    "marriages": 715934,
+    "divorces": 72040
+   },
+   "1957": {
+    "births": 1566713,
+    "deaths": 752445,
+    "natural": 814268,
+    "marriages": 773362,
+    "divorces": 71651
+   },
+   "1958": {
+    "births": 1653469,
+    "deaths": 684189,
+    "natural": 969280,
+    "marriages": 826902,
+    "divorces": 74004
+   },
+   "1959": {
+    "births": 1626088,
+    "deaths": 689959,
+    "natural": 936129,
+    "marriages": 847135,
+    "divorces": 72455
+   },
+   "1960": {
+    "births": 1606041,
+    "deaths": 706599,
+    "natural": 899442,
+    "marriages": 866115,
+    "divorces": 69410
+   },
+   "1961": {
+    "births": 1589372,
+    "deaths": 695644,
+    "natural": 893728,
+    "marriages": 890158,
+    "divorces": 69323
+   },
+   "1962": {
+    "births": 1618616,
+    "deaths": 710265,
+    "natural": 908351,
+    "marriages": 928341,
+    "divorces": 71394
+   },
+   "1963": {
+    "births": 1659521,
+    "deaths": 670770,
+    "natural": 988751,
+    "marriages": 937516,
+    "divorces": 69996
+   },
+   "1964": {
+    "births": 1716761,
+    "deaths": 673067,
+    "natural": 1043694,
+    "marriages": 963130,
+    "divorces": 72306
+   },
+   "1965": {
+    "births": 1823697,
+    "deaths": 700438,
+    "natural": 1123259,
+    "marriages": 954852,
+    "divorces": 77195
+   },
+   "1966": {
+    "births": 1360974,
+    "deaths": 670342,
+    "natural": 690632,
+    "marriages": 940120,
+    "divorces": 79432
+   },
+   "1967": {
+    "births": 1935647,
+    "deaths": 675006,
+    "natural": 1260641,
+    "marriages": 953096,
+    "divorces": 83478
+   },
+   "1968": {
+    "births": 1871839,
+    "deaths": 686555,
+    "natural": 1185284,
+    "marriages": 956312,
+    "divorces": 87327
+   },
+   "1969": {
+    "births": 1889815,
+    "deaths": 693787,
+    "natural": 1196028,
+    "marriages": 984142,
+    "divorces": 91280
+   },
+   "1970": {
+    "births": 1934239,
+    "deaths": 712962,
+    "natural": 1221277,
+    "marriages": 1029405,
+    "divorces": 95937
+   },
+   "1971": {
+    "births": 2000973,
+    "deaths": 684521,
+    "natural": 1316452,
+    "marriages": 1091229,
+    "divorces": 103595
+   },
+   "1972": {
+    "births": 2038682,
+    "deaths": 683751,
+    "natural": 1354931,
+    "marriages": 1099984,
+    "divorces": 108382
+   },
+   "1973": {
+    "births": 2091983,
+    "deaths": 709416,
+    "natural": 1382567,
+    "marriages": 1071923,
+    "divorces": 111877
+   },
+   "1974": {
+    "births": 2029989,
+    "deaths": 710510,
+    "natural": 1319479,
+    "marriages": 1000455,
+    "divorces": 113622
+   },
+   "1975": {
+    "births": 1901440,
+    "deaths": 702275,
+    "natural": 1199165,
+    "marriages": 941628,
+    "divorces": 119135
+   },
+   "1976": {
+    "births": 1832617,
+    "deaths": 703270,
+    "natural": 1129347,
+    "marriages": 871543,
+    "divorces": 124512
+   },
+   "1977": {
+    "births": 1755100,
+    "deaths": 690074,
+    "natural": 1065026,
+    "marriages": 821029,
+    "divorces": 129485
+   },
+   "1978": {
+    "births": 1708643,
+    "deaths": 695821,
+    "natural": 1012822,
+    "marriages": 793257,
+    "divorces": 132146
+   },
+   "1979": {
+    "births": 1642580,
+    "deaths": 689664,
+    "natural": 952916,
+    "marriages": 788505,
+    "divorces": 135250
+   },
+   "1980": {
+    "births": 1576889,
+    "deaths": 722801,
+    "natural": 854088,
+    "marriages": 774702,
+    "divorces": 141689
+   },
+   "1981": {
+    "births": 1529455,
+    "deaths": 720262,
+    "natural": 809193,
+    "marriages": 776531,
+    "divorces": 154221
+   },
+   "1982": {
+    "births": 1515392,
+    "deaths": 711883,
+    "natural": 803509,
+    "marriages": 781252,
+    "divorces": 163980
+   },
+   "1983": {
+    "births": 1508687,
+    "deaths": 740038,
+    "natural": 768649,
+    "marriages": 762552,
+    "divorces": 179150
+   },
+   "1984": {
+    "births": 1489780,
+    "deaths": 740247,
+    "natural": 749533,
+    "marriages": 739991,
+    "divorces": 178746
+   },
+   "1985": {
+    "births": 1431577,
+    "deaths": 752283,
+    "natural": 679294,
+    "marriages": 735850,
+    "divorces": 166640
+   },
+   "1986": {
+    "births": 1382946,
+    "deaths": 750620,
+    "natural": 632326,
+    "marriages": 710962,
+    "divorces": 166054
+   },
+   "1987": {
+    "births": 1346658,
+    "deaths": 751172,
+    "natural": 595486,
+    "marriages": 696173,
+    "divorces": 158227
+   },
+   "1988": {
+    "births": 1314006,
+    "deaths": 793014,
+    "natural": 520992,
+    "marriages": 707716,
+    "divorces": 153600
+   },
+   "1989": {
+    "births": 1246802,
+    "deaths": 788594,
+    "natural": 458208,
+    "marriages": 708316,
+    "divorces": 157811
+   },
+   "1990": {
+    "births": 1221585,
+    "deaths": 820305,
+    "natural": 401280,
+    "marriages": 722138,
+    "divorces": 157608
+   },
+   "1991": {
+    "births": 1223245,
+    "deaths": 829797,
+    "natural": 393448,
+    "marriages": 742264,
+    "divorces": 168969
+   },
+   "1992": {
+    "births": 1208989,
+    "deaths": 856643,
+    "natural": 352346,
+    "marriages": 754441,
+    "divorces": 179191
+   },
+   "1993": {
+    "births": 1188282,
+    "deaths": 878532,
+    "natural": 309750,
+    "marriages": 792658,
+    "divorces": 188297
+   },
+   "1994": {
+    "births": 1238328,
+    "deaths": 875933,
+    "natural": 362395,
+    "marriages": 782738,
+    "divorces": 195106
+   },
+   "1995": {
+    "births": 1187064,
+    "deaths": 922139,
+    "natural": 264925,
+    "marriages": 791888,
+    "divorces": 199016
+   },
+   "1996": {
+    "births": 1206555,
+    "deaths": 896211,
+    "natural": 310344,
+    "marriages": 795080,
+    "divorces": 206955
+   },
+   "1997": {
+    "births": 1191665,
+    "deaths": 913402,
+    "natural": 278263,
+    "marriages": 775651,
+    "divorces": 222635
+   },
+   "1998": {
+    "births": 1203147,
+    "deaths": 936484,
+    "natural": 266663,
+    "marriages": 784595,
+    "divorces": 243183
+   },
+   "1999": {
+    "births": 1177669,
+    "deaths": 982031,
+    "natural": 195638,
+    "marriages": 762028,
+    "divorces": 250529
+   },
+   "2000": {
+    "births": 1190547,
+    "deaths": 961653,
+    "natural": 228894,
+    "marriages": 798138,
+    "divorces": 264246
+   },
+   "2001": {
+    "births": 1170662,
+    "deaths": 970331,
+    "natural": 200331,
+    "marriages": 799999,
+    "divorces": 285911
+   },
+   "2002": {
+    "births": 1153855,
+    "deaths": 982379,
+    "natural": 171476,
+    "marriages": 757331,
+    "divorces": 289836
+   },
+   "2003": {
+    "births": 1123610,
+    "deaths": 1014951,
+    "natural": 108659,
+    "marriages": 740191,
+    "divorces": 283854
+   },
+   "2004": {
+    "births": 1110721,
+    "deaths": 1028602,
+    "natural": 82119,
+    "marriages": 720418,
+    "divorces": 270804
+   },
+   "2005": {
+    "births": 1062530,
+    "deaths": 1083796,
+    "natural": -21266,
+    "marriages": 714265,
+    "divorces": 261917
+   },
+   "2006": {
+    "births": 1092674,
+    "deaths": 1084451,
+    "natural": 8223,
+    "marriages": 730973,
+    "divorces": 257475
+   },
+   "2007": {
+    "births": 1089818,
+    "deaths": 1108334,
+    "natural": -18516,
+    "marriages": 719822,
+    "divorces": 254832
+   },
+   "2008": {
+    "births": 1091156,
+    "deaths": 1142407,
+    "natural": -51251,
+    "marriages": 726106,
+    "divorces": 251136
+   },
+   "2009": {
+    "births": 1070036,
+    "deaths": 1141865,
+    "natural": -71829,
+    "marriages": 707740,
+    "divorces": 253354
+   },
+   "2010": {
+    "births": 1071305,
+    "deaths": 1197014,
+    "natural": -125709,
+    "marriages": 700222,
+    "divorces": 251379
+   },
+   "2011": {
+    "births": 1050807,
+    "deaths": 1253068,
+    "natural": -202261,
+    "marriages": 661898,
+    "divorces": 235720
+   },
+   "2012": {
+    "births": 1037232,
+    "deaths": 1256359,
+    "natural": -219127,
+    "marriages": 668870,
+    "divorces": 235407
+   },
+   "2013": {
+    "births": 1029817,
+    "deaths": 1268438,
+    "natural": -238621,
+    "marriages": 660622,
+    "divorces": 231385
+   },
+   "2014": {
+    "births": 1003609,
+    "deaths": 1273025,
+    "natural": -269416,
+    "marriages": 643783,
+    "divorces": 222115
+   },
+   "2015": {
+    "births": 1005721,
+    "deaths": 1290510,
+    "natural": -284789,
+    "marriages": 635225,
+    "divorces": 226238
+   },
+   "2016": {
+    "births": 977242,
+    "deaths": 1308158,
+    "natural": -330916,
+    "marriages": 620707,
+    "divorces": 216856
+   },
+   "2017": {
+    "births": 946146,
+    "deaths": 1340567,
+    "natural": -394421,
+    "marriages": 606952,
+    "divorces": 212296
+   },
+   "2018": {
+    "births": 918400,
+    "deaths": 1362470,
+    "natural": -444070,
+    "marriages": 586481,
+    "divorces": 208333
+   },
+   "2019": {
+    "births": 865239,
+    "deaths": 1381093,
+    "natural": -515854,
+    "marriages": 599007,
+    "divorces": 208496
+   },
+   "2020": {
+    "births": 840835,
+    "deaths": 1372755,
+    "natural": -531920,
+    "marriages": 525507,
+    "divorces": 193253
+   },
+   "2021": {
+    "births": 811622,
+    "deaths": 1439856,
+    "natural": -628234,
+    "marriages": 501138,
+    "divorces": 184384
+   },
+   "2022": {
+    "births": 770759,
+    "deaths": 1569050,
+    "natural": -798291,
+    "marriages": 504930,
+    "divorces": 179099
+   },
+   "2023": {
+    "births": 727288,
+    "deaths": 1576016,
+    "natural": -848728,
+    "marriages": 474741,
+    "divorces": 183814
+   },
+   "2024": {
+    "births": 686173,
+    "deaths": 1605378,
+    "natural": -919205,
+    "marriages": 485092,
+    "divorces": 185904
+   },
+   "2025": {
+    "births": 671270,
+    "deaths": 1589533,
+    "natural": -918263,
+    "marriages": 489158,
+    "divorces": 179073
+   }
+  },
+  "rates": {
+   "1899": {
+    "birthRate": 32,
+    "deathRate": 21.5,
+    "marriageRate": 6.9,
+    "divorceRate": 1.53,
+    "tfr": null
+   },
+   "1900": {
+    "birthRate": 32.4,
+    "deathRate": 20.8,
+    "marriageRate": 7.9,
+    "divorceRate": 1.46,
+    "tfr": null
+   },
+   "1901": {
+    "birthRate": 33.9,
+    "deathRate": 20.9,
+    "marriageRate": 8.5,
+    "divorceRate": 1.43,
+    "tfr": null
+   },
+   "1902": {
+    "birthRate": 33.6,
+    "deathRate": 21.3,
+    "marriageRate": 8.8,
+    "divorceRate": 1.43,
+    "tfr": null
+   },
+   "1903": {
+    "birthRate": 32.7,
+    "deathRate": 20.4,
+    "marriageRate": 8.1,
+    "divorceRate": 1.44,
+    "tfr": null
+   },
+   "1904": {
+    "birthRate": 31.2,
+    "deathRate": 20.7,
+    "marriageRate": 8.6,
+    "divorceRate": 1.39,
+    "tfr": null
+   },
+   "1905": {
+    "birthRate": 31.2,
+    "deathRate": 21.6,
+    "marriageRate": 7.5,
+    "divorceRate": 1.29,
+    "tfr": null
+   },
+   "1906": {
+    "birthRate": 29.6,
+    "deathRate": 20.3,
+    "marriageRate": 7.5,
+    "divorceRate": 1.39,
+    "tfr": null
+   },
+   "1907": {
+    "birthRate": 34,
+    "deathRate": 21.4,
+    "marriageRate": 9.1,
+    "divorceRate": 1.29,
+    "tfr": null
+   },
+   "1908": {
+    "birthRate": 34.7,
+    "deathRate": 21.5,
+    "marriageRate": 9.6,
+    "divorceRate": 1.26,
+    "tfr": null
+   },
+   "1909": {
+    "birthRate": 34.9,
+    "deathRate": 22.5,
+    "marriageRate": 9,
+    "divorceRate": 1.21,
+    "tfr": null
+   },
+   "1910": {
+    "birthRate": 34.8,
+    "deathRate": 21.6,
+    "marriageRate": 9,
+    "divorceRate": 1.21,
+    "tfr": null
+   },
+   "1911": {
+    "birthRate": 35.1,
+    "deathRate": 20.9,
+    "marriageRate": 8.7,
+    "divorceRate": 1.16,
+    "tfr": null
+   },
+   "1912": {
+    "birthRate": 34.4,
+    "deathRate": 20.5,
+    "marriageRate": 8.5,
+    "divorceRate": 1.17,
+    "tfr": null
+   },
+   "1913": {
+    "birthRate": 34.3,
+    "deathRate": 20,
+    "marriageRate": 8.4,
+    "divorceRate": 1.16,
+    "tfr": null
+   },
+   "1914": {
+    "birthRate": 34.8,
+    "deathRate": 21.2,
+    "marriageRate": 8.7,
+    "divorceRate": 1.15,
+    "tfr": null
+   },
+   "1915": {
+    "birthRate": 34.1,
+    "deathRate": 20.7,
+    "marriageRate": 8.4,
+    "divorceRate": 1.14,
+    "tfr": null
+   },
+   "1916": {
+    "birthRate": 33.7,
+    "deathRate": 22.2,
+    "marriageRate": 8.1,
+    "divorceRate": 1.13,
+    "tfr": null
+   },
+   "1917": {
+    "birthRate": 33.5,
+    "deathRate": 22.2,
+    "marriageRate": 8.3,
+    "divorceRate": 1.03,
+    "tfr": null
+   },
+   "1918": {
+    "birthRate": 32.7,
+    "deathRate": 27.3,
+    "marriageRate": 9.1,
+    "divorceRate": 1.03,
+    "tfr": null
+   },
+   "1919": {
+    "birthRate": 32.3,
+    "deathRate": 23.3,
+    "marriageRate": 8.7,
+    "divorceRate": 1.03,
+    "tfr": null
+   },
+   "1920": {
+    "birthRate": 36.2,
+    "deathRate": 25.4,
+    "marriageRate": 9.8,
+    "divorceRate": 0.99,
+    "tfr": null
+   },
+   "1921": {
+    "birthRate": 35.1,
+    "deathRate": 22.7,
+    "marriageRate": 9.2,
+    "divorceRate": 0.94,
+    "tfr": null
+   },
+   "1922": {
+    "birthRate": 34.3,
+    "deathRate": 22.4,
+    "marriageRate": 9,
+    "divorceRate": 0.92,
+    "tfr": null
+   },
+   "1923": {
+    "birthRate": 35.2,
+    "deathRate": 22.9,
+    "marriageRate": 8.8,
+    "divorceRate": 0.88,
+    "tfr": null
+   },
+   "1924": {
+    "birthRate": 33.9,
+    "deathRate": 21.3,
+    "marriageRate": 8.7,
+    "divorceRate": 0.88,
+    "tfr": null
+   },
+   "1925": {
+    "birthRate": 34.9,
+    "deathRate": 20.3,
+    "marriageRate": 8.7,
+    "divorceRate": 0.87,
+    "tfr": null
+   },
+   "1926": {
+    "birthRate": 34.6,
+    "deathRate": 19.1,
+    "marriageRate": 8.3,
+    "divorceRate": 0.83,
+    "tfr": null
+   },
+   "1927": {
+    "birthRate": 33.4,
+    "deathRate": 19.7,
+    "marriageRate": 7.9,
+    "divorceRate": 0.82,
+    "tfr": null
+   },
+   "1928": {
+    "birthRate": 34.1,
+    "deathRate": 19.8,
+    "marriageRate": 8,
+    "divorceRate": 0.78,
+    "tfr": null
+   },
+   "1929": {
+    "birthRate": 32.7,
+    "deathRate": 19.9,
+    "marriageRate": 7.8,
+    "divorceRate": 0.81,
+    "tfr": null
+   },
+   "1930": {
+    "birthRate": 32.4,
+    "deathRate": 18.2,
+    "marriageRate": 7.9,
+    "divorceRate": 0.8,
+    "tfr": null
+   },
+   "1931": {
+    "birthRate": 32.1,
+    "deathRate": 19,
+    "marriageRate": 7.6,
+    "divorceRate": 0.77,
+    "tfr": null
+   },
+   "1932": {
+    "birthRate": 32.9,
+    "deathRate": 17.7,
+    "marriageRate": 7.8,
+    "divorceRate": 0.77,
+    "tfr": null
+   },
+   "1933": {
+    "birthRate": 31.5,
+    "deathRate": 17.7,
+    "marriageRate": 7.2,
+    "divorceRate": 0.73,
+    "tfr": null
+   },
+   "1934": {
+    "birthRate": 29.9,
+    "deathRate": 18.1,
+    "marriageRate": 7.5,
+    "divorceRate": 0.71,
+    "tfr": null
+   },
+   "1935": {
+    "birthRate": 31.6,
+    "deathRate": 16.8,
+    "marriageRate": 8,
+    "divorceRate": 0.7,
+    "tfr": null
+   },
+   "1936": {
+    "birthRate": 30,
+    "deathRate": 17.5,
+    "marriageRate": 7.8,
+    "divorceRate": 0.66,
+    "tfr": null
+   },
+   "1937": {
+    "birthRate": 30.9,
+    "deathRate": 17.1,
+    "marriageRate": 9.5,
+    "divorceRate": 0.66,
+    "tfr": null
+   },
+   "1938": {
+    "birthRate": 27.2,
+    "deathRate": 17.7,
+    "marriageRate": 7.6,
+    "divorceRate": 0.63,
+    "tfr": null
+   },
+   "1939": {
+    "birthRate": 26.6,
+    "deathRate": 17.8,
+    "marriageRate": 7.8,
+    "divorceRate": 0.64,
+    "tfr": null
+   },
+   "1940": {
+    "birthRate": 29.4,
+    "deathRate": 16.5,
+    "marriageRate": 9.3,
+    "divorceRate": 0.68,
+    "tfr": null
+   },
+   "1941": {
+    "birthRate": 31.8,
+    "deathRate": 16,
+    "marriageRate": 11,
+    "divorceRate": 0.69,
+    "tfr": null
+   },
+   "1942": {
+    "birthRate": 30.9,
+    "deathRate": 16.1,
+    "marriageRate": 9.4,
+    "divorceRate": 0.64,
+    "tfr": null
+   },
+   "1943": {
+    "birthRate": 30.9,
+    "deathRate": 16.7,
+    "marriageRate": 10.2,
+    "divorceRate": 0.68,
+    "tfr": null
+   },
+   "1947": {
+    "birthRate": 34.3,
+    "deathRate": 14.6,
+    "marriageRate": 12,
+    "divorceRate": 1.02,
+    "tfr": 4.54
+   },
+   "1948": {
+    "birthRate": 33.5,
+    "deathRate": 11.9,
+    "marriageRate": 11.9,
+    "divorceRate": 0.99,
+    "tfr": 4.4
+   },
+   "1949": {
+    "birthRate": 33,
+    "deathRate": 11.6,
+    "marriageRate": 10.3,
+    "divorceRate": 1.01,
+    "tfr": 4.32
+   },
+   "1950": {
+    "birthRate": 28.1,
+    "deathRate": 10.9,
+    "marriageRate": 8.6,
+    "divorceRate": 1.01,
+    "tfr": 3.65
+   },
+   "1951": {
+    "birthRate": 25.3,
+    "deathRate": 9.9,
+    "marriageRate": 7.9,
+    "divorceRate": 0.97,
+    "tfr": 3.26
+   },
+   "1952": {
+    "birthRate": 23.4,
+    "deathRate": 8.9,
+    "marriageRate": 7.9,
+    "divorceRate": 0.92,
+    "tfr": 2.98
+   },
+   "1953": {
+    "birthRate": 21.5,
+    "deathRate": 8.9,
+    "marriageRate": 7.8,
+    "divorceRate": 0.86,
+    "tfr": 2.69
+   },
+   "1954": {
+    "birthRate": 20,
+    "deathRate": 8.2,
+    "marriageRate": 7.9,
+    "divorceRate": 0.87,
+    "tfr": 2.48
+   },
+   "1955": {
+    "birthRate": 19.4,
+    "deathRate": 7.8,
+    "marriageRate": 8,
+    "divorceRate": 0.84,
+    "tfr": 2.37
+   },
+   "1956": {
+    "birthRate": 18.4,
+    "deathRate": 8,
+    "marriageRate": 7.9,
+    "divorceRate": 0.8,
+    "tfr": 2.22
+   },
+   "1957": {
+    "birthRate": 17.2,
+    "deathRate": 8.3,
+    "marriageRate": 8.5,
+    "divorceRate": 0.79,
+    "tfr": 2.04
+   },
+   "1958": {
+    "birthRate": 18,
+    "deathRate": 7.4,
+    "marriageRate": 9,
+    "divorceRate": 0.8,
+    "tfr": 2.11
+   },
+   "1959": {
+    "birthRate": 17.5,
+    "deathRate": 7.4,
+    "marriageRate": 9.1,
+    "divorceRate": 0.78,
+    "tfr": 2.04
+   },
+   "1960": {
+    "birthRate": 17.2,
+    "deathRate": 7.6,
+    "marriageRate": 9.3,
+    "divorceRate": 0.74,
+    "tfr": 2
+   },
+   "1961": {
+    "birthRate": 16.9,
+    "deathRate": 7.4,
+    "marriageRate": 9.4,
+    "divorceRate": 0.74,
+    "tfr": 1.96
+   },
+   "1962": {
+    "birthRate": 17,
+    "deathRate": 7.5,
+    "marriageRate": 9.8,
+    "divorceRate": 0.75,
+    "tfr": 1.98
+   },
+   "1963": {
+    "birthRate": 17.3,
+    "deathRate": 7,
+    "marriageRate": 9.7,
+    "divorceRate": 0.73,
+    "tfr": 2
+   },
+   "1964": {
+    "birthRate": 17.7,
+    "deathRate": 6.9,
+    "marriageRate": 9.9,
+    "divorceRate": 0.74,
+    "tfr": 2.05
+   },
+   "1965": {
+    "birthRate": 18.6,
+    "deathRate": 7.1,
+    "marriageRate": 9.7,
+    "divorceRate": 0.79,
+    "tfr": 2.14
+   },
+   "1966": {
+    "birthRate": 13.7,
+    "deathRate": 6.8,
+    "marriageRate": 9.5,
+    "divorceRate": 0.8,
+    "tfr": 1.58
+   },
+   "1967": {
+    "birthRate": 19.4,
+    "deathRate": 6.8,
+    "marriageRate": 9.6,
+    "divorceRate": 0.84,
+    "tfr": 2.23
+   },
+   "1968": {
+    "birthRate": 18.6,
+    "deathRate": 6.8,
+    "marriageRate": 9.5,
+    "divorceRate": 0.87,
+    "tfr": 2.13
+   },
+   "1969": {
+    "birthRate": 18.5,
+    "deathRate": 6.8,
+    "marriageRate": 9.6,
+    "divorceRate": 0.89,
+    "tfr": 2.13
+   },
+   "1970": {
+    "birthRate": 18.8,
+    "deathRate": 6.9,
+    "marriageRate": 10,
+    "divorceRate": 0.93,
+    "tfr": 2.13
+   },
+   "1971": {
+    "birthRate": 19.2,
+    "deathRate": 6.6,
+    "marriageRate": 10.5,
+    "divorceRate": 0.99,
+    "tfr": 2.16
+   },
+   "1972": {
+    "birthRate": 19.3,
+    "deathRate": 6.5,
+    "marriageRate": 10.4,
+    "divorceRate": 1.02,
+    "tfr": 2.14
+   },
+   "1973": {
+    "birthRate": 19.4,
+    "deathRate": 6.6,
+    "marriageRate": 9.9,
+    "divorceRate": 1.04,
+    "tfr": 2.14
+   },
+   "1974": {
+    "birthRate": 18.6,
+    "deathRate": 6.5,
+    "marriageRate": 9.1,
+    "divorceRate": 1.04,
+    "tfr": 2.05
+   },
+   "1975": {
+    "birthRate": 17.1,
+    "deathRate": 6.3,
+    "marriageRate": 8.5,
+    "divorceRate": 1.07,
+    "tfr": 1.91
+   },
+   "1976": {
+    "birthRate": 16.3,
+    "deathRate": 6.3,
+    "marriageRate": 7.8,
+    "divorceRate": 1.11,
+    "tfr": 1.85
+   },
+   "1977": {
+    "birthRate": 15.5,
+    "deathRate": 6.1,
+    "marriageRate": 7.2,
+    "divorceRate": 1.14,
+    "tfr": 1.8
+   },
+   "1978": {
+    "birthRate": 14.9,
+    "deathRate": 6.1,
+    "marriageRate": 6.9,
+    "divorceRate": 1.15,
+    "tfr": 1.79
+   },
+   "1979": {
+    "birthRate": 14.2,
+    "deathRate": 6,
+    "marriageRate": 6.8,
+    "divorceRate": 1.17,
+    "tfr": 1.77
+   },
+   "1980": {
+    "birthRate": 13.6,
+    "deathRate": 6.2,
+    "marriageRate": 6.7,
+    "divorceRate": 1.22,
+    "tfr": 1.75
+   },
+   "1981": {
+    "birthRate": 13,
+    "deathRate": 6.1,
+    "marriageRate": 6.6,
+    "divorceRate": 1.32,
+    "tfr": 1.74
+   },
+   "1982": {
+    "birthRate": 12.8,
+    "deathRate": 6,
+    "marriageRate": 6.6,
+    "divorceRate": 1.39,
+    "tfr": 1.77
+   },
+   "1983": {
+    "birthRate": 12.7,
+    "deathRate": 6.2,
+    "marriageRate": 6.4,
+    "divorceRate": 1.51,
+    "tfr": 1.8
+   },
+   "1984": {
+    "birthRate": 12.5,
+    "deathRate": 6.2,
+    "marriageRate": 6.2,
+    "divorceRate": 1.5,
+    "tfr": 1.81
+   },
+   "1985": {
+    "birthRate": 11.9,
+    "deathRate": 6.3,
+    "marriageRate": 6.1,
+    "divorceRate": 1.39,
+    "tfr": 1.76
+   },
+   "1986": {
+    "birthRate": 11.4,
+    "deathRate": 6.2,
+    "marriageRate": 5.9,
+    "divorceRate": 1.37,
+    "tfr": 1.72
+   },
+   "1987": {
+    "birthRate": 11.1,
+    "deathRate": 6.2,
+    "marriageRate": 5.7,
+    "divorceRate": 1.3,
+    "tfr": 1.69
+   },
+   "1988": {
+    "birthRate": 10.8,
+    "deathRate": 6.5,
+    "marriageRate": 5.8,
+    "divorceRate": 1.26,
+    "tfr": 1.66
+   },
+   "1989": {
+    "birthRate": 10.2,
+    "deathRate": 6.4,
+    "marriageRate": 5.8,
+    "divorceRate": 1.29,
+    "tfr": 1.57
+   },
+   "1990": {
+    "birthRate": 10,
+    "deathRate": 6.7,
+    "marriageRate": 5.9,
+    "divorceRate": 1.28,
+    "tfr": 1.54
+   },
+   "1991": {
+    "birthRate": 9.9,
+    "deathRate": 6.7,
+    "marriageRate": 6,
+    "divorceRate": 1.37,
+    "tfr": 1.53
+   },
+   "1992": {
+    "birthRate": 9.8,
+    "deathRate": 6.9,
+    "marriageRate": 6.1,
+    "divorceRate": 1.45,
+    "tfr": 1.5
+   },
+   "1993": {
+    "birthRate": 9.6,
+    "deathRate": 7.1,
+    "marriageRate": 6.4,
+    "divorceRate": 1.52,
+    "tfr": 1.46
+   },
+   "1994": {
+    "birthRate": 10,
+    "deathRate": 7.1,
+    "marriageRate": 6.3,
+    "divorceRate": 1.57,
+    "tfr": 1.5
+   },
+   "1995": {
+    "birthRate": 9.6,
+    "deathRate": 7.4,
+    "marriageRate": 6.4,
+    "divorceRate": 1.6,
+    "tfr": 1.42
+   },
+   "1996": {
+    "birthRate": 9.7,
+    "deathRate": 7.2,
+    "marriageRate": 6.4,
+    "divorceRate": 1.66,
+    "tfr": 1.43
+   },
+   "1997": {
+    "birthRate": 9.5,
+    "deathRate": 7.3,
+    "marriageRate": 6.2,
+    "divorceRate": 1.78,
+    "tfr": 1.39
+   },
+   "1998": {
+    "birthRate": 9.6,
+    "deathRate": 7.5,
+    "marriageRate": 6.3,
+    "divorceRate": 1.94,
+    "tfr": 1.38
+   },
+   "1999": {
+    "birthRate": 9.4,
+    "deathRate": 7.8,
+    "marriageRate": 6.1,
+    "divorceRate": 2,
+    "tfr": 1.34
+   },
+   "2000": {
+    "birthRate": 9.5,
+    "deathRate": 7.7,
+    "marriageRate": 6.4,
+    "divorceRate": 2.1,
+    "tfr": 1.36
+   },
+   "2001": {
+    "birthRate": 9.3,
+    "deathRate": 7.7,
+    "marriageRate": 6.4,
+    "divorceRate": 2.27,
+    "tfr": 1.33
+   },
+   "2002": {
+    "birthRate": 9.2,
+    "deathRate": 7.8,
+    "marriageRate": 6,
+    "divorceRate": 2.3,
+    "tfr": 1.32
+   },
+   "2003": {
+    "birthRate": 8.9,
+    "deathRate": 8,
+    "marriageRate": 5.9,
+    "divorceRate": 2.25,
+    "tfr": 1.29
+   },
+   "2004": {
+    "birthRate": 8.8,
+    "deathRate": 8.2,
+    "marriageRate": 5.7,
+    "divorceRate": 2.15,
+    "tfr": 1.29
+   },
+   "2005": {
+    "birthRate": 8.4,
+    "deathRate": 8.6,
+    "marriageRate": 5.7,
+    "divorceRate": 2.08,
+    "tfr": 1.26
+   },
+   "2006": {
+    "birthRate": 8.7,
+    "deathRate": 8.6,
+    "marriageRate": 5.8,
+    "divorceRate": 2.04,
+    "tfr": 1.32
+   },
+   "2007": {
+    "birthRate": 8.6,
+    "deathRate": 8.8,
+    "marriageRate": 5.7,
+    "divorceRate": 2.02,
+    "tfr": 1.34
+   },
+   "2008": {
+    "birthRate": 8.7,
+    "deathRate": 9.1,
+    "marriageRate": 5.8,
+    "divorceRate": 1.99,
+    "tfr": 1.37
+   },
+   "2009": {
+    "birthRate": 8.5,
+    "deathRate": 9.1,
+    "marriageRate": 5.6,
+    "divorceRate": 2.01,
+    "tfr": 1.37
+   },
+   "2010": {
+    "birthRate": 8.5,
+    "deathRate": 9.5,
+    "marriageRate": 5.5,
+    "divorceRate": 1.99,
+    "tfr": 1.39
+   },
+   "2011": {
+    "birthRate": 8.3,
+    "deathRate": 9.9,
+    "marriageRate": 5.2,
+    "divorceRate": 1.87,
+    "tfr": 1.39
+   },
+   "2012": {
+    "birthRate": 8.2,
+    "deathRate": 10,
+    "marriageRate": 5.3,
+    "divorceRate": 1.87,
+    "tfr": 1.41
+   },
+   "2013": {
+    "birthRate": 8.2,
+    "deathRate": 10.1,
+    "marriageRate": 5.3,
+    "divorceRate": 1.84,
+    "tfr": 1.43
+   },
+   "2014": {
+    "birthRate": 8,
+    "deathRate": 10.1,
+    "marriageRate": 5.1,
+    "divorceRate": 1.77,
+    "tfr": 1.42
+   },
+   "2015": {
+    "birthRate": 8,
+    "deathRate": 10.3,
+    "marriageRate": 5.1,
+    "divorceRate": 1.81,
+    "tfr": 1.45
+   },
+   "2016": {
+    "birthRate": 7.8,
+    "deathRate": 10.5,
+    "marriageRate": 5,
+    "divorceRate": 1.73,
+    "tfr": 1.44
+   },
+   "2017": {
+    "birthRate": 7.6,
+    "deathRate": 10.8,
+    "marriageRate": 4.9,
+    "divorceRate": 1.7,
+    "tfr": 1.43
+   },
+   "2018": {
+    "birthRate": 7.4,
+    "deathRate": 11,
+    "marriageRate": 4.7,
+    "divorceRate": 1.68,
+    "tfr": 1.42
+   },
+   "2019": {
+    "birthRate": 7,
+    "deathRate": 11.2,
+    "marriageRate": 4.8,
+    "divorceRate": 1.69,
+    "tfr": 1.36
+   },
+   "2020": {
+    "birthRate": 6.8,
+    "deathRate": 11.1,
+    "marriageRate": 4.3,
+    "divorceRate": 1.57,
+    "tfr": 1.33
+   },
+   "2021": {
+    "birthRate": 6.6,
+    "deathRate": 11.7,
+    "marriageRate": 4.1,
+    "divorceRate": 1.5,
+    "tfr": 1.3
+   },
+   "2022": {
+    "birthRate": 6.3,
+    "deathRate": 12.9,
+    "marriageRate": 4.1,
+    "divorceRate": 1.47,
+    "tfr": 1.26
+   },
+   "2023": {
+    "birthRate": 6,
+    "deathRate": 13,
+    "marriageRate": 3.9,
+    "divorceRate": 1.52,
+    "tfr": 1.2
+   },
+   "2024": {
+    "birthRate": 5.7,
+    "deathRate": 13.3,
+    "marriageRate": 4,
+    "divorceRate": 1.55,
+    "tfr": 1.15
+   },
+   "2025": {
+    "birthRate": 5.6,
+    "deathRate": 13.3,
+    "marriageRate": 4.1,
+    "divorceRate": 1.5,
+    "tfr": 1.14
+   }
+  }
+ },
+ "lifeExpectancy": {
+  "1947": {
+   "male": 50.06,
+   "female": 53.96
+  },
+  "1948": {
+   "male": 55.6,
+   "female": 59.4
+  },
+  "1949": {
+   "male": 56.2,
+   "female": 59.8
+  },
+  "1950": {
+   "male": 58,
+   "female": 61.5
+  },
+  "1951": {
+   "male": 60.8,
+   "female": 64.9
+  },
+  "1952": {
+   "male": 61.9,
+   "female": 65.5
+  },
+  "1953": {
+   "male": 61.9,
+   "female": 65.7
+  },
+  "1954": {
+   "male": 63.41,
+   "female": 67.69
+  },
+  "1955": {
+   "male": 63.6,
+   "female": 67.75
+  },
+  "1956": {
+   "male": 63.59,
+   "female": 67.54
+  },
+  "1957": {
+   "male": 63.24,
+   "female": 67.6
+  },
+  "1958": {
+   "male": 64.98,
+   "female": 69.61
+  },
+  "1959": {
+   "male": 65.21,
+   "female": 69.88
+  },
+  "1960": {
+   "male": 65.32,
+   "female": 70.19
+  },
+  "1961": {
+   "male": 66.03,
+   "female": 70.79
+  },
+  "1962": {
+   "male": 66.23,
+   "female": 71.16
+  },
+  "1963": {
+   "male": 67.21,
+   "female": 72.34
+  },
+  "1964": {
+   "male": 67.67,
+   "female": 72.87
+  },
+  "1965": {
+   "male": 67.74,
+   "female": 72.92
+  },
+  "1966": {
+   "male": 68.35,
+   "female": 73.61
+  },
+  "1967": {
+   "male": 68.91,
+   "female": 74.15
+  },
+  "1968": {
+   "male": 69.05,
+   "female": 74.3
+  },
+  "1969": {
+   "male": 69.18,
+   "female": 74.67
+  },
+  "1970": {
+   "male": 69.31,
+   "female": 74.66
+  },
+  "1971": {
+   "male": 70.17,
+   "female": 75.58
+  },
+  "1972": {
+   "male": 70.5,
+   "female": 75.94
+  },
+  "1973": {
+   "male": 70.7,
+   "female": 76.02
+  },
+  "1974": {
+   "male": 71.16,
+   "female": 76.31
+  },
+  "1975": {
+   "male": 71.73,
+   "female": 76.89
+  },
+  "1976": {
+   "male": 72.15,
+   "female": 77.35
+  },
+  "1977": {
+   "male": 72.69,
+   "female": 77.95
+  },
+  "1978": {
+   "male": 72.97,
+   "female": 78.33
+  },
+  "1979": {
+   "male": 73.46,
+   "female": 78.89
+  },
+  "1980": {
+   "male": 73.35,
+   "female": 78.76
+  },
+  "1981": {
+   "male": 73.79,
+   "female": 79.13
+  },
+  "1982": {
+   "male": 74.22,
+   "female": 79.66
+  },
+  "1983": {
+   "male": 74.2,
+   "female": 79.78
+  },
+  "1984": {
+   "male": 74.54,
+   "female": 80.18
+  },
+  "1985": {
+   "male": 74.78,
+   "female": 80.48
+  },
+  "1986": {
+   "male": 75.23,
+   "female": 80.93
+  },
+  "1987": {
+   "male": 75.61,
+   "female": 81.39
+  },
+  "1988": {
+   "male": 75.54,
+   "female": 81.3
+  },
+  "1989": {
+   "male": 75.91,
+   "female": 81.77
+  },
+  "1990": {
+   "male": 75.92,
+   "female": 81.9
+  },
+  "1991": {
+   "male": 76.11,
+   "female": 82.11
+  },
+  "1992": {
+   "male": 76.09,
+   "female": 82.22
+  },
+  "1993": {
+   "male": 76.25,
+   "female": 82.51
+  },
+  "1994": {
+   "male": 76.57,
+   "female": 82.98
+  },
+  "1995": {
+   "male": 76.38,
+   "female": 82.85
+  },
+  "1996": {
+   "male": 77.01,
+   "female": 83.59
+  },
+  "1997": {
+   "male": 77.19,
+   "female": 83.82
+  },
+  "1998": {
+   "male": 77.16,
+   "female": 84.01
+  },
+  "1999": {
+   "male": 77.1,
+   "female": 83.99
+  },
+  "2000": {
+   "male": 77.72,
+   "female": 84.6
+  },
+  "2001": {
+   "male": 78.07,
+   "female": 84.93
+  },
+  "2002": {
+   "male": 78.32,
+   "female": 85.23
+  },
+  "2003": {
+   "male": 78.36,
+   "female": 85.33
+  },
+  "2004": {
+   "male": 78.64,
+   "female": 85.59
+  },
+  "2005": {
+   "male": 78.56,
+   "female": 85.52
+  },
+  "2006": {
+   "male": 79,
+   "female": 85.81
+  },
+  "2007": {
+   "male": 79.19,
+   "female": 85.99
+  },
+  "2008": {
+   "male": 79.29,
+   "female": 86.05
+  },
+  "2009": {
+   "male": 79.59,
+   "female": 86.44
+  },
+  "2010": {
+   "male": 79.55,
+   "female": 86.3
+  },
+  "2011": {
+   "male": 79.44,
+   "female": 85.9
+  },
+  "2012": {
+   "male": 79.94,
+   "female": 86.41
+  },
+  "2013": {
+   "male": 80.21,
+   "female": 86.61
+  },
+  "2014": {
+   "male": 80.5,
+   "female": 86.83
+  },
+  "2015": {
+   "male": 80.75,
+   "female": 86.99
+  },
+  "2016": {
+   "male": 80.98,
+   "female": 87.14
+  },
+  "2017": {
+   "male": 81.09,
+   "female": 87.26
+  },
+  "2018": {
+   "male": 81.25,
+   "female": 87.32
+  },
+  "2019": {
+   "male": 81.41,
+   "female": 87.45
+  },
+  "2020": {
+   "male": 81.56,
+   "female": 87.71
+  },
+  "2021": {
+   "male": 81.47,
+   "female": 87.57
+  },
+  "2022": {
+   "male": 81.05,
+   "female": 87.09
+  },
+  "2023": {
+   "male": 81.09,
+   "female": 87.14
+  },
+  "2024": {
+   "male": 81.09,
+   "female": 87.13
+  },
+  "2025": {
+   "male": 81.35,
+   "female": 87.33
+  }
+ },
+ "census": {
+  "1920": {
+   "total": 55963053,
+   "male": 28044185,
+   "female": 27918868
+  },
+  "1925": {
+   "total": 59736822,
+   "male": 30013109,
+   "female": 29723713
+  },
+  "1930": {
+   "total": 64450005,
+   "male": 32390155,
+   "female": 32059850
+  },
+  "1935": {
+   "total": 69254148,
+   "male": 34734133,
+   "female": 34520015
+  },
+  "1940": {
+   "total": 71932987,
+   "male": 35387350,
+   "female": 36545637
+  },
+  "1945": {
+   "total": 72147291,
+   "male": 33894059,
+   "female": 38104045
+  },
+  "1950": {
+   "total": 84114574,
+   "male": 41241192,
+   "female": 42873382
+  },
+  "1955": {
+   "total": 90076594,
+   "male": 44242657,
+   "female": 45833937
+  },
+  "1960": {
+   "total": 94301623,
+   "male": 46300445,
+   "female": 48001178
+  },
+  "1965": {
+   "total": 99209137,
+   "male": 48692138,
+   "female": 50516999
+  },
+  "1970": {
+   "total": 104665171,
+   "male": 51369177,
+   "female": 53295994
+  },
+  "1975": {
+   "total": 111939643,
+   "male": 55090673,
+   "female": 56848970
+  },
+  "1980": {
+   "total": 117060396,
+   "male": 57593769,
+   "female": 59466627
+  },
+  "1985": {
+   "total": 121048923,
+   "male": 59497316,
+   "female": 61551607
+  },
+  "1990": {
+   "total": 123611167,
+   "male": 60696724,
+   "female": 62914443
+  },
+  "1995": {
+   "total": 125570246,
+   "male": 61574398,
+   "female": 63995848
+  },
+  "2000": {
+   "total": 126925843,
+   "male": 62110764,
+   "female": 64815079
+  },
+  "2005": {
+   "total": 127767994,
+   "male": 62348977,
+   "female": 65419017
+  },
+  "2010": {
+   "total": 128057352,
+   "male": 62327737,
+   "female": 65729615
+  },
+  "2015": {
+   "total": 127094745,
+   "male": 61841738,
+   "female": 65253007
+  },
+  "2020": {
+   "total": 126146099,
+   "male": 61349581,
+   "female": 64796518
+  },
+  "2025": {
+   "total": 122972528,
+   "male": 59772092,
+   "female": 63200436
+  }
+ },
+ "aging": {
+  "1950": {
+   "totalMan": 8320,
+   "elderlyMan": 411,
+   "share65": 4.9,
+   "share75": 1.3
+  },
+  "1955": {
+   "totalMan": 8928,
+   "elderlyMan": 475,
+   "share65": 5.3,
+   "share75": 1.6
+  },
+  "1960": {
+   "totalMan": 9342,
+   "elderlyMan": 535,
+   "share65": 5.7,
+   "share75": 1.7
+  },
+  "1965": {
+   "totalMan": 9827,
+   "elderlyMan": 618,
+   "share65": 6.3,
+   "share75": 1.9
+  },
+  "1970": {
+   "totalMan": 10372,
+   "elderlyMan": 733,
+   "share65": 7.1,
+   "share75": 2.1
+  },
+  "1975": {
+   "totalMan": 11194,
+   "elderlyMan": 887,
+   "share65": 7.9,
+   "share75": 2.5
+  },
+  "1980": {
+   "totalMan": 11706,
+   "elderlyMan": 1065,
+   "share65": 9.1,
+   "share75": 3.1
+  },
+  "1985": {
+   "totalMan": 12105,
+   "elderlyMan": 1247,
+   "share65": 10.3,
+   "share75": 3.9
+  },
+  "1990": {
+   "totalMan": 12361,
+   "elderlyMan": 1493,
+   "share65": 12.1,
+   "share75": 4.8
+  },
+  "1995": {
+   "totalMan": 12557,
+   "elderlyMan": 1828,
+   "share65": 14.6,
+   "share75": 5.7
+  },
+  "2000": {
+   "totalMan": 12693,
+   "elderlyMan": 2204,
+   "share65": 17.4,
+   "share75": 7.1
+  },
+  "2005": {
+   "totalMan": 12777,
+   "elderlyMan": 2576,
+   "share65": 20.2,
+   "share75": 9.1
+  },
+  "2010": {
+   "totalMan": 12806,
+   "elderlyMan": 2948,
+   "share65": 23,
+   "share75": 11.1
+  },
+  "2015": {
+   "totalMan": 12709,
+   "elderlyMan": 3387,
+   "share65": 26.6,
+   "share75": 12.8
+  },
+  "2020": {
+   "totalMan": 12615,
+   "elderlyMan": 3603,
+   "share65": 28.6,
+   "share75": 14.7
+  },
+  "2025": {
+   "totalMan": 12321,
+   "elderlyMan": 3622,
+   "share65": 29.4,
+   "share75": 17.2
+  },
+  "2026": {
+   "totalMan": 12262,
+   "elderlyMan": 3624,
+   "share65": 29.6,
+   "share75": 17.7
+  },
+  "2030": {
+   "totalMan": 12012,
+   "elderlyMan": 3696,
+   "share65": 30.8,
+   "share75": 18.8
+  },
+  "2035": {
+   "totalMan": 11664,
+   "elderlyMan": 3773,
+   "share65": 32.3,
+   "share75": 19.2
+  },
+  "2040": {
+   "totalMan": 11284,
+   "elderlyMan": 3928,
+   "share65": 34.8,
+   "share75": 19.7
+  },
+  "2045": {
+   "totalMan": 10880,
+   "elderlyMan": 3945,
+   "share65": 36.3,
+   "share75": 20.9
+  },
+  "2050": {
+   "totalMan": 10469,
+   "elderlyMan": 3888,
+   "share65": 37.1,
+   "share75": 23.2
+  }
+ },
+ "households": {
+  "avgSize": {
+   "1960": 4.14,
+   "1970": 3.41,
+   "1975": 3.28,
+   "1980": 2.3,
+   "1985": 3.14,
+   "1990": 2.99,
+   "1995": 2.82,
+   "2000": 2.67,
+   "2005": 2.55,
+   "2010": 2.42,
+   "2015": 2.33,
+   "2020": 2.21,
+   "2025": 2.1
+  },
+  "onePersonShare": {
+   "2005": 29.5,
+   "2010": 32.4,
+   "2015": 34.6,
+   "2020": 38.1,
+   "2025": 41.4
+  }
+ },
+ "ipssMedium": {
+  "2020": {
+   "totalThousand": 126146.099,
+   "under15Thousand": 15031.602,
+   "workingThousand": 75087.865,
+   "elderlyThousand": 36026.632,
+   "share65": 28.6
+  },
+  "2021": {
+   "totalThousand": 125526.631,
+   "under15Thousand": 14792.434,
+   "workingThousand": 74508.07,
+   "elderlyThousand": 36226.126,
+   "share65": 28.9
+  },
+  "2022": {
+   "totalThousand": 124977.644,
+   "under15Thousand": 14515.325,
+   "workingThousand": 74196.042,
+   "elderlyThousand": 36266.277,
+   "share65": 29.0
+  },
+  "2023": {
+   "totalThousand": 124407.998,
+   "under15Thousand": 14202.024,
+   "workingThousand": 73858.119,
+   "elderlyThousand": 36347.856,
+   "share65": 29.2
+  },
+  "2024": {
+   "totalThousand": 123843.669,
+   "under15Thousand": 13914.831,
+   "workingThousand": 73465.788,
+   "elderlyThousand": 36463.05,
+   "share65": 29.4
+  },
+  "2025": {
+   "totalThousand": 123262.448,
+   "under15Thousand": 13632.522,
+   "workingThousand": 73101.025,
+   "elderlyThousand": 36528.901,
+   "share65": 29.6
+  },
+  "2026": {
+   "totalThousand": 122661.136,
+   "under15Thousand": 13354.593,
+   "workingThousand": 72742.419,
+   "elderlyThousand": 36564.124,
+   "share65": 29.8
+  },
+  "2027": {
+   "totalThousand": 122044.018,
+   "under15Thousand": 13100.298,
+   "workingThousand": 72334.958,
+   "elderlyThousand": 36608.762,
+   "share65": 30.0
+  },
+  "2028": {
+   "totalThousand": 121413.836,
+   "under15Thousand": 12850.332,
+   "workingThousand": 71880.125,
+   "elderlyThousand": 36683.379,
+   "share65": 30.2
+  },
+  "2029": {
+   "totalThousand": 120771.098,
+   "under15Thousand": 12624.975,
+   "workingThousand": 71366.701,
+   "elderlyThousand": 36779.422,
+   "share65": 30.5
+  },
+  "2030": {
+   "totalThousand": 120115.78,
+   "under15Thousand": 12397.006,
+   "workingThousand": 70756.829,
+   "elderlyThousand": 36961.946,
+   "share65": 30.8
+  },
+  "2031": {
+   "totalThousand": 119447.702,
+   "under15Thousand": 12192.817,
+   "workingThousand": 70437.667,
+   "elderlyThousand": 36817.217,
+   "share65": 30.8
+  },
+  "2032": {
+   "totalThousand": 118766.491,
+   "under15Thousand": 12026.127,
+   "workingThousand": 69705.265,
+   "elderlyThousand": 37035.1,
+   "share65": 31.2
+  },
+  "2033": {
+   "totalThousand": 118071.362,
+   "under15Thousand": 11879.36,
+   "workingThousand": 68948.701,
+   "elderlyThousand": 37243.302,
+   "share65": 31.5
+  },
+  "2034": {
+   "totalThousand": 117362.108,
+   "under15Thousand": 11771.0,
+   "workingThousand": 68111.223,
+   "elderlyThousand": 37479.884,
+   "share65": 31.9
+  },
+  "2035": {
+   "totalThousand": 116638.903,
+   "under15Thousand": 11691.192,
+   "workingThousand": 67215.555,
+   "elderlyThousand": 37732.157,
+   "share65": 32.3
+  },
+  "2036": {
+   "totalThousand": 115902.13,
+   "under15Thousand": 11604.735,
+   "workingThousand": 66267.824,
+   "elderlyThousand": 38029.571,
+   "share65": 32.8
+  },
+  "2037": {
+   "totalThousand": 115152.484,
+   "under15Thousand": 11551.294,
+   "workingThousand": 65229.833,
+   "elderlyThousand": 38371.358,
+   "share65": 33.3
+  },
+  "2038": {
+   "totalThousand": 114390.954,
+   "under15Thousand": 11519.842,
+   "workingThousand": 64132.0,
+   "elderlyThousand": 38739.112,
+   "share65": 33.9
+  },
+  "2039": {
+   "totalThousand": 113618.771,
+   "under15Thousand": 11473.65,
+   "workingThousand": 63079.526,
+   "elderlyThousand": 39065.595,
+   "share65": 34.4
+  },
+  "2040": {
+   "totalThousand": 112837.405,
+   "under15Thousand": 11419.045,
+   "workingThousand": 62133.374,
+   "elderlyThousand": 39284.985,
+   "share65": 34.8
+  },
+  "2041": {
+   "totalThousand": 112044.872,
+   "under15Thousand": 11359.799,
+   "workingThousand": 61253.991,
+   "elderlyThousand": 39431.082,
+   "share65": 35.2
+  },
+  "2042": {
+   "totalThousand": 111243.072,
+   "under15Thousand": 11292.244,
+   "workingThousand": 60451.24,
+   "elderlyThousand": 39499.588,
+   "share65": 35.5
+  },
+  "2043": {
+   "totalThousand": 110433.978,
+   "under15Thousand": 11214.199,
+   "workingThousand": 59690.758,
+   "elderlyThousand": 39529.022,
+   "share65": 35.8
+  },
+  "2044": {
+   "totalThousand": 109619.517,
+   "under15Thousand": 11125.628,
+   "workingThousand": 58988.604,
+   "elderlyThousand": 39505.285,
+   "share65": 36.0
+  },
+  "2045": {
+   "totalThousand": 108801.339,
+   "under15Thousand": 11026.93,
+   "workingThousand": 58322.916,
+   "elderlyThousand": 39451.492,
+   "share65": 36.3
+  },
+  "2046": {
+   "totalThousand": 107980.738,
+   "under15Thousand": 10918.584,
+   "workingThousand": 57719.887,
+   "elderlyThousand": 39342.267,
+   "share65": 36.4
+  },
+  "2047": {
+   "totalThousand": 107158.654,
+   "under15Thousand": 10801.272,
+   "workingThousand": 57125.36,
+   "elderlyThousand": 39232.022,
+   "share65": 36.6
+  },
+  "2048": {
+   "totalThousand": 106335.6,
+   "under15Thousand": 10676.2,
+   "workingThousand": 56528.637,
+   "elderlyThousand": 39130.762,
+   "share65": 36.8
+  },
+  "2049": {
+   "totalThousand": 105511.626,
+   "under15Thousand": 10544.217,
+   "workingThousand": 55945.406,
+   "elderlyThousand": 39022.003,
+   "share65": 37.0
+  },
+  "2050": {
+   "totalThousand": 104686.383,
+   "under15Thousand": 10406.124,
+   "workingThousand": 55402.035,
+   "elderlyThousand": 38878.224,
+   "share65": 37.1
+  },
+  "2051": {
+   "totalThousand": 103859.149,
+   "under15Thousand": 10262.858,
+   "workingThousand": 54900.368,
+   "elderlyThousand": 38695.923,
+   "share65": 37.3
+  },
+  "2052": {
+   "totalThousand": 103028.924,
+   "under15Thousand": 10115.415,
+   "workingThousand": 54408.567,
+   "elderlyThousand": 38504.943,
+   "share65": 37.4
+  },
+  "2053": {
+   "totalThousand": 102194.558,
+   "under15Thousand": 9964.907,
+   "workingThousand": 53941.2,
+   "elderlyThousand": 38288.451,
+   "share65": 37.5
+  },
+  "2054": {
+   "totalThousand": 101354.798,
+   "under15Thousand": 9812.521,
+   "workingThousand": 53500.273,
+   "elderlyThousand": 38042.004,
+   "share65": 37.5
+  },
+  "2055": {
+   "totalThousand": 100508.401,
+   "under15Thousand": 9659.483,
+   "workingThousand": 53069.684,
+   "elderlyThousand": 37779.233,
+   "share65": 37.6
+  },
+  "2056": {
+   "totalThousand": 99654.279,
+   "under15Thousand": 9507.098,
+   "workingThousand": 52651.701,
+   "elderlyThousand": 37495.48,
+   "share65": 37.6
+  },
+  "2057": {
+   "totalThousand": 98791.554,
+   "under15Thousand": 9356.666,
+   "workingThousand": 52213.125,
+   "elderlyThousand": 37221.763,
+   "share65": 37.7
+  },
+  "2058": {
+   "totalThousand": 97919.646,
+   "under15Thousand": 9209.467,
+   "workingThousand": 51771.103,
+   "elderlyThousand": 36939.077,
+   "share65": 37.7
+  },
+  "2059": {
+   "totalThousand": 97038.352,
+   "under15Thousand": 9066.775,
+   "workingThousand": 51286.322,
+   "elderlyThousand": 36685.255,
+   "share65": 37.8
+  },
+  "2060": {
+   "totalThousand": 96147.841,
+   "under15Thousand": 8929.8,
+   "workingThousand": 50780.644,
+   "elderlyThousand": 36437.397,
+   "share65": 37.9
+  },
+  "2061": {
+   "totalThousand": 95248.624,
+   "under15Thousand": 8799.614,
+   "workingThousand": 50272.676,
+   "elderlyThousand": 36176.334,
+   "share65": 38.0
+  },
+  "2062": {
+   "totalThousand": 94341.552,
+   "under15Thousand": 8677.07,
+   "workingThousand": 49748.484,
+   "elderlyThousand": 35915.998,
+   "share65": 38.1
+  },
+  "2063": {
+   "totalThousand": 93427.807,
+   "under15Thousand": 8562.772,
+   "workingThousand": 49204.906,
+   "elderlyThousand": 35660.129,
+   "share65": 38.2
+  },
+  "2064": {
+   "totalThousand": 92508.88,
+   "under15Thousand": 8457.016,
+   "workingThousand": 48659.438,
+   "elderlyThousand": 35392.426,
+   "share65": 38.3
+  },
+  "2065": {
+   "totalThousand": 91586.513,
+   "under15Thousand": 8359.712,
+   "workingThousand": 48092.574,
+   "elderlyThousand": 35134.226,
+   "share65": 38.4
+  },
+  "2066": {
+   "totalThousand": 90662.658,
+   "under15Thousand": 8270.435,
+   "workingThousand": 47531.102,
+   "elderlyThousand": 34861.121,
+   "share65": 38.5
+  },
+  "2067": {
+   "totalThousand": 89739.444,
+   "under15Thousand": 8188.45,
+   "workingThousand": 46975.627,
+   "elderlyThousand": 34575.368,
+   "share65": 38.5
+  },
+  "2068": {
+   "totalThousand": 88819.103,
+   "under15Thousand": 8112.71,
+   "workingThousand": 46433.514,
+   "elderlyThousand": 34272.879,
+   "share65": 38.6
+  },
+  "2069": {
+   "totalThousand": 87903.892,
+   "under15Thousand": 8041.994,
+   "workingThousand": 45879.323,
+   "elderlyThousand": 33982.575,
+   "share65": 38.7
+  },
+  "2070": {
+   "totalThousand": 86996.009,
+   "under15Thousand": 7974.987,
+   "workingThousand": 45349.572,
+   "elderlyThousand": 33671.45,
+   "share65": 38.7
+  }
+ },
+ "worldbank": {
+  "accessDate": "2026-10-22",
+  "lastupdated": "2026-10-08",
+  "japan": {
+   "SP.POP.TOTL": {
+    "years": [
+     1960,
+     1961,
+     1962,
+     1963,
+     1964,
+     1965,
+     1966,
+     1967,
+     1968,
+     1969,
+     1970,
+     1971,
+     1972,
+     1973,
+     1974,
+     1975,
+     1976,
+     1977,
+     1978,
+     1979,
+     1980,
+     1981,
+     1982,
+     1983,
+     1984,
+     1985,
+     1986,
+     1987,
+     1988,
+     1989,
+     1990,
+     1991,
+     1992,
+     1993,
+     1994,
+     1995,
+     1996,
+     1997,
+     1998,
+     1999,
+     2000,
+     2001,
+     2002,
+     2003,
+     2004,
+     2005,
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "values": [
+     93216000,
+     94055000,
+     94933000,
+     95900000,
+     96903000,
+     97952000,
+     98851000,
+     99879000,
+     101011000,
+     102219000,
+     103403000,
+     105697000,
+     107188000,
+     108707000,
+     110162000,
+     111573000,
+     112775000,
+     113872000,
+     114913000,
+     115890000,
+     116807000,
+     117661000,
+     118480000,
+     119307000,
+     120083000,
+     120837000,
+     121482000,
+     122069000,
+     122578000,
+     123069000,
+     123478000,
+     123964000,
+     124425000,
+     124829000,
+     125178000,
+     125472000,
+     125757000,
+     126057000,
+     126400000,
+     126631000,
+     126843000,
+     127149000,
+     127445000,
+     127718000,
+     127761000,
+     127773000,
+     127854000,
+     128001000,
+     128063000,
+     128047000,
+     128070000,
+     127833000,
+     127629000,
+     127445000,
+     127276000,
+     127141000,
+     127076000,
+     126972000,
+     126811000,
+     126633000,
+     126261000,
+     125681593,
+     125124989,
+     124516650,
+     123975371,
+     123366734
+    ]
+   },
+   "SP.DYN.CBRT.IN": {
+    "years": [
+     1960,
+     1961,
+     1962,
+     1963,
+     1964,
+     1965,
+     1966,
+     1967,
+     1968,
+     1969,
+     1970,
+     1971,
+     1972,
+     1973,
+     1974,
+     1975,
+     1976,
+     1977,
+     1978,
+     1979,
+     1980,
+     1981,
+     1982,
+     1983,
+     1984,
+     1985,
+     1986,
+     1987,
+     1988,
+     1989,
+     1990,
+     1991,
+     1992,
+     1993,
+     1994,
+     1995,
+     1996,
+     1997,
+     1998,
+     1999,
+     2000,
+     2001,
+     2002,
+     2003,
+     2004,
+     2005,
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "values": [
+     17.2,
+     16.9,
+     17,
+     17.3,
+     17.7,
+     18.6,
+     13.7,
+     19.4,
+     18.6,
+     18.5,
+     18.8,
+     19.2,
+     19.3,
+     19.4,
+     18.6,
+     17.1,
+     16.3,
+     15.5,
+     14.9,
+     14.2,
+     13.6,
+     13,
+     12.8,
+     12.7,
+     12.5,
+     11.9,
+     11.4,
+     11.1,
+     10.8,
+     10.2,
+     10,
+     9.9,
+     9.8,
+     9.6,
+     10,
+     9.6,
+     9.7,
+     9.5,
+     9.6,
+     9.4,
+     9.5,
+     9.3,
+     9.2,
+     8.9,
+     8.8,
+     8.4,
+     8.7,
+     8.6,
+     8.7,
+     8.5,
+     8.5,
+     8.3,
+     8.2,
+     8.2,
+     8,
+     8,
+     7.8,
+     7.6,
+     7.4,
+     7,
+     6.8,
+     6.6,
+     6.3,
+     6,
+     5.7,
+     null
+    ]
+   },
+   "SP.DYN.CDRT.IN": {
+    "years": [
+     1960,
+     1961,
+     1962,
+     1963,
+     1964,
+     1965,
+     1966,
+     1967,
+     1968,
+     1969,
+     1970,
+     1971,
+     1972,
+     1973,
+     1974,
+     1975,
+     1976,
+     1977,
+     1978,
+     1979,
+     1980,
+     1981,
+     1982,
+     1983,
+     1984,
+     1985,
+     1986,
+     1987,
+     1988,
+     1989,
+     1990,
+     1991,
+     1992,
+     1993,
+     1994,
+     1995,
+     1996,
+     1997,
+     1998,
+     1999,
+     2000,
+     2001,
+     2002,
+     2003,
+     2004,
+     2005,
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "values": [
+     7.6,
+     7.4,
+     7.5,
+     7,
+     6.9,
+     7.1,
+     6.8,
+     6.8,
+     6.8,
+     6.8,
+     6.9,
+     6.6,
+     6.5,
+     6.6,
+     6.5,
+     6.3,
+     6.3,
+     6.1,
+     6.1,
+     6,
+     6.2,
+     6.1,
+     6,
+     6.2,
+     6.2,
+     6.3,
+     6.2,
+     6.2,
+     6.5,
+     6.4,
+     6.7,
+     6.7,
+     6.9,
+     7.1,
+     7.1,
+     7.4,
+     7.2,
+     7.3,
+     7.5,
+     7.8,
+     7.7,
+     7.7,
+     7.8,
+     8,
+     8.2,
+     8.6,
+     8.6,
+     8.8,
+     9.1,
+     9.1,
+     9.5,
+     9.9,
+     10,
+     10.1,
+     10.1,
+     10.3,
+     10.5,
+     10.8,
+     11,
+     11.2,
+     11.1,
+     11.7,
+     12.9,
+     13,
+     13.3,
+     null
+    ]
+   },
+   "SP.DYN.TFRT.IN": {
+    "years": [
+     1960,
+     1961,
+     1962,
+     1963,
+     1964,
+     1965,
+     1966,
+     1967,
+     1968,
+     1969,
+     1970,
+     1971,
+     1972,
+     1973,
+     1974,
+     1975,
+     1976,
+     1977,
+     1978,
+     1979,
+     1980,
+     1981,
+     1982,
+     1983,
+     1984,
+     1985,
+     1986,
+     1987,
+     1988,
+     1989,
+     1990,
+     1991,
+     1992,
+     1993,
+     1994,
+     1995,
+     1996,
+     1997,
+     1998,
+     1999,
+     2000,
+     2001,
+     2002,
+     2003,
+     2004,
+     2005,
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "values": [
+     2,
+     1.96,
+     1.98,
+     2,
+     2.05,
+     2.14,
+     1.58,
+     2.23,
+     2.13,
+     2.13,
+     2.13,
+     2.16,
+     2.14,
+     2.14,
+     2.05,
+     1.91,
+     1.85,
+     1.8,
+     1.79,
+     1.77,
+     1.75,
+     1.74,
+     1.77,
+     1.8,
+     1.81,
+     1.76,
+     1.72,
+     1.69,
+     1.66,
+     1.57,
+     1.54,
+     1.53,
+     1.5,
+     1.46,
+     1.5,
+     1.42,
+     1.43,
+     1.39,
+     1.38,
+     1.34,
+     1.36,
+     1.33,
+     1.32,
+     1.29,
+     1.29,
+     1.26,
+     1.32,
+     1.34,
+     1.37,
+     1.37,
+     1.39,
+     1.39,
+     1.41,
+     1.43,
+     1.42,
+     1.45,
+     1.44,
+     1.43,
+     1.42,
+     1.36,
+     1.33,
+     1.3,
+     1.26,
+     1.2,
+     1.15,
+     null
+    ]
+   },
+   "SP.POP.65UP.TO.ZS": {
+    "years": [
+     1960,
+     1961,
+     1962,
+     1963,
+     1964,
+     1965,
+     1966,
+     1967,
+     1968,
+     1969,
+     1970,
+     1971,
+     1972,
+     1973,
+     1974,
+     1975,
+     1976,
+     1977,
+     1978,
+     1979,
+     1980,
+     1981,
+     1982,
+     1983,
+     1984,
+     1985,
+     1986,
+     1987,
+     1988,
+     1989,
+     1990,
+     1991,
+     1992,
+     1993,
+     1994,
+     1995,
+     1996,
+     1997,
+     1998,
+     1999,
+     2000,
+     2001,
+     2002,
+     2003,
+     2004,
+     2005,
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "values": [
+     5.74264383362765,
+     5.84655698147887,
+     5.95342169223361,
+     6.06504020873211,
+     6.19075180744998,
+     6.32985677759516,
+     6.50329256677208,
+     6.68704436055067,
+     6.82547113983608,
+     6.95411871321999,
+     7.062586222433,
+     7.1994751150093,
+     7.38901246354837,
+     7.57013103764886,
+     7.74203391717149,
+     7.92142010220224,
+     8.13011591494288,
+     8.3586536301672,
+     8.59845533179161,
+     8.83811647286222,
+     9.06873463590645,
+     9.30250644835794,
+     9.54043525264828,
+     9.75969096985775,
+     10.0342080053998,
+     10.3509431079582,
+     10.6415168482596,
+     10.9588468969672,
+     11.3077197115923,
+     11.7086627922785,
+     12.1592371434388,
+     12.6426627429561,
+     13.14609994239,
+     13.6451471731511,
+     14.1471706843512,
+     14.6600917550368,
+     15.2014638551928,
+     15.7647990694307,
+     16.31972118413,
+     16.8685596811724,
+     17.4418311728625,
+     18.0343083523681,
+     18.5996931174384,
+     19.094589199668,
+     19.6215781629582,
+     20.2818997821341,
+     20.9784589313141,
+     21.6266998258271,
+     22.2533796508458,
+     22.7624685083393,
+     23.0980258847984,
+     23.6527395093536,
+     24.5126783338024,
+     25.4120635790966,
+     26.2261883365166,
+     26.9230034152781,
+     27.5120281384821,
+     27.9778213758677,
+     28.3452163347643,
+     28.6287707536412,
+     28.9181743842737,
+     29.2169970691602,
+     29.4026473056942,
+     29.5618100807812,
+     29.7807703973917,
+     29.9940966737423
+    ]
+   },
+   "SP.POP.0014.TO.ZS": {
+    "years": [
+     1960,
+     1961,
+     1962,
+     1963,
+     1964,
+     1965,
+     1966,
+     1967,
+     1968,
+     1969,
+     1970,
+     1971,
+     1972,
+     1973,
+     1974,
+     1975,
+     1976,
+     1977,
+     1978,
+     1979,
+     1980,
+     1981,
+     1982,
+     1983,
+     1984,
+     1985,
+     1986,
+     1987,
+     1988,
+     1989,
+     1990,
+     1991,
+     1992,
+     1993,
+     1994,
+     1995,
+     1996,
+     1997,
+     1998,
+     1999,
+     2000,
+     2001,
+     2002,
+     2003,
+     2004,
+     2005,
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "values": [
+     29.8335721366756,
+     29.140386508333,
+     27.9951404825904,
+     26.8221291263786,
+     25.827483759214,
+     25.0864358557067,
+     24.3509139241206,
+     23.7923041767547,
+     23.5368430993496,
+     23.3660985015056,
+     23.2581011603079,
+     23.2575743284196,
+     23.4053616679142,
+     23.5983575298758,
+     23.7524070907648,
+     23.8451154363037,
+     23.8774659436153,
+     23.8619325301944,
+     23.7955614799974,
+     23.6620522621399,
+     23.4332743409368,
+     23.2842219296278,
+     23.0608032629826,
+     22.6426332139566,
+     22.2012933835926,
+     21.6725540960789,
+     21.0348928025249,
+     20.3179794932554,
+     19.5443726443144,
+     18.7536886197028,
+     18.0209930627542,
+     17.3960154393736,
+     16.8691663255013,
+     16.3985200155226,
+     15.9887269263962,
+     15.637285960316,
+     15.3309610640981,
+     15.0634340955112,
+     14.8146150388757,
+     14.5815598930625,
+     14.3804955150404,
+     14.2177007369188,
+     14.0758568340938,
+     13.9478271660868,
+     13.8418337943171,
+     13.7523649265,
+     13.6683228285827,
+     13.5939664362105,
+     13.5325090930202,
+     13.4566067470913,
+     13.3709285251368,
+     13.2894965673615,
+     13.1960930297784,
+     13.0900836212039,
+     12.9707262695196,
+     12.8443762976365,
+     12.7232492406355,
+     12.6078326716887,
+     12.4912219201068,
+     12.3665590317386,
+     12.2207528196353,
+     12.0482644490059,
+     11.8589361787474,
+     11.6492906162775,
+     11.4361015985054,
+     11.2383980634698
+    ]
+   },
+   "SP.POP.1564.TO.ZS": {
+    "years": [
+     1960,
+     1961,
+     1962,
+     1963,
+     1964,
+     1965,
+     1966,
+     1967,
+     1968,
+     1969,
+     1970,
+     1971,
+     1972,
+     1973,
+     1974,
+     1975,
+     1976,
+     1977,
+     1978,
+     1979,
+     1980,
+     1981,
+     1982,
+     1983,
+     1984,
+     1985,
+     1986,
+     1987,
+     1988,
+     1989,
+     1990,
+     1991,
+     1992,
+     1993,
+     1994,
+     1995,
+     1996,
+     1997,
+     1998,
+     1999,
+     2000,
+     2001,
+     2002,
+     2003,
+     2004,
+     2005,
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "values": [
+     64.4237840296967,
+     65.0130565101882,
+     66.051437825176,
+     67.1128306648893,
+     67.981764433336,
+     68.5837073666981,
+     69.1457935091073,
+     69.5206514626946,
+     69.6376857608144,
+     69.6797827852744,
+     69.6793126172591,
+     69.5429505565711,
+     69.2056258685375,
+     68.8315114324754,
+     68.5055589920637,
+     68.233464461494,
+     67.9924181414418,
+     67.7794138396384,
+     67.6059831882109,
+     67.4998312649979,
+     67.4979910231568,
+     67.4132716220143,
+     67.3987614843692,
+     67.5976758161857,
+     67.7644986110077,
+     67.9765027959629,
+     68.3235903492155,
+     68.7231736097774,
+     69.1479076440933,
+     69.5376485880187,
+     69.819769793807,
+     69.9613218176703,
+     69.9847337321088,
+     69.9563328113263,
+     69.8641023892526,
+     69.7026222846472,
+     69.4675750807091,
+     69.1717668350581,
+     68.8656637769943,
+     68.5498804257651,
+     68.1776733120971,
+     67.7479909107131,
+     67.3244500484678,
+     66.9575836342452,
+     66.5365880427247,
+     65.9657352913659,
+     65.3532182401032,
+     64.7793337379624,
+     64.214111256134,
+     63.7809247445693,
+     63.5310455900648,
+     63.0577639232849,
+     62.2912286364192,
+     61.4978527996995,
+     60.8030853939639,
+     60.2326202870854,
+     59.7647226208824,
+     59.4143459524436,
+     59.1635617451289,
+     59.0046702146202,
+     58.861072796091,
+     58.7347384818338,
+     58.7384165155584,
+     58.7888993029413,
+     58.7831280041029,
+     58.7675052627879
+    ]
+   },
+   "SP.DYN.LE00.IN": {
+    "years": [
+     1960,
+     1961,
+     1962,
+     1963,
+     1964,
+     1965,
+     1966,
+     1967,
+     1968,
+     1969,
+     1970,
+     1971,
+     1972,
+     1973,
+     1974,
+     1975,
+     1976,
+     1977,
+     1978,
+     1979,
+     1980,
+     1981,
+     1982,
+     1983,
+     1984,
+     1985,
+     1986,
+     1987,
+     1988,
+     1989,
+     1990,
+     1991,
+     1992,
+     1993,
+     1994,
+     1995,
+     1996,
+     1997,
+     1998,
+     1999,
+     2000,
+     2001,
+     2002,
+     2003,
+     2004,
+     2005,
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "values": [
+     67.6956097560976,
+     68.3519512195122,
+     68.6348780487805,
+     69.7124390243902,
+     70.2065853658537,
+     70.2668292682927,
+     70.9158536585366,
+     71.4660975609756,
+     71.6109756097561,
+     71.8580487804878,
+     71.919756097561,
+     72.8090243902439,
+     73.1536585365854,
+     73.2951219512195,
+     73.6721951219512,
+     74.2470731707317,
+     74.6865853658537,
+     75.2558536585366,
+     75.5846341463415,
+     76.1087804878049,
+     75.9890243902439,
+     76.3948780487805,
+     76.8736585365854,
+     76.9219512195122,
+     77.2912195121951,
+     77.5604878048781,
+     78.0104878048781,
+     78.429512195122,
+     78.349756097561,
+     78.7685365853659,
+     78.8370731707317,
+     79.0368292682927,
+     79.080243902439,
+     79.3036585365854,
+     79.6968292682927,
+     79.5360975609756,
+     80.219756097561,
+     80.4241463414634,
+     80.5014634146342,
+     80.4609756097561,
+     81.0760975609756,
+     81.4163414634146,
+     81.6907317073171,
+     81.76,
+     82.030243902439,
+     81.9551219512195,
+     82.3219512195122,
+     82.5070731707317,
+     82.5875609756098,
+     82.9314634146342,
+     82.8426829268293,
+     82.5912195121951,
+     83.0960975609756,
+     83.3319512195122,
+     83.5878048780488,
+     83.7939024390244,
+     83.9848780487805,
+     84.099756097561,
+     84.2109756097561,
+     84.3563414634146,
+     84.56,
+     84.4456097560976,
+     83.9963414634146,
+     84.0412195121951,
+     84.0363414634146,
+     null
+    ]
+   },
+   "SP.DYN.LE00.MA.IN": {
+    "years": [
+     1960,
+     1961,
+     1962,
+     1963,
+     1964,
+     1965,
+     1966,
+     1967,
+     1968,
+     1969,
+     1970,
+     1971,
+     1972,
+     1973,
+     1974,
+     1975,
+     1976,
+     1977,
+     1978,
+     1979,
+     1980,
+     1981,
+     1982,
+     1983,
+     1984,
+     1985,
+     1986,
+     1987,
+     1988,
+     1989,
+     1990,
+     1991,
+     1992,
+     1993,
+     1994,
+     1995,
+     1996,
+     1997,
+     1998,
+     1999,
+     2000,
+     2001,
+     2002,
+     2003,
+     2004,
+     2005,
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "values": [
+     65.32,
+     66.03,
+     66.23,
+     67.21,
+     67.67,
+     67.74,
+     68.35,
+     68.91,
+     69.05,
+     69.18,
+     69.31,
+     70.17,
+     70.5,
+     70.7,
+     71.16,
+     71.73,
+     72.15,
+     72.69,
+     72.97,
+     73.46,
+     73.35,
+     73.79,
+     74.22,
+     74.2,
+     74.54,
+     74.78,
+     75.23,
+     75.61,
+     75.54,
+     75.91,
+     75.92,
+     76.11,
+     76.09,
+     76.25,
+     76.57,
+     76.38,
+     77.01,
+     77.19,
+     77.16,
+     77.1,
+     77.72,
+     78.07,
+     78.32,
+     78.36,
+     78.64,
+     78.56,
+     79,
+     79.19,
+     79.29,
+     79.59,
+     79.55,
+     79.44,
+     79.94,
+     80.21,
+     80.5,
+     80.75,
+     80.98,
+     81.09,
+     81.25,
+     81.41,
+     81.56,
+     81.47,
+     81.05,
+     81.09,
+     81.09,
+     null
+    ]
+   },
+   "SP.DYN.LE00.FE.IN": {
+    "years": [
+     1960,
+     1961,
+     1962,
+     1963,
+     1964,
+     1965,
+     1966,
+     1967,
+     1968,
+     1969,
+     1970,
+     1971,
+     1972,
+     1973,
+     1974,
+     1975,
+     1976,
+     1977,
+     1978,
+     1979,
+     1980,
+     1981,
+     1982,
+     1983,
+     1984,
+     1985,
+     1986,
+     1987,
+     1988,
+     1989,
+     1990,
+     1991,
+     1992,
+     1993,
+     1994,
+     1995,
+     1996,
+     1997,
+     1998,
+     1999,
+     2000,
+     2001,
+     2002,
+     2003,
+     2004,
+     2005,
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "values": [
+     70.19,
+     70.79,
+     71.16,
+     72.34,
+     72.87,
+     72.92,
+     73.61,
+     74.15,
+     74.3,
+     74.67,
+     74.66,
+     75.58,
+     75.94,
+     76.02,
+     76.31,
+     76.89,
+     77.35,
+     77.95,
+     78.33,
+     78.89,
+     78.76,
+     79.13,
+     79.66,
+     79.78,
+     80.18,
+     80.48,
+     80.93,
+     81.39,
+     81.3,
+     81.77,
+     81.9,
+     82.11,
+     82.22,
+     82.51,
+     82.98,
+     82.85,
+     83.59,
+     83.82,
+     84.01,
+     83.99,
+     84.6,
+     84.93,
+     85.23,
+     85.33,
+     85.59,
+     85.52,
+     85.81,
+     85.99,
+     86.05,
+     86.44,
+     86.3,
+     85.9,
+     86.41,
+     86.61,
+     86.83,
+     86.99,
+     87.14,
+     87.26,
+     87.32,
+     87.45,
+     87.71,
+     87.57,
+     87.09,
+     87.14,
+     87.13,
+     null
+    ]
+   },
+   "SP.POP.GROW": {
+    "years": [
+     1960,
+     1961,
+     1962,
+     1963,
+     1964,
+     1965,
+     1966,
+     1967,
+     1968,
+     1969,
+     1970,
+     1971,
+     1972,
+     1973,
+     1974,
+     1975,
+     1976,
+     1977,
+     1978,
+     1979,
+     1980,
+     1981,
+     1982,
+     1983,
+     1984,
+     1985,
+     1986,
+     1987,
+     1988,
+     1989,
+     1990,
+     1991,
+     1992,
+     1993,
+     1994,
+     1995,
+     1996,
+     1997,
+     1998,
+     1999,
+     2000,
+     2001,
+     2002,
+     2003,
+     2004,
+     2005,
+     2006,
+     2007,
+     2008,
+     2009,
+     2010,
+     2011,
+     2012,
+     2013,
+     2014,
+     2015,
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "values": [
+     null,
+     0.89603367679599,
+     0.929166208260758,
+     1.0134602261801,
+     1.04044962804068,
+     1.07670845932027,
+     0.91361031403398,
+     1.03457874436927,
+     1.12699684549535,
+     1.18881486689276,
+     1.15164047221803,
+     2.19425350665006,
+     1.40077918128147,
+     1.40718874054303,
+     1.32958201880625,
+     1.27270755263251,
+     1.07155981022304,
+     0.968032726245575,
+     0.910030976022608,
+     0.846614502915837,
+     0.788153475885542,
+     0.728460836014089,
+     0.693656149424745,
+     0.695583303069267,
+     0.648316736732903,
+     0.625935963624604,
+     0.532357366362317,
+     0.482035496974784,
+     0.416110342195181,
+     0.399761164504292,
+     0.33178288536374,
+     0.392819832481862,
+     0.371192387198527,
+     0.32416759914373,
+     0.279192363973672,
+     0.234590173412918,
+     0.226884732460898,
+     0.238271217591483,
+     0.271729610231193,
+     0.182586374140107,
+     0.167275578113187,
+     0.240952587521069,
+     0.232527187105684,
+     0.213980948779682,
+     0.0336622582725446,
+     0.00939209655766336,
+     0.0633735894181335,
+     0.114908847726211,
+     0.0484253945978966,
+     -0.0124946312294096,
+     0.0179605415195644,
+     -0.185226486410846,
+     -0.159710675844347,
+     -0.144271883387076,
+     -0.132694222147042,
+     -0.106124993746747,
+     -0.0511374152133631,
+     -0.081874296046114,
+     -0.126880068088791,
+     -0.140464977878172,
+     -0.294194617750067,
+     -0.459952415807642,
+     -0.443851919148528,
+     -0.487370782049143,
+     -0.435651699326323,
+     -0.492142838725375
+    ]
+   }
+  },
+  "compare": {
+   "SP.DYN.TFRT.IN": {
+    "year": 2024,
+    "values": {
+     "JPN": 1.15,
+     "KOR": 0.748,
+     "SGP": 0.97,
+     "AUS": 1.481,
+     "NZL": 1.57,
+     "DEU": 1.36,
+     "FRA": 1.61,
+     "SWE": 1.43,
+     "NLD": 1.43,
+     "CAN": 1.25,
+     "GBR": 1.551,
+     "USA": 1.6265,
+     "ITA": 1.18
+    }
+   },
+   "SP.POP.65UP.TO.ZS": {
+    "year": 2025,
+    "values": {
+     "JPN": 29.9940966737423,
+     "KOR": 20.3304188408974,
+     "SGP": 14.2110377720053,
+     "AUS": 18.0930147394386,
+     "NZL": 17.6093066526984,
+     "DEU": 23.7031981458429,
+     "FRA": 22.5418906984086,
+     "SWE": 20.9127967529707,
+     "NLD": 20.8687702211484,
+     "CAN": 20.2603673865917,
+     "GBR": 19.7026932546935,
+     "USA": 18.387224828496,
+     "ITA": 25.0981380733118
+    }
+   },
+   "SP.DYN.LE00.IN": {
+    "year": 2024,
+    "values": {
+     "JPN": 84.0363414634146,
+     "KOR": 83.6292682926829,
+     "SGP": 83.3463414634146,
+     "AUS": 83.0512195121951,
+     "NZL": 82.009756097561,
+     "DEU": 80.7926829268293,
+     "FRA": 82.9804878048781,
+     "SWE": 84.0634146341463,
+     "NLD": 81.9658536585366,
+     "CAN": 82.1080487804878,
+     "GBR": 81.3868536585366,
+     "USA": 78.890243902439,
+     "ITA": 83.9512195121951
+    }
+   },
+   "SP.POP.TOTL": {
+    "year": 2025,
+    "values": {
+     "JPN": 123366734,
+     "KOR": 51684564,
+     "SGP": 6111175,
+     "AUS": 27614411,
+     "NZL": 5324700,
+     "DEU": 83491249,
+     "FRA": 68720337,
+     "SWE": 10596620,
+     "NLD": 18087633,
+     "CAN": 41651653,
+     "GBR": 69487000,
+     "USA": 341784857,
+     "ITA": 58915656
+    }
+   }
+  }
+ }
+}

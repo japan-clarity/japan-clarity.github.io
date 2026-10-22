@@ -1,2 +1,77 @@
-skills/
-node_modules/
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+local-*
+.claude
+.z-ai-config
+*.log
+dev.log
+dev.out.log
+test
+prompt
+
+server.log
+# Skills directory
+/skills/
+# Japan Clarity — build outputs
+/.build-export/
+/out/
+
+# Internal agent workspace (not part of the public repository)
+/worklog.md
+/dev.log
+/dev.out.log
+/.dev-server.pid
+/upload/
+/tool-results/
+/agent-ctx/
+/download/
+/examples/
+/tests/
+/db/
+
+# Raw evidence archives — kept in the development workspace, not the public repo.
+# Notes, extraction scripts, and World Bank API responses (CC BY 4.0) ARE committed.
+/research/chapter01/raw/statb/
+/research/chapter01/raw/mhlw/
+/research/chapter01/raw/ipss/
+/research/reference-inspection/raw/repos/
