@@ -213,8 +213,8 @@ export const chapter01Sources: SourceRecord[] = [
     },
     originalTitle: "日本の将来推計人口（令和5年推計）人口推計表 1-1（出生中位・死亡中位）",
     displayTitle: {
-      ja: "日本の将来推計人口（2023年12月公表・2023年4月26日決定）出生中位（死亡中位）推計",
-      en: "Population Projections for Japan (2023 round) — Medium-fertility / medium-mortality variant",
+      ja: "日本の将来推計人口（2023年推計）出生中位（死亡中位）推計 — 2023年4月26日公表",
+      en: "Population Projections for Japan (2023 round, published 2023-04-26) — Medium-fertility / medium-mortality variant",
     },
     url: "https://www.ipss.go.jp/pp-zenkoku/j/zenkoku2023/pp_zenkoku2023.asp",
     sourceLanguage: "ja+en",

@@ -107,8 +107,8 @@ export const chapter01Charts: ChartSpec[] = [
       en: "Total fertility rate (TFR), 1947–2025",
     },
     description: {
-      ja: "15〜49歳の女性の年齢別出生率を合計した、1人的女性が一生に産む子どもの数に相当する指標。1949年4.54から低下し、2005年1.26、2015年1.45、2025年1.14と推移。2025年は過去最低を更新した。",
-      en: "The sum of age-specific fertility rates for women aged 15–49, corresponding to the number of children per woman. It fell from 4.54 in 1949 through 1.26 in 2005 and 1.45 in 2015 to 1.14 in 2025 — a record low.",
+      ja: "15〜49歳の女性の年齢別出生率を合計した、1人的女性が一生に産む子どもの数に相当する指標。1947年の4.54から低下し、2005年1.26、2015年1.45、2025年1.14と推移。2025年は過去最低を更新した。",
+      en: "The sum of age-specific fertility rates for women aged 15–49, corresponding to the number of children per woman. It fell from 4.54 in 1947 through 1.26 in 2005 and 1.45 in 2015 to 1.14 in 2025 — a record low.",
     },
     years: years(TFR),
     series: [
@@ -316,7 +316,7 @@ export const chapter01Charts: ChartSpec[] = [
     unit: { ja: "％（一般世帯比）", en: "% of ordinary households" },
     valueKind: "percent1",
     yLabel: { ja: "割合（%）", en: "Share (%)" },
-    sourceIds: ["statb-handbook-2026", "statb-census-2025"],
+    sourceIds: ["statb-handbook-2026", "statb-census-2025", "ipss-household-2024"],
     note: {
       ja: "将来推計（IPSS 2024年推計・中位）では、単独世帯の割合は2050年に44.3%へさらに上昇すると見込まれる（推計値）。",
       en: "The IPSS 2024 household projection (medium) puts the one-person share at 44.3% by 2050 (a projection).",

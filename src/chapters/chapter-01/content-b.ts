@@ -107,8 +107,8 @@ export const chapter01SectionsB: ChapterSection[] = [
       {
         type: "p",
         text: {
-          ja: "ここまでの数字は「実測」でした。将来については、国立社会保障・人口問題研究所が2023年12月に公表した「日本の将来推計人口」（2023年推計）が、公的な議論の基準になっています。これは確定した未来の予言ではなく、出生・死亡・移動に関する仮定の下でのシナリオ計算です。2026年10月時点で、これより新しい全国推計は公表されていません。",
-          en: "Everything so far has been observation. For the future, the reference used in public discussion is the IPSS \"Population Projections for Japan\" (2023 round, published December 2023). These are scenario calculations under explicit birth, death, and migration assumptions — not prophecies. As of October 2026 no newer national round has been published.",
+          ja: "ここまでの数字は「実測」でした。将来については、国立社会保障・人口問題研究所が2023年4月26日に公表した「日本の将来推計人口」（2023年推計）が、公的な議論の基準になっています。これは確定した未来の予言ではなく、出生・死亡・移動に関する仮定の下でのシナリオ計算です。2026年10月時点で、これより新しい全国推計は公表されていません。",
+          en: "Everything so far has been observation. For the future, the reference used in public discussion is the IPSS \"Population Projections for Japan\" (2023 round, published on 26 April 2023). These are scenario calculations under explicit birth, death, and migration assumptions — not prophecies. As of October 2026 no newer national round has been published.",
         },
       },
       {
@@ -221,8 +221,8 @@ export const chapter01SectionsB: ChapterSection[] = [
             en: "Regional revitalization: with net in-migration to the Tokyo area running for 30 years, policy aims to slow the drain — though the 2025 metro-area surplus remained above 120,000, it narrowed by 12,309 year-on-year.",
           },
           {
-            ja: "外国人材の受入れ：2026年5月時点で外国人住民は397万人（総人口の3.1%）と増加している。制度的・社会的な調整（教育・医療・住居・地域受入）を伴う中長期の論点である。",
-            en: "Foreign workers and residents: foreign residents reached 3.97 million (3.1% of the population) by May 2026 and continue to grow — a medium-to-long-term question involving institutional and social adjustment (education, health care, housing, community reception).",
+            ja: "外国人材の受入れ：2026年5月時点で外国人住民は397万人（総人口の約3.2%）と増加している。制度的・社会的な調整（教育・医療・住居・地域受入）を伴う中長期の論点である。",
+            en: "Foreign workers and residents: foreign residents reached 3.97 million (about 3.2% of the population) by May 2026 and continue to grow — a medium-to-long-term question involving institutional and social adjustment (education, health care, housing, community reception).",
           },
         ],
       },

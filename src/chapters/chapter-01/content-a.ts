@@ -73,7 +73,7 @@ export const chapter01SectionsA: ChapterSection[] = [
         type: "callout",
         kind: "observation",
         text: {
-          ja: "2025年10月1日現在の総人口1億2,297万2,528人のうち、日本人人口は1億1,913万2千人（96.9%）、外国人人口は384万0,039人（3.1%）です。直近の月次推計では、2026年10月1日の概算人口は1億2,269万人（前年比▲53万人）、2026年5月1日確定値では日本人11,883万8千人（▲85万5千人）・外国人397万4千人（▲増加：＋32万5千人）と、減少の内訳が日本人人口の減少と外国人人口の増加の併存であることが分かります。",
+          ja: "2025年10月1日現在の総人口1億2,297万2,528人のうち、日本人人口は1億1,913万2千人（96.9%）、外国人人口は384万0,039人（3.1%）です。直近の月次推計では、2026年10月1日の概算人口は1億2,269万人（前年比▲53万人）、2026年5月1日確定値では日本人11,883万8千人（▲85万5千人）・外国人397万4千人（＋32万5千人）と、減少の内訳が日本人人口の減少と外国人人口の増加の併存であることが分かります。",
           en: "Of the 122,972,528 residents on October 1, 2025, 119.13 million (96.9%) were Japanese and 3.84 million (3.1%) were foreign residents. The latest monthly estimates add detail: as of October 1, 2026 (provisional) the total is about 122.69 million (−530k year-on-year), while final May 1, 2026 figures show Japanese residents down 855k to 118.84 million and foreign residents up 325k to 3.97 million.",
         },
       },
@@ -100,8 +100,8 @@ export const chapter01SectionsA: ChapterSection[] = [
       {
         type: "p",
         text: {
-          ja: "一方、死亡数は高齢人口の増大を反映して増えてきました。2025年の死亡数は158万9,533人（前年160万5,378人からは5年ぶりに減少）。出生数が死亡数を下回る「自然減少」は、2005年に初めて発生し（▲2万1,266人）、2006年に一旦解消された後、2007年から2025年まで19年連続で続いています。2025年の自然減少は▲91万8,263人と過去最大です。",
-          en: "Deaths, meanwhile, have risen with the growing elderly population — 1,589,533 in 2025 (down from 1,605,378 in 2024, the first decline in five years). Natural decrease first appeared in 2005 (−21,266), briefly reversed in 2006, and has continued for 19 consecutive years since 2007. The 2025 gap of −918,263 is the largest on record.",
+          ja: "一方、死亡数は高齢人口の増大を反映して増えてきました。2025年の死亡数は158万9,533人（前年160万5,378人からは5年ぶりに減少）。出生数が死亡数を下回る「自然減少」は、2005年に初めて発生し（▲2万1,266人）、2006年に一旦解消された後、2007年から2025年まで19年連続で続いています。減少幅が過去最大なのは2024年の▲91万9,205人で、2025年は▲91万8,263人とわずかに縮小しました。",
+          en: "Deaths, meanwhile, have risen with the growing elderly population — 1,589,533 in 2025 (down from 1,605,378 in 2024, the first decline in five years). Natural decrease first appeared in 2005 (−21,266), briefly reversed in 2006, and has continued for 19 consecutive years since 2007. The largest gap on record remains 2024's −919,205; in 2025 it narrowed slightly to −918,263.",
         },
       },
       {
@@ -215,8 +215,8 @@ export const chapter01SectionsA: ChapterSection[] = [
       {
         type: "p",
         text: {
-          ja: "3つの年齢区分で構造の変化を見ると、生産年齢人口（15〜64歳）の割合が1990年代前半の約70%から58%台へ低下し、子ども（0〜14歳）の割合は11%台、高齢者（65歳以上）は約30%となっています。2025年国勢調査では、0〜14歳10.9%（1,334万9千人）、15〜64歳は7,348万1千人、65歳以上は29.4%です。",
-          en: "Viewed by three age groups, the working-age (15–64) share has fallen from about 70% in the early 1990s to around 58%, children (0–14) are near 11%, and the 65+ share is about 30%. In the 2025 census: 0–14 at 10.9% (13.35 million), 15–64 at 73.48 million, and 65+ at 29.4%.",
+          ja: "3つの年齢区分で構造の変化を見ると、生産年齢人口（15〜64歳）の割合が1990年代前半の約70%から6割弱へ低下し、子ども（0〜14歳）の割合は約11%、高齢者（65歳以上）は約30%となっています。2025年国勢調査では、0〜14歳10.9%（1,334万9千人）、15〜64歳は7,348万1千人、65歳以上は29.4%です。",
+          en: "Viewed by three age groups, the working-age (15–64) share has fallen from about 70% in the early 1990s to just under 60%, children (0–14) are around 11%, and the 65+ share is about 30%. In the 2025 census: 0–14 at 10.9% (13.35 million), 15–64 at 73.48 million, and 65+ at 29.4%.",
         },
       },
       {
