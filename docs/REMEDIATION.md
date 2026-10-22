@@ -186,10 +186,10 @@ retained in both languages:
 | — | `3771b7a` | chore: remove development-environment scaffold |
 | — | `421d187` | chore: remove unused scaffold dependencies and UI components |
 | — | `7a64b7a` | fix(research): correct two factual copy errors and attribution nits |
-| — | (docs commit) | docs: pre-publication remediation report and deployment update |
-| — | (merge) | Merge remote initial README history into remediated main |
+| — | `ccdb3ba` | docs: pre-publication remediation report, data licensing, deployment update |
+| — | `a3d5668` | Merge remote initial README history into remediated main (remote `9e8e68e` preserved as ancestor) |
 
-Release tag: **`v1.0.0-rc1`** (annotated, on the merge commit).
+Release tag: **`v1.0.0-rc1`** (annotated, at the tip of `main`).
 
 > If any old-hash references exist elsewhere (e.g., in old notes), the mapping
 > above is authoritative. The old objects were removed with
