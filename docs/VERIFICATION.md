@@ -109,3 +109,51 @@ Honest corrections made during verification (kept for transparency):
 - GitHub Pages deployment itself has NOT been executed (no repository write
   credentials in this environment); Mode B is verified up to and including
   the deployable `out/`-equivalent artifact and the workflow files.
+
+---
+
+## 5. Remediation re-verification (2026-10-22, second session)
+
+After the pre-publication remediation (history purge, scaffold/dependency
+minimization, copy corrections — see `docs/REMEDIATION.md`), **every gate was
+re-run from scratch**:
+
+| Check | Command | Result |
+|---|---|---|
+| Install | `bun install` | 54 packages removed, lockfile −966 lines |
+| TypeScript | `bunx tsc --noEmit` | 0 errors |
+| ESLint | `bun run lint` | 0 errors, 0 warnings |
+| Research integrity | `bun run validate:research` | 259 checks, 0 failures |
+| Static export | `bun run export:static` | 42 HTML files, no errors |
+| Export verification | `bun run verify:export` | 57 checks, 0 failures (8.4 MB) |
+| History purge | `git log --all -- .env` / `git grep` over all commits | 0 matches (`.env` value and path gone from all reachable history) |
+| Dev server | HTTP status before/during/after export | 200 throughout |
+
+Browser regression re-run (Chromium via agent-browser):
+
+- `/` → `/ja/` redirect; ja-JP default; 日本語 left / English right.
+- ja → en → ja round trips preserve both the home page and the Chapter 01
+  deep link; `html lang` + titles switch correctly
+  (`ja-JP | 01 人口・家族…` ↔ `en | 01 Population & Family…`).
+- 11 chart canvases on Chapter 01 (desktop 1440×900 and mobile 375×667).
+- Chart → Table → Chart **×3 desktop** (22-row and 124-row tables) and
+  **×3 mobile**; canvas count restored to 11 every time; first canvas
+  `toDataURL()` length identical before/after (42,126 = 42,126) — pixel-level
+  restoration confirmed.
+- Touch-type pointer events on mobile produce the localized tooltip with a
+  verified value (`1960 | 総人口（国勢調査） | 94,301,623`); mobile Sheet menu
+  opens/closes.
+- Range filter `1990年以降` flips `aria-pressed` and updates the chart.
+- Footer pinned exactly to viewport bottom on a short page at 1440×1400
+  (footer bottom == 1400 == viewport); pushed naturally on the 22,077 px
+  chapter page; no horizontal overflow at 1440 / 375 / 320 px.
+- Console: zero errors (only pre-existing benign dev warnings).
+- Screenshots: `research/verification-screenshots/remediation-desktop-ch01-ja.png`,
+  `remediation-mobile-ch01-ja.png`, `remediation-desktop-footer-sticky.png`.
+
+Independent read-only attribution audit (task R-2) of every 2025-vintage
+figure: 16 figure groups — data values and source register fully correct
+(14 PASS); 2 copy-level factual errors found and fixed (natural-decrease
+record year; TFR 1949→1947), plus 5 attribution nits corrected (IPSS
+publication date, foreign-resident share basis, census-consistent
+approximations, one-person chart source list, sign notation).

@@ -1,8 +1,11 @@
 # Japan Clarity — Recovery Checkpoint
 
-**Checkpoint date:** 2026-10-22
-**Latest stable commit:** see `git log` — "Foundation + Chapter 01 …" (this file is part of that history)
-**State:** platform complete and verified; Chapter 01 published with disclosed limitations.
+**Checkpoint date:** 2026-10-22 (updated in the remediation session)
+**Release candidate:** tag `v1.0.0-rc1` on `main` (history rewritten — see
+`docs/REMEDIATION.md` §2 for the old→new commit mapping)
+**State:** platform complete and verified; Chapter 01 published with disclosed
+limitations; pre-publication remediation applied (security purge, repo
+minimization, copy corrections, re-verification).
 
 ## Completed and verified
 
@@ -33,6 +36,12 @@
 7. **Deployment readiness** — `ci.yml` + `deploy.yml` (least-privilege,
    concurrency-controlled, no secrets); deployment instructions with Git Bash
    commands in `docs/DEPLOYMENT.md`.
+8. **Pre-publication remediation (2026-10-22, second session)** — `.env`
+   purged from all git history (verified 0 reachable matches); remote
+   initial commit `9e8e68e` merged locally (no force-push needed);
+   scaffold/dependency minimization (67→13 runtime deps); two copy-level
+   factual errors corrected after an independent audit; all gates and browser
+   regressions re-run green. Full report: `docs/REMEDIATION.md`.
 
 ## Completed but not fully verified
 
@@ -68,10 +77,15 @@
 ## Resuming after an interruption
 
 - Dev server in this sandbox: `python3 scripts/dev-daemon.py start` (it
-  double-forks so the sandbox session reaper cannot kill it).
+  double-forks so the sandbox session reaper cannot kill it). NOTE: after the
+  remediation this script is a **workspace-only** file (gitignored), not part
+  of the public repository.
 - All research evidence lives under `research/chapter01/` (raw documents are
   in the workspace but not committed; notes + scripts + World Bank responses
-  are committed).
+  are committed). The pre-remediation git history is preserved only in
+  `pre-remediation.bundle` on the development workspace host (outside the
+  repository; the environment-specific absolute path is recorded only in the
+  private workspace) — do not re-import it into the public repo.
 - Data drift is detected automatically: `bun run validate:research` compares
   the generated module against `extracted-series.json` by content hash.
 - The shared agent worklog is `worklog.md` (workspace-only, not committed).

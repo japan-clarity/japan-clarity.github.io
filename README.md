@@ -18,9 +18,10 @@ An independent, non-commercial, nonpartisan research platform examining Japan's 
 | `src/lib/` | i18n, research provenance types, chart theme, locale-aware formatting |
 | `src/components/` | Shared UI (header/footer/language switch/reading blocks) and the chart framework |
 | `research/chapter01/` | Verification notes, extraction scripts, and World Bank API responses (CC BY 4.0) |
+| `research/DATA-LICENSES.md` | What is redistributed and under which terms (per content category) |
 | `scripts/` | Research integrity gate, data generation, export post-processing & verification |
 | `.github/workflows/` | `ci.yml` (PR validation) and `deploy.yml` (GitHub Pages deployment) |
-| `docs/` | Architecture, design system, deployment, verification log, recovery checkpoint |
+| `docs/` | Architecture, design system, deployment, verification log, remediation report, recovery checkpoint |
 
 ## Development
 
@@ -70,7 +71,10 @@ deployment → Source: GitHub Actions**. See `docs/DEPLOYMENT.md`.
 - Application code: see the repository license when added by the project owner.
 - Data: Japanese government statistics are reproduced with source attribution
   under each publisher's terms; World Bank series are CC BY 4.0. CSV exports
-  from the site carry full attribution headers.
+  from the site carry full attribution headers. The full statement of what is
+  redistributed and under which terms is in `research/DATA-LICENSES.md`; the
+  pre-publication security and minimization remediation is documented in
+  `docs/REMEDIATION.md`.
 
 This project is not affiliated with, sponsored by, or endorsed by any
 political party, government agency, advocacy organization, or other

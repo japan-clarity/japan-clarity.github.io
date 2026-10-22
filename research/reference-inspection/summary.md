@@ -2,8 +2,17 @@
 
 Task ID: 1 · Agent: general-purpose (reference inspection) · Access date for all fetches: **2026-10-22**
 
+> **Remediation note (2026-10-22, later session):** the raw evidence under
+> `research/reference-inspection/raw/` (full third-party site snapshots,
+> CSS, README copies, and GitHub API JSON) was **removed from the public
+> repository** — including its git history — because no redistribution
+> permission exists for the third-party site content. It is retained only in
+> the development workspace (gitignored) and in the remediation backup. This
+> summary (our own factual access log) is the committed record of what was
+> observed; see `docs/REMEDIATION.md` and `research/DATA-LICENSES.md`.
+
 Anti-fabrication rule applied throughout: every observation below was actually fetched and is stored under
-`research/reference-inspection/raw/`. Anything not observable is explicitly labelled. No JavaScript was executed;
+`research/reference-inspection/raw/` (workspace-only since the remediation). Anything not observable is explicitly labelled. No JavaScript was executed;
 JS bundles were only downloaded and grepped as static text (bundle fingerprinting).
 
 ---
