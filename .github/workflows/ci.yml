@@ -1,0 +1,56 @@
+# Japan Clarity — pull-request validation.
+# Runs all quality gates WITHOUT deploying. Production deployment lives in
+# deploy.yml and only runs for reviewed changes on main.
+name: CI
+
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches-ignore: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Typecheck · Lint · Research integrity · Static export
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies (locked)
+        run: bun install --frozen-lockfile
+
+      - name: TypeScript check
+        run: bunx tsc --noEmit
+
+      - name: ESLint
+        run: bun run lint
+
+      - name: Research integrity gate
+        run: bun run validate:research
+
+      - name: Static export build (GitHub Pages target)
+        run: bun run export:static
+
+      - name: Verify static export artifact
+        run: bun run verify:export
+
+      - name: Upload export artifact (inspection only)
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-export-preview
+          path: .build-export/
+          retention-days: 7
