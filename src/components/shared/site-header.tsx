@@ -137,6 +137,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             </SheetTrigger>
             <SheetContent
               side="right"
+              closeLabel={ui.nav.closeMenu}
               className="w-[290px] border-border bg-[#0F141A] p-0"
             >
               <SheetHeader className="border-b border-border px-5 py-4">
