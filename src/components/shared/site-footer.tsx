@@ -41,17 +41,17 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             <h2 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
               {locale === "ja" ? "ナビゲーション" : "Navigation"}
             </h2>
-            <Link href={localePath(locale, "methodology")} className="text-muted-foreground hover:text-teal">
+            <Link href={localePath(locale, "methodology")} className="py-2 text-muted-foreground hover:text-teal">
               {getUI(locale).nav.methodology}
             </Link>
-            <Link href={localePath(locale, "sources")} className="text-muted-foreground hover:text-teal">
+            <Link href={localePath(locale, "sources")} className="py-2 text-muted-foreground hover:text-teal">
               {getUI(locale).nav.sources}
             </Link>
             <a
               href={siteConfig.repository}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-muted-foreground hover:text-teal"
+              className="inline-flex items-center gap-1 py-2 text-muted-foreground hover:text-teal"
             >
               {t.repository}
               <ExternalLink className="h-3 w-3" aria-hidden />
