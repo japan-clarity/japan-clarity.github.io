@@ -49,9 +49,10 @@ export async function generateMetadata({
       locale: localeMeta[locale].htmlLang,
     },
     twitter: {
+      // No explicit title/description: X falls back to the (page-specific)
+      // og:title / og:description, so shared chapter pages advertise
+      // themselves instead of the generic site title.
       card: "summary",
-      title: `${brand} — ${siteConfig.tagline[locale]}`,
-      description: siteConfig.description[locale],
     },
     alternates: {
       languages: {
