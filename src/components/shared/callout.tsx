@@ -7,7 +7,7 @@ const KIND_STYLE: Record<CalloutKind, { border: string; label: string }> = {
   observation: { border: "border-l-teal", label: "text-teal" },
   comparison: { border: "border-l-bluegrey", label: "text-bluegrey" },
   interpretation: { border: "border-l-sand", label: "text-sand" },
-  uncertainty: { border: "border-l-[#C7D1DA]", label: "text-[#C7D1DA]" },
+  uncertainty: { border: "border-l-[#A99B87]", label: "text-[#6B655C]" },
   action: { border: "border-l-teal", label: "text-teal" },
   note: { border: "border-l-border", label: "text-muted-foreground" },
 };

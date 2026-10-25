@@ -64,7 +64,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   ];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-[#0F141A]/90 backdrop-blur supports-[backdrop-filter]:bg-[#0F141A]/75">
+    <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-4 sm:px-6">
         <Link
           href={localePath(locale)}
@@ -138,7 +138,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             <SheetContent
               side="right"
               closeLabel={ui.nav.closeMenu}
-              className="w-[290px] border-border bg-[#0F141A] p-0"
+              className="w-[290px] border-border bg-surface p-0"
             >
               <SheetHeader className="border-b border-border px-5 py-4">
                 <SheetTitle className="text-left font-serif text-sm text-heading">
