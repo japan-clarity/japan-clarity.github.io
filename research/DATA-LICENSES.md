@@ -57,3 +57,44 @@ November 2026 (value may change); monthly population estimates switch to the
 2025-census benchmark from the November 2026 report; the Sept-15 (elderly
 release) vs Oct-1 (census/annual estimates) reference-date difference
 (0.1–0.3 pp); IPSS figures are assumption-dependent scenarios.
+
+## What IS committed for Chapter 02 (added 2026-10-25)
+
+| Content | Terms | How attribution is carried |
+|---|---|---|
+| **World Bank WDI API responses** (`research/chapter02/raw/worldbank/*.json`) | **CC BY 4.0** — reuse and redistribution permitted with attribution | `research/chapter02/notes/oecd-worldbank-summary.md` records the attribution string, API `lastupdated: 2026-10-08`, and fetch script; CSV exports embed attribution; the source register (`src/chapters/chapter-02/sources.ts`, id `wb-wdi-2026-10`) links the CC BY 4.0 terms |
+| **OECD Productivity database CSV responses** (`research/chapter02/raw/oecd/*.csv`) | OECD Terms and Conditions permit reproduction of data with attribution ("Source: OECD Productivity Statistics") | Source register id `oecd-pdb-2026` carries the attribution string, exact SDMX query URL, dataflow version `OECD.SDD.TPS:DSD_PDB@DF_PDB(2.0)` and fetch date; chart notes cite OECD |
+| **Extracted statistics** (facts/figures from ESRI, MHLW, 総務省, R&D survey) | Statistical facts as such are not subject to copyright; publishers' terms require source attribution for reproduction | Every figure on the site carries organization/title/publication-date/URL via the source register; chart notes cite the specific release; notes/*.md quote fragment-length verbatim table cells with full citation |
+| **Research notes with short verbatim quotes** (`research/chapter02/notes/*.md`) | Short quotations for verification/documentation, each with the exact source document named and the archived file path | Quotes are single table cells or single sentences, always with citations |
+| **Extraction/generation/validation scripts** (`research/chapter02/scripts/`, `scripts/`) | Our own code | n/a |
+
+## What is NOT committed for Chapter 02 (kept in the development workspace only)
+
+- **Raw government files under `research/chapter02/raw/{esri,mhlw,statb}/`** — ESRI Excel/PDF,
+  MHLW Excel/PDF/HTML, 総務省 Excel/PDF/e-Stat downloads. Publishers' terms govern reuse of
+  their materials; we redistribute only the extracted facts and short quotes with attribution.
+  (The MHLW `利用上の注意` note 9 text is quoted fragment-length in notes/mhlw-summary.md for
+  methodology documentation.)
+- **OECD dataflow definition JSON** (`research/chapter02/raw/oecd/oecd-dataflow-def.json`,
+  3.2MB) — structural metadata kept locally; the query URL and dataflow version are recorded
+  in the inventory and source register instead.
+- e-Stat download URLs embed session-independent `statInfId`s; the files they returned are
+  kept locally with sha256s recorded in `notes/mhlw-statb-inventory.md`.
+
+## Per-source publication details (Chapter 02)
+
+| Source | Release used | Published |
+|---|---|---|
+| Cabinet Office / ESRI | 2024年度国民経済計算年次推計 (main series, industry, employment, household) | 2025-12-23 |
+| Cabinet Office / ESRI | 参考表 GDP国際比較・一人当たり名目GDP | 2025-12-23 |
+| MHLW | 毎月勤労統計調査 2025年分結果確報 | 2026-02-25 |
+| MHLW | 毎月勤労統計調査 2026年8月分結果確報 | 2026-10-23 |
+| Statistics Bureau, MIC | 労働力調査 長期時系列データ (incl. 2025 annual) | fetched 2026-10-25 (latest monthly pub 2026-10-02) |
+| Statistics Bureau, MIC | 科学技術研究調査 2025年調査 結果の概要 (FY2015–2024); 2015年調査 結果の概要 (FY2005–2014) | e-Stat 2025-12-12; 2015-round (see notes) |
+| OECD | Productivity database DSD_PDB@DF_PDB v2.0 (GDPHRS, PPP) | fetched 2026-10-25 |
+| World Bank | WDI API (per-capita PPP, GDP, growth, manufacturing share) | lastupdated 2026-10-08 |
+
+Official caveats intentionally retained on the Chapter 02 site: the MHLW Jan-2024
+benchmark update (published levels +2.6% vs benchmark-adjusted YoY — usage note 9);
+the 2018 survey-frame change; the R&D ratio's GDP-vintage splice at FY2014→15;
+PPP-vs-exchange-rate conversion differences; OECD retrospective revisions.

@@ -254,6 +254,99 @@ const hash = createHash("sha256").update(readFileSync(extractionPath)).digest("h
 ok("dataset snapshot hash unchanged", hash === DATA_SNAPSHOT_HASH, `${hash} vs ${DATA_SNAPSHOT_HASH}`);
 
 // ---------------------------------------------------------------------------
+// 4b. Data agreement — Chapter 02 generated module vs its extraction JSON
+// ---------------------------------------------------------------------------
+console.log("\n[4b] Data agreement (chapter 02 generated data vs extracted-series.json)");
+const extraction2Path = resolve(ROOT, "research/chapter02/notes/extracted-series.json");
+const extraction2 = JSON.parse(readFileSync(extraction2Path, "utf-8")) as Record<string, any>;
+
+const {
+  GDP_NOMINAL_TRILLION, GDP_REAL_TRILLION, GDP_REAL_GROWTH, GDP_DEFLATOR,
+  HOUSEHOLD_DISPOSABLE_TRILLION, WAGE_NOMINAL_INDEX, WAGE_REAL_INDEX,
+  WAGE_REAL_YOY, INDUSTRY_VA_SHARE_PRIMARY, INDUSTRY_VA_SHARE_SECONDARY,
+  INDUSTRY_VA_SHARE_TERTIARY, INDUSTRY_VA_SHARE_MANUFACTURING,
+  EMPLOYMENT_SHARE_PRIMARY, EMPLOYMENT_SHARE_SECONDARY, EMPLOYMENT_SHARE_TERTIARY,
+  EMPLOYMENT_SHARE_MANUFACTURING, EMPLOYMENT_TOTAL, EMPLOYMENT_MANUFACTURING,
+  RD_GDP_RATIO, OECD_GDP_HOUR_COMPARE, OECD_JPN_GDP_HOUR_VOLUME,
+  WB_PC_JPN, WB_PC_COMPARE, WAGE_MONTHLY_2026_REAL_YOY, DATA_SNAPSHOT_HASH: CH02_SNAPSHOT_HASH,
+} = await import("../src/chapters/chapter-02/data");
+
+function pairsAgree2(
+  name: string,
+  pairs: ReadonlyArray<[number | string, number | null]>,
+  expected: Record<string, number | null>,
+  transform: (v: number) => number = (v) => v,
+  tol = 1e-9,
+) {
+  let mismatches = 0;
+  for (const [year, value] of pairs) {
+    const expValue = expected[String(year)];
+    const same = (value === null && (expValue === null || expValue === undefined)) ||
+      (value !== null && expValue !== null && expValue !== undefined &&
+        Math.abs(value - transform(expValue as number)) <= tol);
+    if (!same) mismatches += 1;
+  }
+  ok(`ch02 data agreement: ${name}`, mismatches === 0, `${mismatches} mismatching points`);
+}
+
+const tril = (v: number) => v / 1000; // 十億円 → 兆円
+const r1 = (v: number) => Math.round(v * 10) / 10;
+const r2 = (v: number) => Math.round(v * 100) / 100;
+
+pairsAgree2("GDP nominal (兆円)", GDP_NOMINAL_TRILLION, extraction2.esri.gdp.nominal, tril, 0.051);
+pairsAgree2("GDP real (兆円)", GDP_REAL_TRILLION, extraction2.esri.gdp.real, tril, 0.051);
+pairsAgree2("GDP real growth", GDP_REAL_GROWTH, extraction2.esri.gdp.realGrowth, r1, 0.051);
+pairsAgree2("GDP deflator", GDP_DEFLATOR, extraction2.esri.gdp.deflator, r1, 0.051);
+pairsAgree2("household disposable (兆円)", HOUSEHOLD_DISPOSABLE_TRILLION, extraction2.esri.household.netDisposableIncome, tril, 0.051);
+pairsAgree2("wage nominal index", WAGE_NOMINAL_INDEX, extraction2.mhlw.wages.nominalIndex, undefined, 0.011);
+pairsAgree2("wage real index", WAGE_REAL_INDEX, extraction2.mhlw.wages.realIndex, undefined, 0.011);
+pairsAgree2("wage real YoY", WAGE_REAL_YOY, extraction2.mhlw.wages.realYoY, r1, 0.051);
+pairsAgree2("industry VA share primary", INDUSTRY_VA_SHARE_PRIMARY, extraction2.esri.industry.shares.primary, r2, 0.011);
+pairsAgree2("industry VA share secondary", INDUSTRY_VA_SHARE_SECONDARY, extraction2.esri.industry.shares.secondary, r2, 0.011);
+pairsAgree2("industry VA share tertiary", INDUSTRY_VA_SHARE_TERTIARY, extraction2.esri.industry.shares.tertiary, r2, 0.011);
+pairsAgree2("industry VA share manufacturing", INDUSTRY_VA_SHARE_MANUFACTURING, extraction2.esri.industry.shares.manufacturing, r2, 0.011);
+pairsAgree2("employment share primary", EMPLOYMENT_SHARE_PRIMARY, extraction2.esri.employment.shares.primary, r2, 0.011);
+pairsAgree2("employment share secondary", EMPLOYMENT_SHARE_SECONDARY, extraction2.esri.employment.shares.secondary, r2, 0.011);
+pairsAgree2("employment share tertiary", EMPLOYMENT_SHARE_TERTIARY, extraction2.esri.employment.shares.tertiary, r2, 0.011);
+pairsAgree2("employment share manufacturing", EMPLOYMENT_SHARE_MANUFACTURING, extraction2.esri.employment.shares.manufacturing, r2, 0.011);
+pairsAgree2("employment total", EMPLOYMENT_TOTAL, extraction2.esri.employment.persons.total, r1, 0.051);
+pairsAgree2("employment manufacturing", EMPLOYMENT_MANUFACTURING, extraction2.esri.employment.persons.manufacturing, r1, 0.051);
+
+const rdExpected: Record<string, number | null> = {};
+for (const [y, v] of Object.entries(extraction2.rd.older as Record<string, { ratioPct: number }>)) rdExpected[y] = v.ratioPct;
+for (const [y, v] of Object.entries(extraction2.rd.recent as Record<string, { ratioPct: number }>)) rdExpected[y] = v.ratioPct;
+pairsAgree2("R&D ratio", RD_GDP_RATIO, rdExpected, r2, 0.011);
+
+// OECD comparison: values equal the archived CSV (2025 current-price rows)
+const oecdCurrent = extraction2.oecd.gdpPerHourCurrent as Record<string, Record<string, number>>;
+let oecdBad = 0;
+for (const [area, v] of OECD_GDP_HOUR_COMPARE) {
+  const exp = oecdCurrent[area]?.["2025"];
+  if (exp === undefined || Math.abs(v - r2(exp)) > 0.011) oecdBad += 1;
+}
+ok("ch02 data agreement: OECD GDP/hour comparison (2025)", oecdBad === 0 && OECD_GDP_HOUR_COMPARE.length === 12, `${oecdBad} bad of ${OECD_GDP_HOUR_COMPARE.length}`);
+pairsAgree2("OECD JPN volume GDP/hour", OECD_JPN_GDP_HOUR_VOLUME, extraction2.oecd.gdpPerHourVolumeJpn as Record<string, number>, r1, 0.051);
+pairsAgree2("WB per-capita PPP (JPN)", WB_PC_JPN, extraction2.wb.japan.gdpPerCapitaPpp, Math.round, 0.51);
+const wbCompare = extraction2.wb.compare.gdpPerCapitaPpp as Record<string, Record<string, number>>;
+let wbBad = 0;
+for (const [area, v] of WB_PC_COMPARE) {
+  const exp = wbCompare[area]?.["2025"];
+  if (exp === undefined || Math.abs(v - Math.round(exp)) > 0.51) wbBad += 1;
+}
+ok("ch02 data agreement: WB per-capita comparison (2025)", wbBad === 0 && WB_PC_COMPARE.length === 13, `${wbBad} bad of ${WB_PC_COMPARE.length}`);
+
+const monthlyExp = extraction2.mhlw.wages.monthly2026 as Record<string, { realYoY: number }>;
+let monthlyBad = 0;
+for (const [m, v] of WAGE_MONTHLY_2026_REAL_YOY) {
+  const exp = monthlyExp[String(m)]?.realYoY;
+  if (exp === undefined || Math.abs(v - r1(exp)) > 0.051) monthlyBad += 1;
+}
+ok("ch02 data agreement: monthly 2026 real wage YoY", monthlyBad === 0 && WAGE_MONTHLY_2026_REAL_YOY.length === 8, `${monthlyBad} bad of ${WAGE_MONTHLY_2026_REAL_YOY.length}`);
+
+const hash2 = createHash("sha256").update(readFileSync(extraction2Path)).digest("hex").slice(0, 16);
+ok("ch02 dataset snapshot hash unchanged", hash2 === CH02_SNAPSHOT_HASH, `${hash2} vs ${CH02_SNAPSHOT_HASH}`);
+
+// ---------------------------------------------------------------------------
 // 6. UI dictionary parity
 // ---------------------------------------------------------------------------
 console.log("\n[6] UI dictionary parity");

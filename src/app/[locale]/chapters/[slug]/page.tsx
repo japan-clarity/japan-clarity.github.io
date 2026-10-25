@@ -20,6 +20,18 @@ interface PageParams {
   params: Promise<{ locale: string; slug: string }>;
 }
 
+/** Editorial long titles per published chapter (placeholder chapters fall back to meta.title). */
+const CHAPTER_LONG_TITLES: Record<string, { ja: string; en: string }> = {
+  "population-family": {
+    ja: "日本の人口課題：人口変動と未来を理解する",
+    en: "Japan's Population Question: Understanding Demographic Change and the Future",
+  },
+  "economy-industry": {
+    ja: "日本経済と産業の構造を読み解く",
+    en: "Understanding Japan's Economy and Industrial Structure",
+  },
+};
+
 export function generateStaticParams() {
   return allChapterMeta.flatMap((chapter) => [
     { locale: "ja", slug: chapter.slug },
@@ -35,9 +47,7 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
   if (!entry) return {};
   const { meta, module } = entry;
   const longTitle = module
-    ? locale === "ja"
-      ? "日本の人口課題：人口変動と未来を理解する"
-      : "Japan's Population Question: Understanding Demographic Change and the Future"
+    ? (CHAPTER_LONG_TITLES[slug]?.[locale] ?? meta.title[locale])
     : meta.title[locale];
   return {
     title: `${meta.number} ${meta.title[locale]}`,
@@ -79,9 +89,7 @@ export default async function ChapterPage({ params }: PageParams) {
   const next = index < allChapterMeta.length - 1 ? allChapterMeta[index + 1] : null;
 
   const chapterTitle = module
-    ? locale === "ja"
-      ? "日本の人口課題：人口変動と未来を理解する"
-      : "Japan's Population Question: Understanding Demographic Change and the Future"
+    ? (CHAPTER_LONG_TITLES[slug]?.[locale] ?? meta.title[locale])
     : meta.title[locale];
 
   return (

@@ -10,7 +10,9 @@
     "export:static": "DEPLOY_TARGET=github-pages next build && bun run scripts/post-export.ts",
     "verify:export": "bun run scripts/verify-export.ts",
     "generate:chapter-data": "bun run scripts/generate-chapter-data.ts",
-    "extract:series": "python3 research/chapter01/scripts/extract-series.py"
+    "generate:chapter02-data": "bun run scripts/generate-chapter-02-data.ts",
+    "extract:series": "python3 research/chapter01/scripts/extract-series.py",
+    "extract:series:ch02": "python3 research/chapter02/scripts/extract-series.py"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",
