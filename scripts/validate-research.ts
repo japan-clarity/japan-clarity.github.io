@@ -473,6 +473,72 @@ ok("ch02 oecd growth: no OECD narrative carrying the stale 1970–90 productivit
   oecdNarratives.filter((t) => /1970[–-]90|1970[–-]1990/.test(t) && /\+?3\.8%/.test(t)).slice(0, 1).join(" "));
 
 // ---------------------------------------------------------------------------
+// 4d. Chapter 01 household-series regression (2026-10-25 independent audit).
+//     The original handbook Table 2.3 extraction scanned the whole handbook,
+//     so a Table 14.6 row (traffic accidents: 1980 → 2.3 fatalities per
+//     10,000 motor vehicles owned) silently overwrote the 1980 household-size
+//     value (3.22) through the year-keyed dict. Guards: pin every Table 2.3
+//     value, enforce monotonic decline, pin the one-person series, and forbid
+//     the unverified 2020 population estimate (126,226,568) — a figure that
+//     no currently accessible official publication carries (replaced during
+//     the audit with the verified Sep-15-2025 estimate vs census comparison).
+// ---------------------------------------------------------------------------
+console.log("\n[4d] Chapter 01 household-series regression (audit guards)");
+
+const HH_SIZE_EXPECTED: Record<number, number> = {
+  1960: 4.14, 1970: 3.41, 1975: 3.28, 1980: 3.22, 1985: 3.14, 1990: 2.99,
+  1995: 2.82, 2000: 2.67, 2005: 2.55, 2010: 2.42, 2015: 2.33, 2020: 2.21, 2025: 2.10,
+};
+{
+  const map = new Map<number, number | null>(
+    HOUSEHOLD_SIZE.map(([y, v]) => [y as number, v as number | null]),
+  );
+  const hhBad: string[] = [];
+  for (const [year, v] of Object.entries(HH_SIZE_EXPECTED)) {
+    const y = Number(year);
+    if (map.get(y) !== v) hhBad.push(`${y}: ${map.get(y)} (expected ${v})`);
+  }
+  ok(
+    "ch01 household size: all 13 census-year values match handbook Table 2.3 + 2025 census",
+    hhBad.length === 0 && HOUSEHOLD_SIZE.length === 13,
+    hhBad.join("; "),
+  );
+  const seq = HOUSEHOLD_SIZE.map(([, v]) => v as number);
+  ok(
+    "ch01 household size: monotonically non-increasing 1960→2025",
+    seq.every((v, i) => i === 0 || seq[i - 1] >= v),
+    seq.join(", "),
+  );
+  const onePersonMap = new Map<number, number | null>(
+    ONE_PERSON_SHARE.map(([y, v]) => [y as number, v as number | null]),
+  );
+  const OP_EXPECTED: Record<number, number> = { 2005: 29.5, 2010: 32.4, 2015: 34.6, 2020: 38.1, 2025: 41.4 };
+  const opBad = Object.entries(OP_EXPECTED).filter(([year, v]) => onePersonMap.get(Number(year)) !== Number(v));
+  ok(
+    "ch01 one-person share: handbook Figure 2.3 (2005–2020) + 2025 census values pinned",
+    opBad.length === 0 && ONE_PERSON_SHARE.length === 5,
+    opBad.map(([year, v]) => `${year}: ${onePersonMap.get(Number(year))} vs ${v}`).join("; "),
+  );
+}
+
+const { chapter01 } = await import("../src/chapters/chapter-01/index");
+const ch01Strings: string[] = [];
+collectStrings(chapter01.sections, ch01Strings);
+collectStrings(chapter01.limitations, ch01Strings);
+collectStrings(chapter01.charts, ch01Strings);
+collectStrings(chapter01.sources, ch01Strings);
+ok(
+  "ch01 provenance: unverified 2020 estimate (126,226,568) absent from all chapter text",
+  ch01Strings.every((t) => !t.includes("126,226,568")),
+  `${ch01Strings.filter((t) => t.includes("126,226,568")).length} occurrences`,
+);
+ok(
+  "ch01 provenance: statistical-product example cites the verified 2025 pair (123.21M estimate vs 122,972,528 census)",
+  ch01Strings.some((t) => t.includes("122,972,528")) &&
+    ch01Strings.some((t) => t.includes("123.21 million") || t.includes("1億2,321万")),
+);
+
+// ---------------------------------------------------------------------------
 // 6. UI dictionary parity
 // ---------------------------------------------------------------------------
 console.log("\n[6] UI dictionary parity");

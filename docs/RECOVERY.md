@@ -290,3 +290,61 @@ If the sandbox resets: re-create worktree `git worktree add /home/z/jc-ch02
 feature/chapter-02-economy-industry`, hardlink-copy `node_modules`, `bun install`,
 `bun run dev`, and re-run `bun run validate:research && bun run typecheck &&
 bun run lint && bun run export:static && bun run verify:export`.
+
+---
+
+## Recovery checkpoint — Chapter 01 independent research audit (2026-10-25)
+
+State: `origin/main` = `d2fb85d` (Chapter 02 remediation merged via PR #2) **+ audit
+branch `audit/chapter-01-research-methodology`** (based directly on `d2fb85d`, worktree
+`/home/z/jc-ch01-audit`) containing the audit deliverables and one corrective change
+set. Nothing pushed; the owner transfers the branch from the delivered bundle and
+pushes it for PR review. Do NOT merge before CI and the diff review are complete.
+
+Audit outcome (full report: `docs/CH01-INDEPENDENT-RESEARCH-AUDIT.md`; evidence
+register: `docs/CH01-AUDIT-EVIDENCE-REGISTER.md`): 62 figure groups audited against
+re-fetched primary sources — 59 PASS, 1 FAIL corrected (household-size 1980: 2.30 →
+3.22, handbook Table 2.3; root cause: whole-handbook scan let Table 14.6's traffic
+row overwrite the value), 1 INCONCLUSIVE remediated (the unverified "126,226,568"
+2020 estimate in the census note/callout → replaced with the verified 2025
+estimate-vs-census pair 123.21M / 122,972,528), 1 vintage disclosure added
+(one-person 2020: handbook 38.1% vs census re-tabulation 38.0%).
+
+Corrective changes: `extract-series.py` (Table 2.3-block-restricted parser + 13
+anchors + monotonicity), `extracted-series.json` (single-point diff, 1980 only),
+`generate-chapter-data.ts` + `data.ts` (audit header, 1980 = 3.22, new snapshot hash
+`6fbecdf93dd73ea2`), `charts.ts` + `content-a.ts` (two remediated surfaces ×2
+languages), `validate-research.ts` (new [4d]: 5 guards, negative-tested — corrupting
+1980 → 2.3 fails 3 checks; reintroducing 126,226,568 fails the provenance guard).
+
+Gates on the branch: extraction anchors all pass · validate:research **528/0** ·
+tsc 0 · eslint clean · export 65/0 (17.3 MB) · browser re-acceptance complete
+(household 3.22 JA+EN, chart⇄table ×3 desktop+mobile, hover/touch tooltips, range
+filter, legend, keyboard, CSV `1980,3.22`, JA↔EN round trips, zero console errors) ·
+Chapter 02 + theme + i18n + app shell zero-diff vs `d2fb85d` (proven).
+
+Raw audit evidence (re-fetched official documents + WB transcript + pre-fix JSON
+snapshot) lives in `research/chapter01/raw/audit-2026-10-25/` (workspace-only,
+gitignored). Before/after screenshots are committed at
+`research/ch01-audit-screenshots/`.
+
+Next safe actions for the owner:
+```bash
+cd "/c/Users/guest177/Documents/GitHub/japan-clarity.github.io"
+git fetch origin && git switch -c audit/chapter-01-research-methodology d2fb85d
+git fetch /path/to/japan-clarity-ch01-audit.bundle audit/chapter-01-research-methodology:audit-import
+git merge --ff-only audit-import        # inspect with git log --stat first
+git push origin audit/chapter-01-research-methodology
+# open: https://github.com/japan-clarity/japan-clarity.github.io/pull/new/audit/chapter-01-research-methodology
+```
+Do NOT merge before CI runs on the PR and the audit evidence is reviewed.
+
+If the sandbox resets: re-create the worktree
+`git worktree add /home/z/jc-ch01-audit audit/chapter-01-research-methodology`,
+hardlink-copy `node_modules` from another worktree, `bun run dev`, and re-run
+`python3 research/chapter01/scripts/extract-series.py && bun run generate:chapter-data
+&& bun run validate:research && bun run typecheck && bun run lint && bun run
+export:static && bun run verify:export`. The raw sources needed by the extractor are
+re-fetchable from the official domains (URLs in the source register and in
+`research/chapter01/notes/*.md`); the re-fetch script pattern is documented in the
+audit report §2.2.
