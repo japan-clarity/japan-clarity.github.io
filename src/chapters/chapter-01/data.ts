@@ -7,8 +7,12 @@
  * (extraction validated against archived raw official documents;
  *  see research/chapter01/notes/*.md for verbatim source quotes).
  *
- * Source snapshot sha256 (first 16 hex): 0c5a597018c92d81
+ * Source snapshot sha256 (first 16 hex): 6fbecdf93dd73ea2
  * Access/verification date: 2026-10-22.
+ * Re-verified 2026-10-25 during the independent Chapter 01 research audit:
+ * all raw sources were re-fetched from their official domains and the
+ * extraction reproduced identical values except the corrected 1980
+ * household-size point (2.3 → 3.22; see docs/REMEDIATION-CH01-AUDIT.md).
  *
  * Pair arrays are [year, value]; null = value not published for that year.
  */
@@ -877,7 +881,7 @@ export const HOUSEHOLD_SIZE: ReadonlyArray<[number, number | null]> = [
   [1960, 4.14],
   [1970, 3.41],
   [1975, 3.28],
-  [1980, 2.3],
+  [1980, 3.22],
   [1985, 3.14],
   [1990, 2.99],
   [1995, 2.82],
@@ -1253,4 +1257,4 @@ export const WB_COUNTRIES: Readonly<Record<string, { ja: string; en: string }>> 
 };
 
 /** sha256 (first 16 hex) of the extracted-series.json snapshot this file was generated from. */
-export const DATA_SNAPSHOT_HASH = "0c5a597018c92d81";
+export const DATA_SNAPSHOT_HASH = "6fbecdf93dd73ea2";

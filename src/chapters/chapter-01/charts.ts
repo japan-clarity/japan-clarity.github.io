@@ -61,8 +61,8 @@ export const chapter01Charts: ChartSpec[] = [
     yLabel: { ja: "総人口（人）", en: "Total population (persons)" },
     sourceIds: ["statb-census-2025"],
     note: {
-      ja: "総人口には外国人住民を含む。1945年は沖縄県を含まない補正人口。なお、2020年10月1日の人口「推計」は126,226,568人だが、国勢調査「確定値」は126,146,099人 — 推計とセンサスは異なる統計製品である。",
-      en: "Total population includes foreign residents; 1945 excludes Okinawa. Note: the Oct 1, 2020 population *estimate* was 126,226,568, while the census *count* is 126,146,099 — estimates and censuses are different statistical products.",
+      ja: "総人口には外国人住民を含む。1945年は沖縄県を含まない補正人口。推計とセンサスは異なる統計製品である：2025年9月15日現在の人口推計（統計局の高齢者統計に再掲）は1億2,321万人だが、16日後の10月1日基準の国勢調査（基本集計確定値）は1億2,297万2,528人であった。",
+      en: "Total population includes foreign residents; 1945 excludes Okinawa. Estimates and censuses are different statistical products: the Statistics Bureau's population estimate as of September 15, 2025 (republished in its elderly-release series) was 123.21 million, while the census count on the October 1 reference date (basic complete tabulation) was 122,972,528.",
     },
   },
   {
@@ -318,8 +318,8 @@ export const chapter01Charts: ChartSpec[] = [
     yLabel: { ja: "割合（%）", en: "Share (%)" },
     sourceIds: ["statb-handbook-2026", "statb-census-2025", "ipss-household-2024"],
     note: {
-      ja: "将来推計（IPSS 2024年推計・中位）では、単独世帯の割合は2050年に44.3%へさらに上昇すると見込まれる（推計値）。",
-      en: "The IPSS 2024 household projection (medium) puts the one-person share at 44.3% by 2050 (a projection).",
+      ja: "将来推計（IPSS 2024年推計・中位）では、単独世帯の割合は2050年に44.3%へさらに上昇すると見込まれる（推計値）。2005〜2020年は統計局ハンドブック（Figure 2.3）の公表値、2025年は国勢調査による。なお2025年国勢調査の再集計表では2020年は38.0%と、ハンドブック（38.1%）から0.1ポイント異なる（公表時期の違いによるもので、両方とも統計局の公表値）。",
+      en: "The IPSS 2024 household projection (medium) puts the one-person share at 44.3% by 2050 (a projection). Values for 2005–2020 are as published in the Statistics Bureau handbook (Figure 2.3); 2025 is from the census. Note: the 2025 census re-tabulation lists 2020 at 38.0%, 0.1pp different from the handbook's 38.1% (a publication-vintage difference; both are official Statistics Bureau values).",
     },
   },
   {
