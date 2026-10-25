@@ -1,29 +1,80 @@
 # Japan Clarity — Recovery Checkpoint
 
-**Checkpoint date:** 2026-10-23 (post-launch QA session; prior checkpoints
-2026-10-22 below)
-**Release:** `v1.0.0-rc1` — **DEPLOYED and LIVE** at
-https://japan-clarity.github.io/ (deploy workflow run `39837722570`, commit
-`be76c6a`, completed successfully 2026-10-22T19:10:08Z).
-**State:** production verified end-to-end by post-launch QA
-(`docs/POST-LAUNCH-QA.md`); three low-severity defects confirmed on the live
-site and fixed as scoped **local** commits awaiting owner review — **not yet
-pushed** (no authorization to push from this environment).
+**Checkpoint date:** 2026-10-25 (museum light-theme redesign session; prior
+checkpoints 2026-10-23 and 2026-10-22 below)
+**Production (unchanged):** `v1.0.0-rc1` live at https://japan-clarity.github.io/
+— `origin/main` = `266eb23` (post-launch QA chain, pushed by the owner
+2026-10-24; verified via `git fetch`).
+**State:** a complete, tested Japanese-museum-editorial light-theme redesign
+(Scheme A: Washi White × Celadon × Kuchiba Gold) sits on the **local feature
+branch `design/japanese-museum-light-theme`** (based on `origin/main`).
+Nothing has been pushed, merged, or deployed. Design documentation:
+`docs/MUSEUM-LIGHT-THEME.md`.
 
-## Current git state (2026-10-23)
+## Current git state (2026-10-25)
 
 ```
-1334791 fix(a11y): enlarge footer navigation link touch targets      \ local,
-9aa6578 fix(seo): share page-specific titles on X/Twitter cards       \ not
-b8a68bb fix(a11y): localize the mobile sheet close button label       / pushed
-be76c6a (origin/main, deployed) docs: sanitize environment-specific…
+design/japanese-museum-light-theme   ← local only; visual redesign commits
+  └─ based on origin/main = 266eb23 (deployed v1.0.0-rc1 + QA fixes)
+main (local) = 09f49b3  ← STALE sandbox artifact (see below); do not push
 ```
 
-- Working tree: clean apart from this checkpoint/docs commit.
+- Research/content diff vs `origin/main`: **empty** (all 14 chapters,
+  Chapter 01 data/citations, extraction scripts, source records untouched).
+- Gates on the branch: tsc 0 · eslint clean · research 259/0 · export OK ·
+  verify-export 57/0 (15.9 MB) · contrast audit 58/0 (new
+  `scripts/contrast-audit.ts`).
 - Local-only git config: `core.filemode=false` (sandbox filesystem sets
   executable bits; content hashes verified identical — not a repo change).
-- Dev server: `bun run dev` on port 3000 (started with `nohup` this session;
-  `scripts/dev-daemon.py` no longer exists in the workspace).
+
+### Sandbox anomaly (recorded for safety)
+
+The development sandbox was reprovisioned between sessions: the previous
+worklog/dev.log were wiped, and local `main` was reconstructed by automation
+("Japan Clarity Build") as `09f49b3` — a recreation of the pre-QA `be76c6a`
+content WITHOUT the five QA commits (6+/11− lines behind `origin/main`).
+Additionally, a workspace watchdog periodically forces the main checkout
+back to `main`. Consequences, all mitigated:
+
+- The redesign was built in an isolated **git worktree at
+  `/home/z/jc-design`** (branch `design/japanese-museum-light-theme`), immune
+  to the watchdog; `/home/z/my-project` stays untouched on `main`.
+- `node_modules` is hard-link-copied into the worktree (symlinks are
+  rejected by bun); `.env` is copied. A branch-tracking `git bundle`
+  (`/home/z/design-theme.bundle`) snapshots the branch after each commit
+  series.
+- Treat `origin/main` (`266eb23`) as canonical; **never push local `main`
+  (`09f49b3`)** — it is a stale environment artifact.
+
+## Museum light-theme redesign (2026-10-25) — completed
+
+Visual-only redesign per the owner's spec: Scheme A palette as central
+semantic tokens in `src/app/globals.css`; all gradients removed; charts,
+logo, favicon, header/sheet, callouts, sparkline, pills restyled; Noto
+Serif JP (OFL, next/font, headings only) + Japanese system sans body;
+post-export redirect/404 templates de-darkened. Three documented WCAG
+deviations (interactive celadon, text-safe gold, text-safe blue-grey) —
+see `docs/MUSEUM-LIGHT-THEME.md` §2.3.
+
+Full verification matrix: `docs/MUSEUM-LIGHT-THEME.md` §6 — 7 viewports
+(320–1440) with zero horizontal overflow, 11 canvases everywhere, chart⇄table
+×3 desktop + mobile, tooltips hover/tap, range filters, legend toggles,
+JA↔EN round trips with refresh, keyboard focus rings, CSV blob 3,163 B
+(baseline-identical), footer pinned/pushed, bilingual 404, before/after
+screenshots in `research/theme-screenshots/` (16 PNG).
+
+## Next safe action
+
+1. Owner reviews the branch (see §Resuming after an interruption for
+   commands; full change list in `docs/MUSEUM-LIGHT-THEME.md` §5).
+2. With approval, the owner pushes **only the feature branch**:
+   `git push origin design/japanese-museum-light-theme` (from a clone of
+   the delivered archive or this workspace; **no push to `main`, no
+   force-push, no merge, no deploy from this environment**).
+3. Owner opens the PR (base `main`, compare `design/japanese-museum-light-theme`,
+   title “Redesign Japan Clarity with a Japanese museum-inspired light theme”),
+   screenshots the creation page **before** clicking Create, waits for CI.
+4. The redesign is live only after merge + a green Pages deploy is verified.
 
 ## Post-launch QA (2026-10-23) — completed
 
@@ -123,23 +174,32 @@ published with disclosed limitations; pre-publication remediation applied
 
 1. ~~Push to GitHub and verify the first Actions deployment~~ — **done by
    the owner 2026-10-22; verified live by QA 2026-10-23.**
-2. Owner review + push of the three post-launch QA fix commits (see above).
-3. After the MHLW November 2026 recalculation of 2025 rates/TFR: update the
+2. ~~Owner review + push of the three post-launch QA fix commits~~ — **pushed
+   by the owner 2026-10-24 (`origin/main` = `266eb23`, verified by fetch).**
+3. Owner review + PR for the museum light-theme branch (see Next safe action).
+4. After the MHLW November 2026 recalculation of 2025 rates/TFR: update the
    TFR figure and note (re-run `extract-series.py` → `generate-chapter-data.ts`
    → `validate:research`; the anchors will need updating to the revised
    values — that is intentional friction).
-4. Begin Chapter 02 — Economy & Industry research using the same pipeline
-   (add `src/chapters/chapter-02/`, register, gate, publish with limitations).
-5. Optional: add a LICENSE file (owner's choice), and enable branch
+5. Begin Chapter 02 — Economy & Industry research using the same pipeline
+   (add `src/chapters/chapter-02/`, register, gate, publish with limitations) —
+   only after the redesign PR is decided.
+6. Optional: add a LICENSE file (owner's choice), and enable branch
    protection requiring the CI workflow (recommended in the QA report —
    owner decision).
 
 ## Resuming after an interruption
 
-- Dev server in this sandbox: `bun run dev` (port 3000; log at `dev.log`).
-  The historical `scripts/dev-daemon.py` wrapper no longer exists in the
-  workspace — start the dev server directly. NOTE: it remains a
-  **workspace-only** concern (gitignored), not part of the public repository.
+- **Redesign worktree:** the feature branch is checked out at
+  `/home/z/jc-design` (git worktree of `/home/z/my-project`). Start the dev
+  preview there: `cd /home/z/jc-design && bun run dev` (port 3000).
+  A branch snapshot bundle is kept at `/home/z/design-theme.bundle`.
+- **Do not work on branches in `/home/z/my-project`** — the sandbox watchdog
+  reverts that checkout to `main` (see the anomaly note above).
+- Running `bun run export:static` while the dev server is up can OOM-kill
+  the dev server on this 4 GB sandbox (distDir is isolated, so nothing is
+  corrupted) — restart `bun run dev` afterwards if it dies.
+- Dev server log: `/home/z/my-project/dev.log` (redirected from the worktree).
 - All research evidence lives under `research/chapter01/` (raw documents are
   in the workspace but not committed; notes + scripts + World Bank responses
   are committed). The pre-remediation git history is preserved only in
