@@ -157,8 +157,8 @@ export const chapter02SectionsB: ChapterSection[] = [
         type: "ul",
         items: [
           {
-            ja: "生産性の伸び悩み（根拠：強い）。OECDの実質系列で伸びが1990年以降に年平均+1.3%へ半減以下（1970–90年は+3.8%）したことは、総GDP・一人当たり所得・賃金のいずれの停滞とも整合します。ただし生産性そのものが「原因」なのか、資本投入・産業構成・規制環境などのより深い要因の「結果」なのかは、この観測だけでは決められません。",
-            en: "The productivity slowdown (strong support). The OECD volume series shows growth halving-and-more after 1990 (about +1.3% a year versus +3.8% in 1970–90), consistent with stagnation in total GDP, per-capita income and wages. Whether productivity is itself the cause or an outcome of deeper forces — capital deepening, industry mix, the regulatory environment — cannot be settled by observation alone.",
+            ja: "生産性の伸び悩み（根拠：強い）。OECDの実質系列で伸びが1990年以降に年平均+1.3%へ半減以下（1970–90年は+4.1%）したことは、総GDP・一人当たり所得・賃金のいずれの停滞とも整合します。ただし生産性そのものが「原因」なのか、資本投入・産業構成・規制環境などのより深い要因の「結果」なのかは、この観測だけでは決められません。",
+            en: "The productivity slowdown (strong support). The OECD volume series shows growth halving-and-more after 1990 (about +1.3% a year versus +4.1% in 1970–90), consistent with stagnation in total GDP, per-capita income and wages. Whether productivity is itself the cause or an outcome of deeper forces — capital deepening, industry mix, the regulatory environment — cannot be settled by observation alone.",
           },
           {
             ja: "デフレと名目の硬直（根拠：強い）。GDPデフレーターが1994年112.4→2024年108.5（2020年=100）と約30年下向きであったことは観測済みです。名目賃金がほぼ横ばいのまま物価が下がる環境と、その後の物価上昇期に名目賃金の伸びが物価に追いつかなかったこと（2022–25年）は、実質賃金の2度の低下に対応します。",

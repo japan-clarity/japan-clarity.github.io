@@ -13,8 +13,10 @@
  * Pair arrays are [year, value]; null = value not published for that year.
  * Units: GDP & household income 兆円 (source 十億円 ÷ 1000); wage indices
  * 2020年平均=100 (growth-chain — see notes/mhlw-summary.md); shares are %;
- * OECD GDP per hour worked is current-price USD PPP; WB per-capita is
- * current int$ PPP.
+ * OECD GDP per hour worked is USD per hour PPP-converted — current prices
+ * for cross-country comparison, chain-linked volume levels (2020 reference
+ * year; 2020 = 50.5, not an index) for the Japan trend; WB per-capita
+ * is current int$ PPP.
  */
 
 /** Nominal GDP (calendar year, 兆円) — ESRI 年次推計 2024, 1994–2024. 1994 = 521.7; 2024 = 634.2. */
@@ -689,7 +691,7 @@ export const OECD_COUNTRIES: Record<string, { ja: string; en: string }> = {
   NLD: { ja: "オランダ", en: "Netherlands" },
 };
 
-/** Japan GDP per hour worked, chain-linked volume (2020=100), 1970–2025 — OECD. */
+/** Japan GDP per hour worked — chain-linked volume LEVELS in USD per hour (PPP-converted, 2020 reference year; 2020 = 50.5, not an index), 1970–2025 — OECD. */
 export const OECD_JPN_GDP_HOUR_VOLUME: ReadonlyArray<[number, number | null]> = [
   [1970, 14.9],
   [1971, 15.5],

@@ -16,8 +16,11 @@
   attribution ("Source: OECD Productivity Statistics"); CSV responses archived under raw/oecd/.
 - **Anchors (2025, current prices, USD per hour PPP):** JPN 61.77 (lowest of the 12),
   KOR 62.46, NZL 63.66, CAN 76.81, ITA 80.36, GBR 85.56, AUS 86.85, FRA 96.05,
-  SWE 100.76, DEU 102.69, USA 104.74, NLD 105.51. JPN volume series (2020=100):
-  1970 = 14.86 → 1990 = 33.51 → 2010 = 46.25 → 2025 = 53.02.
+  SWE 100.76, DEU 102.69, USA 104.74, NLD 105.51. JPN chain-linked volume series
+  (USD PPP/hour, 2020 reference year — LEVELS, not an index; the 2020 observation
+  is 50.55): 1970 = 14.86 → 1990 = 33.51 → 2010 = 46.25 → 2025 = 53.02. Annualised
+  growth computed from the archived series: 1970–1990 +4.1% (CAGR 4.149%),
+  1990–2025 +1.3% (1.320%), 2010–2025 +0.9% (0.915%).
 - **Comparability caveats (documented on the site):** GDP per hour worked uses OECD-complied
   national accounts + labour input consistent with SNA 2008; PPP conversion reflects
   price-level differences (not market exchange rates); current-price levels are not

@@ -69,6 +69,9 @@ const WB_NAME_EN: Record<string, string> = {
 };
 
 const oecdYear = String(oecd.latestYear);
+// 2020 observation of the JPN chain-linked volume series (a LEVEL in USD
+// PPP/hour — BASE_PER is the price/PPP reference year, not an index base).
+const vol2020 = r1((oecd.gdpPerHourVolumeJpn as Record<string, number>)["2020"]);
 const oecdCompare = Object.entries(oecd.gdpPerHourCurrent as Record<string, Record<string, number>>)
   .map(([area, years]) => [area, r2(years[oecdYear])] as const)
   .filter(([, v]) => Number.isFinite(v))
@@ -114,8 +117,10 @@ const out = `/**
  * Pair arrays are [year, value]; null = value not published for that year.
  * Units: GDP & household income 兆円 (source 十億円 ÷ 1000); wage indices
  * 2020年平均=100 (growth-chain — see notes/mhlw-summary.md); shares are %;
- * OECD GDP per hour worked is current-price USD PPP; WB per-capita is
- * current int$ PPP.
+ * OECD GDP per hour worked is USD per hour PPP-converted — current prices
+ * for cross-country comparison, chain-linked volume levels (2020 reference
+ * year; 2020 = ${vol2020}, not an index) for the Japan trend; WB per-capita
+ * is current int$ PPP.
  */
 
 /** Nominal GDP (calendar year, 兆円) — ESRI 年次推計 2024, 1994–2024. 1994 = 521.7; 2024 = 634.2. */
@@ -173,7 +178,7 @@ export const OECD_GDP_HOUR_COMPARE: ReadonlyArray<[string, number]> = [\n${oecdC
 export const OECD_COMPARE_YEAR = ${oecdYear};
 export const OECD_COUNTRIES: Record<string, { ja: string; en: string }> = ${countryMapL10n(OECD_NAME_JA, OECD_NAME_EN, OECD_AREAS)};
 
-/** Japan GDP per hour worked, chain-linked volume (2020=100), 1970–${oecdYear} — OECD. */
+/** Japan GDP per hour worked — chain-linked volume LEVELS in USD per hour (PPP-converted, 2020 reference year; 2020 = ${vol2020}, not an index), 1970–${oecdYear} — OECD. */
 export const OECD_JPN_GDP_HOUR_VOLUME: ReadonlyArray<[number, number | null]> = ${pairs(oecd.gdpPerHourVolumeJpn, r1)};
 
 /** Japan GDP per capita, current PPP int$ (WDI) — 1990–${wbYear}. */

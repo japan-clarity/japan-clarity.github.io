@@ -238,12 +238,12 @@ export const chapter02Sources: SourceRecord[] = [
     url: "https://sdmx.oecd.org/public/rest/data/OECD.SDD.TPS,DSD_PDB@DF_PDB,2.0/JPN.A.GDPHRS._T.USD_PPP_H.V.N._Z.PPP?format=csvfilewithlabels",
     sourceLanguage: "en",
     publicationDate: "2026-10-25",
-    referencePeriod: "Current-price levels 1970–2025 by economy; Japan volume series 1970–2025 (2020=100)",
+    referencePeriod: "Current-price levels 1970–2025 by economy; Japan chain-linked volume levels 1970–2025 (USD PPP/hour, 2020 reference year)",
     accessDate: "2026-10-25",
     geographicCoverage: { ja: "OECD加盟12か国＋パートナー（日本・韓国ほか）", en: "12 OECD members and partners (Japan, South Korea, …)" },
     statisticalUnit: {
-      ja: "米ドル/時間（PPP換算・現在価格）、指数（2020年=100・実質）",
-      en: "USD per hour (PPP-converted, current prices); index (2020=100, volume)",
+      ja: "米ドル/時間（PPP換算）。現在価格は国際比較用の水準、連鎖実質（2020年基準）は時間軸比較用の水準系列 — いずれも指数ではない",
+      en: "USD per hour (PPP-converted). Current prices are levels for cross-country comparison; the chain-linked volume series (2020 reference year) is a level series for comparison over time — neither is an index",
     },
     verification: "verified-secondary",
     license: {

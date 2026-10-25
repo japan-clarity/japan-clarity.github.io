@@ -275,8 +275,8 @@ export const chapter02SectionsA: ChapterSection[] = [
       {
         type: "p",
         text: {
-          ja: "日本自身の趨勢を見ると、伸びのパターンが明確に変わっています。OECDの実質系列（連鎖・2020年=100）では、時間当たりGDPは1970年の14.9から1990年の33.5へと年平均+3.8%で上昇しました。しかし1990年から2025年（53.0）までの年平均の伸びは約+1.3%に縮み、さらに2010年（46.3）から2025年までは年平均+0.9%です。2020年（50.5）の一時低下の後は回復していますが、水準の差が短期間に埋まる速度ではありません。",
-          en: "Japan's own trend shows a clear break. In the OECD's volume series (chain-linked, 2020=100), GDP per hour worked rose from 14.9 in 1970 to 33.5 in 1990 — about +3.8% a year. From 1990 to 2025 (53.0) the average slowed to roughly +1.3% a year, and from 2010 (46.3) to 2025 to about +0.9% a year. After the pandemic dip in 2020 (50.5) the series has recovered, but not at a pace that would close level gaps quickly.",
+          ja: "日本自身の趨勢を見ると、伸びのパターンが明確に変わっています。OECDの実質系列（連鎖実質・PPP換算の米ドル/時間による水準・2020年基準）では、時間当たりGDPは1970年の14.9から1990年の33.5へと年平均+4.1%で上昇しました。しかし1990年から2025年（53.0）までの年平均の伸びは約+1.3%に縮み、さらに2010年（46.3）から2025年までは年平均+0.9%です。2020年（50.5）の一時低下の後は回復していますが、水準の差が短期間に埋まる速度ではありません。",
+          en: "Japan's own trend shows a clear break. In the OECD's volume series — chain-linked levels in US dollars per hour (PPP-converted, 2020 reference year) — GDP per hour worked rose from 14.9 in 1970 to 33.5 in 1990, about +4.1% a year. From 1990 to 2025 (53.0) the average slowed to roughly +1.3% a year, and from 2010 (46.3) to 2025 to about +0.9% a year. After the pandemic dip in 2020 (50.5) the series has recovered, but not at a pace that would close level gaps quickly.",
         },
       },
       {

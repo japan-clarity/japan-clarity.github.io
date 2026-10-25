@@ -355,29 +355,29 @@ export const chapter02Charts: ChartSpec[] = [
   {
     id: "ch02-productivity-japan",
     title: {
-      ja: "日本の時間当たりGDPの推移（実質・2020年=100）",
-      en: "Japan's GDP per hour worked, volume series (2020 = 100)",
+      ja: "日本の時間当たりGDPの推移（実質・PPP換算）",
+      en: "Japan's GDP per hour worked, volume series (USD PPP/hour)",
     },
     description: {
-      ja: "OECD生産性統計による日本の時間当たりGDPの実質系列（連鎖・2020年基準）。1970年の14.9から1990年には33.5へと年平均3.8%で上昇したが、1990年から2025年（53.0）までの年平均伸びは約1.0%に半減以下となり、1990年代以降の生産性の伸び悩みを示す。2020年は新型コロナ禍で一時低下（50.5）し、その後回復している。",
-      en: "Japan's real GDP per hour worked (chain-linked, 2020 base) from OECD. It climbed from 14.9 (1970) to 33.5 (1990) — about 3.8% a year — but growth slowed to roughly 1.0% a year between 1990 and 2025 (53.0), illustrating the post-1990 productivity slowdown. The pandemic year 2020 dipped to 50.5 before recovering.",
+      ja: "OECD生産性統計による日本の時間当たりGDPの実質系列（連鎖実質・PPP換算の米ドル/時間による水準・2020年基準）。1970年の14.9から1990年には33.5へと年平均4.1%で上昇したが、1990年から2025年（53.0）までの年平均伸びは約1.3%に半減以下となり、1990年代以降の生産性の伸び悩みを示す。2020年は新型コロナ禍で一時低下（50.5）し、その後回復している。",
+      en: "Japan's real GDP per hour worked from OECD — chain-linked volume levels in PPP-converted US dollars per hour (2020 reference year). It climbed from 14.9 (1970) to 33.5 (1990) — about 4.1% a year — but growth slowed to roughly 1.3% a year between 1990 and 2025 (53.0), illustrating the post-1990 productivity slowdown. The pandemic year 2020 dipped to 50.5 before recovering.",
     },
     years: years(OECD_JPN_GDP_HOUR_VOLUME),
     series: [
       {
         key: "volume",
-        name: { ja: "時間当たりGDP（実質）", en: "GDP per hour worked (volume)" },
+        name: { ja: "時間当たりGDP（実質・連鎖）", en: "GDP per hour worked (chain-linked volume)" },
         values: values(OECD_JPN_GDP_HOUR_VOLUME),
         kind: "line",
       },
     ],
-    unit: { ja: "指数（2020年=100）", en: "index (2020 = 100)" },
+    unit: { ja: "米ドル/時間（PPP・連鎖実質・2020年基準）", en: "USD per hour (PPP, chain-linked volume, 2020 reference year)" },
     valueKind: "float1",
-    yLabel: { ja: "指数（2020年=100）", en: "index (2020=100)" },
+    yLabel: { ja: "米ドル/時間（連鎖実質）", en: "USD per hour (volume)" },
     sourceIds: ["oecd-pdb-2026"],
     note: {
-      ja: "連鎖実質系列（2020年基準）。OECD編集値であり内閣府の国内公表値とは基準・改訂方針が異なる。生産性は個人や職場の努力度ではなく、資本装備・産業構成・労働時間など構造要因を含む macro 指標。",
-      en: "Chain-linked volume series (2020 base). OECD-compiled; benchmarks and revision policy differ from Japan's own publications. Productivity is a macro indicator reflecting capital intensity, industry mix and hours — not a measure of individual effort.",
+      ja: "連鎖実質の水準系列（単位：PPP換算の米ドル/時間）であり、指数ではない。「2020年基準」は価格・PPPの参照年を示し、2020年の観測値は100ではなく50.5である。参照価格が異なるため、現在価格の水準（別図・2025年は61.8）とも直接は比較できない。OECD編集値であり内閣府の国内公表値とは基準・改訂方針が異なる。生産性は個人や職場の努力度ではなく、資本装備・産業構成・労働時間など構造要因を含む macro 指標。",
+      en: "A chain-linked volume level series in PPP-converted US dollars per hour — not an index. The 2020 reference year fixes the price/PPP base; the 2020 observation is 50.5, not 100. Because the reference prices differ, levels are not directly comparable with the current-price chart (61.8 in 2025). OECD-compiled; benchmarks and revision policy differ from Japan's own publications. Productivity is a macro indicator reflecting capital intensity, industry mix and hours — not a measure of individual effort.",
     },
     rangeFilter: true,
   },
