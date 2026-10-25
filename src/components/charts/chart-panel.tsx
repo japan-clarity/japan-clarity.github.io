@@ -77,7 +77,7 @@ export function ChartPanel({
                 onClick={() => showRange(undefined)}
                 aria-pressed={rangeFrom === undefined}
                 className={`rounded-md px-2.5 py-1 text-[11px] font-medium ${
-                  rangeFrom === undefined ? "bg-teal text-[#0F141A]" : "text-muted-foreground hover:text-foreground"
+                  rangeFrom === undefined ? "bg-teal text-primary-foreground" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {t.allYears}
@@ -89,7 +89,7 @@ export function ChartPanel({
                   onClick={() => showRange(year)}
                   aria-pressed={rangeFrom === year}
                   className={`rounded-md px-2.5 py-1 text-[11px] font-medium ${
-                    rangeFrom === year ? "bg-teal text-[#0F141A]" : "text-muted-foreground hover:text-foreground"
+                    rangeFrom === year ? "bg-teal text-primary-foreground" : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {locale === "ja" ? `${year}年以降` : t.fromYear.replace("{year}", String(year))}

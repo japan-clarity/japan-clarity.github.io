@@ -59,7 +59,7 @@ export default async function HomePage({ params }: PageParams) {
   return (
     <div className="flex flex-col">
       {/* Hero */}
-      <section className="border-b border-border bg-gradient-to-b from-[#131A22] to-[#0F141A]">
+      <section className="border-b border-border bg-block/60">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div className="rise-in">
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-teal">
@@ -85,7 +85,7 @@ export default async function HomePage({ params }: PageParams) {
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               {firstPublished ? (
-                <Button asChild className="bg-teal text-[#0F141A] hover:bg-teal/90">
+                <Button asChild className="bg-teal text-primary-foreground hover:bg-teal/90">
                   <Link href={localePath(locale, `chapters/${firstPublished.meta.slug}`)}>
                     {home.ctaRead}
                     <ArrowRight className="ml-1.5 h-4 w-4" aria-hidden />

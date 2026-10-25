@@ -31,7 +31,7 @@ const indexHtml = `<!DOCTYPE html>
 <meta http-equiv="refresh" content="0;url=/ja/">
 <link rel="canonical" href="/ja/">
 <title>Japan Clarity — ジャパン・クラリティ</title>
-<style>body{background:#0F141A;color:#C7D1DA;font-family:system-ui,sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0}main{font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;text-align:center;padding:2rem}a{color:#6FA3A8}</style>
+<style>body{background:#F6F2EA;color:#5C5A57;font-family:system-ui,sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0}main{font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;text-align:center;padding:2rem}a{color:#4E685E}</style>
 </head>
 <body>
 <main>
@@ -49,7 +49,7 @@ const notFoundHtml = `<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>404 — Japan Clarity / ジャパン・クラリティ</title>
-<style>body{background:#0F141A;color:#C7D1DA;font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0}main{text-align:center;padding:2rem;max-width:32rem}a{color:#6FA3A8}h1{color:#E8EEF3;font-size:1.25rem;margin:0 0 1rem}</style>
+<style>body{background:#F6F2EA;color:#5C5A57;font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0}main{text-align:center;padding:2rem;max-width:32rem}a{color:#4E685E}h1{color:#2B2B2B;font-size:1.25rem;margin:0 0 1rem}</style>
 </head>
 <body>
 <main>

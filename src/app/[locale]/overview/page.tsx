@@ -50,7 +50,7 @@ export default async function OverviewPage({ params }: PageParams) {
 
   return (
     <div>
-      <header className="border-b border-border bg-gradient-to-b from-[#131A22] to-[#0F141A]">
+      <header className="border-b border-border bg-block/60">
         <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
           <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-teal">
             {getUI(locale).nav.overview}

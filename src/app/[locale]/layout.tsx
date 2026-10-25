@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Noto_Serif_JP } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { isLocale, locales, localeMeta, type Locale } from "@/lib/i18n/locales";
 import { getUI } from "@/lib/i18n/dictionary";
@@ -14,6 +15,23 @@ import "@/app/globals.css";
  * correct `<html lang>` — no server middleware, fully GitHub Pages
  * compatible. See docs/ARCHITECTURE.md for the routing tradeoffs.
  */
+
+/*
+ * Japanese museum editorial typography (docs/MUSEUM-LIGHT-THEME.md):
+ * - Noto Serif JP (400/600), self-hosted at build time via next/font
+ *   (SIL OFL 1.1), for high-level editorial headings only — the Mincho
+ *   editorial voice, with per-glyph unicode-range subsetting so browsers
+ *   fetch only the small slices a page's headings actually use.
+ * - Body, UI, charts, buttons and tables use the verified-license Japanese
+ *   system sans stack in globals.css (Hiragino/Yu Gothic/Meiryo/Noto Sans
+ *   CJK on Android & Linux) — zero font download, per the spec's
+ *   "suitable Japanese system sans" option.
+ */
+const notoSerifJP = Noto_Serif_JP({
+  variable: "--font-noto-serif-jp",
+  weight: ["400", "600"],
+  display: "swap",
+});
 
 interface LayoutParams {
   params: Promise<{ locale: string }>;
@@ -83,7 +101,9 @@ export default async function LocaleLayout({
 
   return (
     <html lang={localeMeta[locale].htmlLang} suppressHydrationWarning>
-      <body className="flex min-h-screen flex-col bg-background font-sans text-foreground antialiased">
+      <body
+        className={`${notoSerifJP.variable} flex min-h-screen flex-col bg-background font-sans text-foreground antialiased`}
+      >
         <a href="#content" className="skip-link">
           {ui.nav.skipToContent}
         </a>

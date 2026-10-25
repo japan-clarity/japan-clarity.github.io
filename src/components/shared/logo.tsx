@@ -21,12 +21,12 @@ export function LogoMark({ className = "h-8 w-8" }: { className?: string }) {
         width="29"
         height="29"
         rx="7"
-        stroke="#2A3642"
+        stroke="#A99B87"
         strokeWidth="1.5"
       />
-      <line x1="8.5" y1="21.5" x2="8.5" y2="23.5" stroke="#7F93A6" strokeWidth="2.6" strokeLinecap="round" />
-      <line x1="15" y1="16" x2="15" y2="23.5" stroke="#C8B38E" strokeWidth="2.6" strokeLinecap="round" />
-      <line x1="21.5" y1="9.5" x2="21.5" y2="23.5" stroke="#6FA3A8" strokeWidth="2.6" strokeLinecap="round" />
+      <line x1="8.5" y1="21.5" x2="8.5" y2="23.5" stroke="#6C7B8B" strokeWidth="2.6" strokeLinecap="round" />
+      <line x1="15" y1="16" x2="15" y2="23.5" stroke="#B89A6A" strokeWidth="2.6" strokeLinecap="round" />
+      <line x1="21.5" y1="9.5" x2="21.5" y2="23.5" stroke="#4E685E" strokeWidth="2.6" strokeLinecap="round" />
     </svg>
   );
 }

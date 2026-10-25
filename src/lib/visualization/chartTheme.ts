@@ -5,9 +5,9 @@ import { formatValue, formatYearLabel } from "./format";
 /**
  * Shared ECharts option builder for Japan Clarity.
  *
- * Design rules (specification section 13):
- * - muted, politically neutral chart colors; never color alone (tables,
- *   line styles and markers provide alternatives)
+ * Design rules (specification section 13, museum light theme):
+ * - muted, politically neutral chart colors on paper-white panels; never
+ *   color alone (tables, line styles and markers provide alternatives)
  * - axis tooltips with units, confine within the canvas (mobile safe)
  * - no data smoothing: straight segments, symbols visible on sparse series
  * - projections render as dashed lines
@@ -16,23 +16,28 @@ import { formatValue, formatYearLabel } from "./format";
  * option objects (formatters are closures, never serialized).
  */
 
-/** Muted series palette — calm neutrals, no single high-saturation symbolic color. */
+/**
+ * Muted series palette for the light (paper) theme — celadon, kuchiba gold,
+ * blue-grey, russet and light celadon. Every color clears WCAG 1.4.11
+ * 3:1 against the #FFFCF7 paper panel background (see
+ * docs/MUSEUM-LIGHT-THEME.md for the contrast table).
+ */
 export const seriesPalette = [
-  "#6FA3A8", // muted teal
-  "#C8B38E", // soft sand
-  "#7F93A6", // dusty blue grey
-  "#A39283", // muted clay
-  "#8FA6B5", // pale steel
-  "#93A1AE", // grey blue
-  "#C7D1DA", // cool light grey
+  "#4E685E", // interactive celadon (primary series)
+  "#96784A", // kuchiba gold (chart strength)
+  "#6C7B8B", // muted blue grey
+  "#9C5F50", // muted russet
+  "#7B948C", // decorative light celadon
+  "#7A7265", // warm olive grey
+  "#8C8274", // warm stone grey
 ] as const;
 
-export const axisLabelColor = "#93A1AE";
-export const splitLineColor = "#22303E";
-export const axisLineColor = "#2A3642";
-export const tooltipBg = "#151C24";
-export const tooltipBorder = "#2A3642";
-export const tooltipTextColor = "#C7D1DA";
+export const axisLabelColor = "#5C5A57";
+export const splitLineColor = "#E7DED1";
+export const axisLineColor = "#CFC6B8";
+export const tooltipBg = "#2B2B2B";
+export const tooltipBorder = "#5C5A57";
+export const tooltipTextColor = "#F6F2EA";
 
 export interface RangeFilter {
   fromYear?: number;
@@ -93,7 +98,7 @@ export function buildChartOption(
         color,
         type: s.dashed ? "dashed" : "solid",
       },
-      itemStyle: { color, borderColor: "#0F141A", borderWidth: 1 },
+      itemStyle: { color, borderColor: "#FFFCF7", borderWidth: 1 },
       symbol: "circle",
       symbolSize: spec.years.length <= 32 ? 6 : 0,
       showSymbol: spec.years.length <= 32,
@@ -175,11 +180,11 @@ export function buildChartOption(
             icon: "roundRect",
             itemWidth: 14,
             itemHeight: 6,
-            textStyle: { color: "#93A1AE", fontSize: 12 },
-            inactiveColor: "#3A4956",
+            textStyle: { color: "#5C5A57", fontSize: 12 },
+            inactiveColor: "#CFC6B8",
             type: "scroll",
-            pageIconColor: "#6FA3A8",
-            pageTextStyle: { color: "#93A1AE" },
+            pageIconColor: "#4E685E",
+            pageTextStyle: { color: "#5C5A57" },
           },
         }
       : {}),

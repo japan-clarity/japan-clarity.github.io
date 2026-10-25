@@ -46,7 +46,7 @@ export function LanguageSwitch({ locale, compact = false }: { locale: Locale; co
               compact ? "min-w-[52px] text-center" : "min-w-[64px] text-center"
             } ${
               active
-                ? "bg-teal text-[#0F141A]"
+                ? "bg-teal text-primary-foreground"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >

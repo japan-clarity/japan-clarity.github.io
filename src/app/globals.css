@@ -4,20 +4,30 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Japan Clarity — dark, calm, neutral design system (specification section 5).
+ * Japan Clarity — Japanese museum editorial LIGHT design system
+ * (Scheme A: Washi White × Celadon × Kuchiba Gold).
  *
- * Deep Charcoal  #0F141A  main background
- * Slate Dark     #151C24  secondary background / cards
- * Muted Slate    #1B2530  reading-section background
- * Soft Off-White #E8EEF3  main headings
- * Cool Light Grey#C7D1DA  body text
- * Muted Grey Blue#93A1AE  secondary text
- * Dark Border    #2A3642  dividers
- * Muted Teal     #6FA3A8  primary accent (controls, links, data series 1)
- * Soft Sand      #C8B38E  secondary accent (data series 2)
- * Dusty Blue Grey#7F93A6  supporting accent (data series 3)
+ * Reference palette (docs/MUSEUM-LIGHT-THEME.md):
+ *   Washi White        #F6F2EA   main page background (--surface-page)
+ *   Natural White      #EEE7DC   secondary background / cards (--surface-muted)
+ *   Stronger surface   #E7DED1   section surface / hover wash (--surface-section)
+ *   Reading paper      #FFFCF7   chart & reading panels (--surface-paper)
+ *   Ink                #2B2B2B   primary text (--text-primary)
+ *   Secondary ink      #5C5A57   secondary text (--text-secondary)
+ *   Subtle rule        #CFC6B8   decorative rules (--border-subtle)
+ *   Decorative celadon #7B948C   decorative accent / chart series 5 (--accent-celadon)
+ *   Interactive celadon#4E685E   interactive accent / links / series 1 (--accent-interactive;
+ *                                 spec starting value #526F64, darkened one step so all
+ *                                 small text clears WCAG AA 4.5:1 on every section surface)
+ *   Kuchiba gold       #B89A6A   decorative identity accent (--accent-gold);
+ *                                 text-safe gold #735C38 (--sand) and chart gold #96784A
+ *                                 are documented WCAG adjustments
+ *   Chart blue-grey    #6C7B8B   chart series 3 (--chart-bluegrey; text-safe variant
+ *                                 #54626F for small labels)
  *
- * The site is intentionally dark-only; light mode is not offered.
+ * The site is intentionally light-only; dark mode is not offered.
+ * Surfaces are flat — no gradients, no heavy shadows; structure comes from
+ * fine rules and subtle paper-tone steps (page → wash → muted → paper).
  */
 @theme inline {
   --color-background: var(--background);
@@ -60,54 +70,56 @@
 :root {
   --radius: 0.5rem;
 
-  --background: #0f141a;
-  --foreground: #c7d1da;
-  --heading: #e8eef3;
-  --surface: #151c24;
-  --block: #1b2530;
-  --teal: #6fa3a8;
-  --sand: #c8b38e;
-  --bluegrey: #7f93a6;
+  /* --- Spec-named Scheme A tokens (reference aliases) --- */
+  --surface-page: #f6f2ea;
+  --surface-muted: #eee7dc;
+  --surface-section: #e7ded1;
+  --surface-paper: #fffcf7;
+  --text-primary: #2b2b2b;
+  --text-secondary: #5c5a57;
+  --border-subtle: #cfc6b8;
+  --accent-celadon: #7b948c;
+  --accent-interactive: #4e685e;
+  --accent-gold: #b89a6a;
+  --chart-bluegrey: #6c7b8b;
 
-  --card: #151c24;
-  --card-foreground: #c7d1da;
-  --popover: #151c24;
-  --popover-foreground: #c7d1da;
-  --primary: #6fa3a8;
-  --primary-foreground: #0f141a;
-  --secondary: #1b2530;
-  --secondary-foreground: #e8eef3;
-  --muted: #1b2530;
-  --muted-foreground: #93a1ae;
-  --accent: #22303e;
-  --accent-foreground: #e8eef3;
-  --destructive: #c08a8a;
-  --border: #2a3642;
-  --input: #2a3642;
-  --ring: #6fa3a8;
+  /* --- Semantic slots consumed by Tailwind/shadcn tokens --- */
+  --background: #f6f2ea;
+  --foreground: #2b2b2b;
+  --heading: #2b2b2b;
+  --surface: #fffcf7;
+  --block: #eee7dc;
+  --teal: #4e685e; /* interactive celadon (text-safe) */
+  --sand: #735c38; /* text-safe kuchiba gold (documented adjustment) */
+  --bluegrey: #54626f; /* text-safe blue-grey (documented adjustment) */
 
-  --chart-1: #6fa3a8;
-  --chart-2: #c8b38e;
-  --chart-3: #7f93a6;
-  --chart-4: #a39283;
-  --chart-5: #8fa6b5;
+  --card: #fffcf7;
+  --card-foreground: #2b2b2b;
+  --popover: #fffcf7;
+  --popover-foreground: #2b2b2b;
+  --primary: #4e685e;
+  --primary-foreground: #fffcf7;
+  --secondary: #e7ded1;
+  --secondary-foreground: #2b2b2b;
+  --muted: #eee7dc;
+  --muted-foreground: #5c5a57;
+  --accent: #e7ded1;
+  --accent-foreground: #2b2b2b;
+  --destructive: #9e4a44;
+  --border: #cfc6b8;
+  --input: #a99b87;
+  --ring: #4e685e;
 
-  /*
-   * System font stacks (no external font downloads):
-   * Japanese-optimized sans (Gothic) for UI/body and Mincho (serif) for
-   * editorial headings — verified-license system fonts only.
-   */
-  --font-sans-stack:
-    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Yu Gothic",
-    "Noto Sans JP", Meiryo, sans-serif;
-  --font-serif-stack:
-    "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia,
-    "Times New Roman", serif;
+  /* Chart series: celadon, kuchiba gold, blue-grey, russet, light celadon */
+  --chart-1: #4e685e;
+  --chart-2: #96784a;
+  --chart-3: #6c7b8b;
+  --chart-4: #9c5f50;
+  --chart-5: #7b948c;
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
   scroll-behavior: smooth;
   background-color: var(--background);
 }
@@ -118,6 +130,25 @@ body {
   font-family: var(--font-sans-stack);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+
+  /*
+   * Typography (Japanese museum editorial) — declared on body (not :root)
+   * because the next/font CSS variable (--font-noto-serif-jp) is attached
+   * to <body> via className; custom-property substitution must therefore
+   * happen in body scope for the chain to resolve.
+   *
+   * Noto Serif JP (self-hosted via next/font, SIL OFL 1.1) for high-level
+   * editorial headings; a verified-license Japanese system sans (Gothic)
+   * serves body, UI, charts, buttons and tables — zero body-font download,
+   * per the spec's "suitable Japanese system sans" option.
+   */
+  --font-sans-stack:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Yu Gothic",
+    "Noto Sans JP", Meiryo, sans-serif;
+  --font-serif-stack:
+    var(--font-noto-serif-jp), "Hiragino Mincho ProN", "Yu Mincho", Georgia,
+    "Times New Roman", serif;
 }
 
 /* Focus visibility (WCAG 2.2 AA) */
@@ -127,14 +158,14 @@ body {
 }
 
 ::selection {
-  background: rgba(111, 163, 168, 0.32);
-  color: #e8eef3;
+  background: rgba(78, 104, 94, 0.22);
+  color: #2b2b2b;
 }
 
 /* Custom scrollbars */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #2a3642 transparent;
+  scrollbar-color: #cfc6b8 transparent;
 }
 ::-webkit-scrollbar {
   width: 8px;
@@ -144,11 +175,11 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a3642;
+  background: #cfc6b8;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3a4956;
+  background: #a99b87;
 }
 
 /* Reduced motion */

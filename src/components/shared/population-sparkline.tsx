@@ -43,23 +43,23 @@ export function PopulationSparkline({ locale }: { locale: Locale }) {
           : "Japan's total population grew from 55.96 million in 1920 to a peak of 128.06 million in 2010, then declined to 122.97 million by 2025."
       }
     >
-      <path d={areaPath} fill="#6FA3A8" opacity="0.1" />
-      <path d={linePath} fill="none" stroke="#6FA3A8" strokeWidth="2.2" strokeLinejoin="round" />
-      <circle cx={x(years[peakIndex])} cy={y(maxY)} r="3.4" fill="#C8B38E" />
-      <circle cx={x(last[0])} cy={y(last[1] as number)} r="3.4" fill="#6FA3A8" />
-      <text x={x(years[0])} y={height - 6} textAnchor="start" fontSize="10" fill="#93A1AE">
+      <path d={areaPath} fill="#4E685E" opacity="0.12" />
+      <path d={linePath} fill="none" stroke="#4E685E" strokeWidth="2.2" strokeLinejoin="round" />
+      <circle cx={x(years[peakIndex])} cy={y(maxY)} r="3.4" fill="#96784A" />
+      <circle cx={x(last[0])} cy={y(last[1] as number)} r="3.4" fill="#4E685E" />
+      <text x={x(years[0])} y={height - 6} textAnchor="start" fontSize="10" fill="#5C5A57">
         1920
       </text>
-      <text x={x(years[peakIndex])} y={height - 6} textAnchor="middle" fontSize="10" fill="#C8B38E">
+      <text x={x(years[peakIndex])} y={height - 6} textAnchor="middle" fontSize="10" fill="#735C38">
         {locale === "ja" ? "ピーク 2010" : "peak 2010"}
       </text>
-      <text x={width - padding.right} y={height - 6} textAnchor="end" fontSize="10" fill="#93A1AE">
+      <text x={width - padding.right} y={height - 6} textAnchor="end" fontSize="10" fill="#5C5A57">
         2025
       </text>
-      <text x={x(years[peakIndex])} y={y(maxY) - 8} textAnchor="middle" fontSize="10.5" fill="#C8B38E">
+      <text x={x(years[peakIndex])} y={y(maxY) - 8} textAnchor="middle" fontSize="10.5" fill="#735C38">
         {formatValue(maxY, "int", locale)}
       </text>
-      <text x={x(last[0]) - 4} y={y(last[1] as number) + 16} textAnchor="end" fontSize="10.5" fill="#6FA3A8">
+      <text x={x(last[0]) - 4} y={y(last[1] as number) + 16} textAnchor="end" fontSize="10.5" fill="#4E685E">
         {formatValue(last[1] as number, "int", locale)}
       </text>
     </svg>
