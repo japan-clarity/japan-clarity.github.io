@@ -213,3 +213,80 @@ published with disclosed limitations; pre-publication remediation applied
 - Data drift is detected automatically: `bun run validate:research` compares
   the generated module against `extracted-series.json` by content hash.
 - The shared agent worklog is `worklog.md` (workspace-only, not committed).
+
+---
+
+## Chapter 02 checkpoint (2026-10-25) — feature/chapter-02-economy-industry
+
+**State:** Chapter 02 (Economy & Industry / 経済・産業) fully implemented, verified, and
+committed locally on `feature/chapter-02-economy-industry` (based on `origin/main`
+= 9a9aad1, the merged museum light-theme PR #1). NOT pushed; awaiting owner review.
+
+**Worktree:** `/home/z/jc-ch02` (the main sandbox checkout `/home/z/my-project` stays on
+`main`; the previous design worktree `/home/z/jc-design` is no longer used for dev).
+Dev server runs from `/home/z/jc-ch02` on port 3000.
+
+**Commits (this branch):**
+1. `feat(ch02): evidence-verified Chapter 02 — Economy & Industry (JA/EN)` — research
+   assets, extraction pipeline, chapter module, wiring, validation extensions.
+2. (subsequent) screenshots + docs + recovery checkpoint — see `git log`.
+
+**Data/research pipeline (all reproducible):**
+- Raw evidence: `research/chapter02/raw/{esri,mhlw,statb,oecd,worldbank}/`
+  (NOT committed except WB JSONs + OECD CSVs — see `research/DATA-LICENSES.md`).
+- Extraction: `python3 research/chapter02/scripts/extract-series.py`
+  → `research/chapter02/notes/extracted-series.json` (107 anchor checks).
+- Codegen: `bun run scripts/generate-chapter-02-data.ts`
+  → `src/chapters/chapter-02/data.ts` (snapshot hash in file header).
+- Validation: `bun run validate:research` (513 checks; ch02 data-agreement = section [4b]).
+
+**Gates at checkpoint:** tsc 0 errors · eslint clean · validate:research 513/0 ·
+export:static OK · verify:export 65/0 · browser acceptance complete (both locales,
+320–1440px, chart↔table ×3 on ch01+ch02, tooltips, range filter, CSV, 404, footer) ·
+Chapter 01 zero-diff proven (`git diff origin/main -- src/chapters/chapter-01/
+research/chapter01/ src/lib/research/` = empty).
+
+**Key methodology decisions (documented on-site):**
+- MHLW wage indices are growth-chains from published YoY (2020=100), excluding the
+  documented Jan-2024 benchmark-update level jump (+2.6%) — see notes/mhlw-summary.md.
+- Industry 3-sector shares derived from the 16-activity classification, verified
+  against printed 経済活動計 totals.
+- R&D ratio chain crosses GDP vintages at FY2014→15 (disclosed in chart note).
+
+**Next safe actions for the owner:**
+```bash
+cd "/c/Users/guest177/Documents/GitHub/japan-clarity.github.io"
+git fetch origin
+git log --stat feature/chapter-02-economy-industry   # after branch transfer (bundle)
+# review, then:
+git push origin feature/chapter-02-economy-industry
+# open: https://github.com/japan-clarity/japan-clarity.github.io/pull/new/feature/chapter-02-economy-industry
+```
+Do NOT merge before CI runs on the PR and the diff review is complete.
+
+**Restart notes:** if the sandbox resets, re-create the worktree
+`git worktree add /home/z/jc-ch02 feature/chapter-02-economy-industry`, hardlink-copy
+`node_modules` from another worktree (bun rejects cross-root symlinks), and restart
+`bun run dev` from the worktree. Re-run the three commands above to re-verify.
+
+---
+
+## Recovery checkpoint — Chapter 02 audit remediation (2026-10-25)
+
+State: `feature/chapter-02-economy-industry` = 637688e (published PR tip, fetched and
+verified identical to origin) **+ 2 corrective commits** (audit remediation; see
+`docs/REMEDIATION-CH02-AUDIT.md`). Nothing pushed; the owner transfers the new
+commits from the refreshed bundle and pushes to the EXISTING PR branch (fast-forward,
+no force). Remediated state re-verified: extraction 107/0 (md5-identical output),
+validate:research 523/0 (new [4c] OECD unit-metadata guards, negative-tested),
+tsc/eslint clean, export 65/0, browser re-acceptance, Chapter 01 zero-diff.
+
+Recovery bundle (full branch history including the corrective commits):
+`/home/z/chapter-02-economy-industry-remediated.bundle` — verify with
+`git bundle verify`, then in the origin clone:
+`git fetch /path/to/chapter-02-economy-industry-remediated.bundle feature/chapter-02-economy-industry:audit-remediation`
+and fast-forward/merge into `feature/chapter-02-economy-industry` before pushing.
+If the sandbox resets: re-create worktree `git worktree add /home/z/jc-ch02
+feature/chapter-02-economy-industry`, hardlink-copy `node_modules`, `bun install`,
+`bun run dev`, and re-run `bun run validate:research && bun run typecheck &&
+bun run lint && bun run export:static && bun run verify:export`.

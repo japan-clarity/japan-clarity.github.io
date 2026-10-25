@@ -86,9 +86,21 @@ const ch01en = readFileSync(resolve(OUT, "en", "chapters", "population-family", 
 ok("chapter 01 (en) contains chart panels", ch01en.includes("figure-ch01-births-deaths"));
 ok("chapter 01 (en) contains limitations section", ch01en.includes("Limitations and caveats"));
 
-// Placeholder chapters are clearly marked as unpublished.
+// Chapter 02 is now published (economy & industry) — assert real content.
 const ch02ja = readFileSync(resolve(OUT, "ja", "chapters", "economy-industry", "index.html"), "utf-8");
-ok("chapter 02 (ja) marked not published", ch02ja.includes("この章はまだ公開されていません"));
+ok("chapter 02 (ja) contains chart panels", ch02ja.includes("figure-ch02-gdp-levels") && ch02ja.includes("figure-ch02-wages"));
+ok("chapter 02 (ja) contains verified figure (2024 nominal GDP)", ch02ja.includes("634.2"));
+ok("chapter 02 (ja) contains source attribution", ch02ja.includes("内閣府") && ch02ja.includes("厚生労働省") && ch02ja.includes("OECD"));
+ok("chapter 02 (ja) contains limitations section", ch02ja.includes("限界と留意点"));
+ok("chapter 02 (ja) no longer shows the unpublished placeholder", !ch02ja.includes("この章はまだ公開されていません"));
+const ch02en = readFileSync(resolve(OUT, "en", "chapters", "economy-industry", "index.html"), "utf-8");
+ok("chapter 02 (en) contains chart panels", ch02en.includes("figure-ch02-gdp-levels") && ch02en.includes("figure-ch02-wages"));
+ok("chapter 02 (en) contains limitations section", ch02en.includes("Limitations and caveats"));
+ok("chapter 02 (en) contains the long title", ch02en.includes("Understanding Japan's Economy and Industrial Structure"));
+
+// Placeholder chapters (03+) are still clearly marked as unpublished.
+const ch03ja = readFileSync(resolve(OUT, "ja", "chapters", "housing-cost-of-living", "index.html"), "utf-8");
+ok("chapter 03 (ja) still marked not published", ch03ja.includes("この章はまだ公開されていません"));
 
 // Metadata routes.
 ok(".build-export/sitemap.xml exists", existsSync(resolve(OUT, "sitemap.xml")));
