@@ -347,6 +347,132 @@ const hash2 = createHash("sha256").update(readFileSync(extraction2Path)).digest(
 ok("ch02 dataset snapshot hash unchanged", hash2 === CH02_SNAPSHOT_HASH, `${hash2} vs ${CH02_SNAPSHOT_HASH}`);
 
 // ---------------------------------------------------------------------------
+// 4c. OECD unit-metadata regression (chapter 02) — 2026-10 independent-audit
+//     remediation. The archived OECD GDPHRS volume series is chain-linked
+//     LEVELS in PPP-converted US dollars per hour with a 2020 reference year
+//     (PRICE_BASE=LR, BASE_PER=2020, TRANSFORMATION=N, UNIT_MULT=0). It is
+//     NOT an index rebased to 2020 = 100 — the 2020 observation is 50.5.
+//     These checks fail if a future edit reintroduces an index-style label.
+//     (The regex never matches the legitimate wage "2020年平均=100" /
+//     "2020 avg = 100" or deflator "2020暦年=100" / "CY2020 = 100" indices.)
+// ---------------------------------------------------------------------------
+console.log("\n[4c] OECD unit metadata (chapter 02 productivity series)");
+
+function splitCsvLine(line: string): string[] {
+  const fields: string[] = [];
+  let cur = "";
+  let quoted = false;
+  for (const ch of line) {
+    if (ch === '"') quoted = !quoted;
+    else if (ch === "," && !quoted) { fields.push(cur); cur = ""; }
+    else cur += ch;
+  }
+  fields.push(cur);
+  return fields;
+}
+
+const oecdVolumeAll = readFileSync(
+  resolve(ROOT, "research/chapter02/raw/oecd/oecd-gdphrs-ppp-volume.csv"), "utf-8",
+).split(/\r?\n/).filter((l) => l.length > 0);
+const oecdHeader = splitCsvLine(oecdVolumeAll[0] ?? "");
+const oecdVolumeRows = oecdVolumeAll.filter((l) => l.startsWith("DATAFLOW"));
+const oCol = (name: string) => oecdHeader.indexOf(name);
+const oc = {
+  ref: oCol("REF_AREA"), year: oCol("TIME_PERIOD"), val: oCol("OBS_VALUE"),
+  measure: oCol("MEASURE"), unit: oCol("UNIT_MEASURE"), price: oCol("PRICE_BASE"),
+  trans: oCol("TRANSFORMATION"), base: oCol("BASE_PER"), mult: oCol("UNIT_MULT"),
+};
+let oecdMetaBad = 0;
+const jpnVolumeRaw: Record<string, number> = {};
+for (const line of oecdVolumeRows.slice(1)) {
+  const r = splitCsvLine(line);
+  if (r[oc.ref] !== "JPN") continue;
+  jpnVolumeRaw[r[oc.year]] = Number(r[oc.val]);
+  if (r[oc.measure] !== "GDPHRS" || r[oc.unit] !== "USD_PPP_H" || r[oc.price] !== "LR" ||
+    r[oc.trans] !== "N" || r[oc.base] !== "2020" || r[oc.mult] !== "0") oecdMetaBad += 1;
+}
+ok("ch02 oecd metadata: archived JPN rows are GDPHRS/USD_PPP_H/LR/BASE_PER=2020 (untransformed levels)",
+  oecdMetaBad === 0 && Object.keys(jpnVolumeRaw).length >= 50,
+  `${oecdMetaBad} bad of ${Object.keys(jpnVolumeRaw).length} rows`);
+ok("ch02 oecd metadata: 2020 observation is a level (50.545 USD/hour), not index 100",
+  Math.abs((jpnVolumeRaw["2020"] ?? 0) - 50.545109638) < 0.001, `2020 = ${jpnVolumeRaw["2020"]}`);
+const vol2020 = OECD_JPN_GDP_HOUR_VOLUME.find(([y]) => y === 2020)?.[1] ?? null;
+const vol2025 = OECD_JPN_GDP_HOUR_VOLUME.find(([y]) => y === 2025)?.[1] ?? null;
+ok("ch02 oecd metadata: generated module carries OECD levels (2020 = 50.5, 2025 = 53.0)",
+  vol2020 === 50.5 && vol2025 === 53, `2020 = ${vol2020}, 2025 = ${vol2025}`);
+
+const INDEX_MISLABEL = /2020\s*年?\s*=\s*100/;
+const { chapter02 } = await import("../src/chapters/chapter-02/index");
+const productivityChart = chapter02.charts.find((c) => c.id === "ch02-productivity-japan");
+const oecdSource = chapter02.sources.find((s) => s.id === "oecd-pdb-2026");
+ok("ch02 oecd labels: productivity chart surfaces never carry an index (2020=100) label",
+  productivityChart
+    ? [productivityChart.title, productivityChart.description, productivityChart.unit,
+      productivityChart.yLabel ?? productivityChart.unit, productivityChart.note,
+      ...productivityChart.series.map((s) => s.name)]
+      .every((t) => !INDEX_MISLABEL.test(`${t.ja} ${t.en}`))
+    : false,
+  productivityChart ? "" : "chart ch02-productivity-japan missing");
+ok("ch02 oecd labels: productivity chart unit states USD-per-hour levels (no index wording)",
+  productivityChart
+    ? productivityChart.unit.ja.includes("米ドル/時間") &&
+      productivityChart.unit.en.includes("USD per hour") &&
+      !productivityChart.unit.ja.includes("指数") &&
+      !productivityChart.unit.en.toLowerCase().includes("index")
+    : false);
+ok("ch02 oecd labels: source register oecd-pdb-2026 describes USD/hour units (no index mislabel)",
+  oecdSource
+    ? !INDEX_MISLABEL.test(oecdSource.referencePeriod) &&
+      !INDEX_MISLABEL.test(`${oecdSource.statisticalUnit.ja} ${oecdSource.statisticalUnit.en}`) &&
+      oecdSource.statisticalUnit.en.includes("USD per hour")
+    : false,
+  oecdSource ? "" : "source oecd-pdb-2026 missing");
+
+// Growth-rate statements must match CAGRs recomputed from the module series.
+const volMap = new Map<number, number | null>(
+  OECD_JPN_GDP_HOUR_VOLUME.map(([y, v]) => [y as number, v] as [number, number | null]),
+);
+const cagrOf = (y0: number, y1: number): number => {
+  const a = volMap.get(y0);
+  const b = volMap.get(y1);
+  return a != null && b != null ? (b / a) ** (1 / (y1 - y0)) - 1 : Number.NaN;
+};
+const g7090 = cagrOf(1970, 1990);
+const g9025 = cagrOf(1990, 2025);
+const g1025 = cagrOf(2010, 2025);
+ok("ch02 oecd growth: CAGRs from archived levels — 1970–90 ≈ 4.1%, 1990–2025 ≈ 1.3%, 2010–25 ≈ 0.9%",
+  Math.abs(g7090 - 0.04149) < 0.001 && Math.abs(g9025 - 0.0132) < 0.001 && Math.abs(g1025 - 0.00915) < 0.001,
+  `${(g7090 * 100).toFixed(3)}% / ${(g9025 * 100).toFixed(3)}% / ${(g1025 * 100).toFixed(3)}%`);
+ok("ch02 oecd growth: chart text states the audited rates (4.1% and 1.3%), not stale 3.8%/1.0%",
+  productivityChart
+    ? /4\.1%/.test(productivityChart.description.ja) &&
+      /4\.1%/.test(productivityChart.description.en) &&
+      /1\.3%/.test(productivityChart.description.ja) &&
+      /1\.3%/.test(productivityChart.description.en) &&
+      !/3\.8%|1\.0%/.test(`${productivityChart.description.ja}${productivityChart.description.en}`)
+    : false);
+
+// Any chapter-02 narrative that mentions OECD must not describe the volume
+// series as an index or carry the stale 1970–90 productivity rate.
+function collectStrings(node: unknown, out: string[]): void {
+  if (typeof node === "string") out.push(node);
+  else if (Array.isArray(node)) for (const n of node) collectStrings(n, out);
+  else if (node && typeof node === "object") {
+    for (const v of Object.values(node as Record<string, unknown>)) collectStrings(v, out);
+  }
+}
+const ch02NarrativeStrings: string[] = [];
+collectStrings(chapter02.sections, ch02NarrativeStrings);
+collectStrings(chapter02.limitations, ch02NarrativeStrings);
+const oecdNarratives = ch02NarrativeStrings.filter((t) => t.includes("OECD"));
+ok("ch02 oecd labels: no narrative text describing the OECD series as an index (2020=100)",
+  oecdNarratives.every((t) => !INDEX_MISLABEL.test(t)),
+  oecdNarratives.filter((t) => INDEX_MISLABEL.test(t)).slice(0, 1).join(" "));
+ok("ch02 oecd growth: no OECD narrative carrying the stale 1970–90 productivity rate (+3.8%)",
+  oecdNarratives.every((t) => !(/1970[–-]90|1970[–-]1990/.test(t) && /\+?3\.8%/.test(t))),
+  oecdNarratives.filter((t) => /1970[–-]90|1970[–-]1990/.test(t) && /\+?3\.8%/.test(t)).slice(0, 1).join(" "));
+
+// ---------------------------------------------------------------------------
 // 6. UI dictionary parity
 // ---------------------------------------------------------------------------
 console.log("\n[6] UI dictionary parity");

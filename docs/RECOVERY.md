@@ -268,3 +268,25 @@ Do NOT merge before CI runs on the PR and the diff review is complete.
 `git worktree add /home/z/jc-ch02 feature/chapter-02-economy-industry`, hardlink-copy
 `node_modules` from another worktree (bun rejects cross-root symlinks), and restart
 `bun run dev` from the worktree. Re-run the three commands above to re-verify.
+
+---
+
+## Recovery checkpoint — Chapter 02 audit remediation (2026-10-25)
+
+State: `feature/chapter-02-economy-industry` = 637688e (published PR tip, fetched and
+verified identical to origin) **+ 2 corrective commits** (audit remediation; see
+`docs/REMEDIATION-CH02-AUDIT.md`). Nothing pushed; the owner transfers the new
+commits from the refreshed bundle and pushes to the EXISTING PR branch (fast-forward,
+no force). Remediated state re-verified: extraction 107/0 (md5-identical output),
+validate:research 523/0 (new [4c] OECD unit-metadata guards, negative-tested),
+tsc/eslint clean, export 65/0, browser re-acceptance, Chapter 01 zero-diff.
+
+Recovery bundle (full branch history including the corrective commits):
+`/home/z/chapter-02-economy-industry-remediated.bundle` — verify with
+`git bundle verify`, then in the origin clone:
+`git fetch /path/to/chapter-02-economy-industry-remediated.bundle feature/chapter-02-economy-industry:audit-remediation`
+and fast-forward/merge into `feature/chapter-02-economy-industry` before pushing.
+If the sandbox resets: re-create worktree `git worktree add /home/z/jc-ch02
+feature/chapter-02-economy-industry`, hardlink-copy `node_modules`, `bun install`,
+`bun run dev`, and re-run `bun run validate:research && bun run typecheck &&
+bun run lint && bun run export:static && bun run verify:export`.

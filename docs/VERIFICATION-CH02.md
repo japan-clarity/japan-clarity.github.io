@@ -102,3 +102,20 @@ innovation outcome indicators, SME statistics, regional indicators).
 - No merge, no deployment, no push of any branch has been performed.
 - Calendar-2025 national-accounts finals are unpublished; the 2025 real-growth figure
   (+1.2%) is World Bank WDI and is labeled as such on the site.
+
+## 8. Audit remediation addendum (2026-10-25, independent pre-merge review)
+
+An independent audit found the OECD GDP-per-hour volume series mislabeled as an
+index (2020 = 100) and a stale 1.0% growth rate in the productivity chart note.
+Remediation (Approach A: original OECD level values preserved, all labels corrected;
+growth rates restated as 4.1% / 1.3% / 0.9% from the archived series) is fully
+documented in **`docs/REMEDIATION-CH02-AUDIT.md`** — before/after table, changed-file
+list, negative-tested regression guards (validate:research now 523 checks), and
+re-run evidence for every gate above. Post-remediation state:
+
+- extraction re-run: 107/0, `extracted-series.json` byte-identical (md5 unchanged)
+- validate:research **523/0** (added `[4c]` OECD unit-metadata regression checks)
+- tsc 0 · eslint clean · export:static OK · verify:export 65/0
+- browser re-acceptance: tooltips/table/CSV/mobile/range-filter/EN parity re-verified
+  (screenshots: `research/ch02-audit-screenshots/`); tooltip on 2020 shows **50.5**
+- Chapter 01: zero diff vs origin/main; live toggle verified (671,270 / 1,589,533)
