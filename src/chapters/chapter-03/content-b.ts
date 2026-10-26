@@ -115,8 +115,8 @@ export const chapter03SectionsB: ChapterSection[] = [
       {
         type: "p",
         text: {
-          ja: "居住水準を量的にみる最も長い系列は延べ面積です。1住宅当たり平均は1968年の73.86㎡から拡大を続け、2013年に94.42㎡でピークに達した後、2023年は91.66㎡と緩やかに縮小に転じています。人口減少期に入り、一人当たりの空間は広くなったものの、平均的な新規建設の面積が小さめに振れている可能性を示唆する変化です。",
-          en: "The longest quantitative lens on living space is floor area. Average area per dwelling expanded from 73.86 m² in 1968 to a 2013 peak of 94.42 m², and has eased to 91.66 m² in 2023 — space per person widened in the depopulating era, while average newly built units now appear to be trending smaller.",
+          ja: "居住水準を量的にみる最も長い系列は延べ面積です。1住宅当たり平均は1968年の73.86㎡から拡大を続け、2003年の94.85㎡でピークに達した後は94㎡前後で推移し、2023年は91.66㎡と緩やかに縮小に転じています。人口減少期に入り、一人当たりの空間は広くなったものの、平均的な新規建設の面積が小さめに振れている可能性を示唆する変化です。",
+          en: "The longest quantitative lens on living space is floor area. Average area per dwelling expanded from 73.86 m² in 1968 to a 2003 peak of 94.85 m², plateaued in the mid-90s, and has eased to 91.66 m² in 2023 — space per person widened in the depopulating era, while average newly built units now appear to be trending smaller.",
         },
       },
       { type: "chart", chartId: "ch03-floor-area" },

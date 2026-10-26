@@ -116,8 +116,8 @@ export const chapter03Charts: ChartSpec[] = [
       en: "Vacancy rate, 1963–2023 (every 5 years)",
     },
     description: {
-      ja: "総住宅数に占める空き家の割合。1963年の2.5%から2013年の13.5%、2018年の13.6%を経て2023年は13.8%と統計開始以来最高を更新。特に1990年代以降の上昇が顕著で、30年間で約4倍。総住宅数が増え続ける一方で世帯数の増加が緩やかになったことの裏返し。",
-      en: "Vacant dwellings as a share of total stock. The rate climbed from 2.5% in 1963 to a record 13.8% in 2023, via 13.5% (2013) and 13.6% (2018) — roughly a four-fold rise over three decades, concentrated after the 1990s. The mirror image of a stock that kept growing while household formation slowed.",
+      ja: "総住宅数に占める空き家の割合。1963年の2.5%から30年後の1993年には約4倍（9.8%）となり、その後も2013年の13.5%、2018年の13.6%を経て2023年は13.8%と統計開始以来最高を更新。総住宅数が増え続ける一方で世帯数の増加が緩やかになったことの裏返し。",
+      en: "Vacant dwellings as a share of total stock. The rate roughly quadrupled over the three decades to 1993 (2.5% → 9.8%) and has kept climbing since — 13.5% (2013), 13.6% (2018) and a record 13.8% in 2023. The mirror image of a stock that kept growing while household formation slowed.",
     },
     years: years(VACANCY_RATE),
     series: [
@@ -199,8 +199,8 @@ export const chapter03Charts: ChartSpec[] = [
       en: "Average floor area per dwelling: all, owned, rented (1968–2023)",
     },
     description: {
-      ja: "居住世帯のある住宅の1住宅当たり延べ面積。全体では1968年の73.86㎡から2023年の91.66㎡へ拡大した後、2013年の94.42㎡をピークに緩やかに縮小。持ち家は2023年で118.25㎡、借家は45.39㎡と約2.6倍の差。借家の面積は1998年の44.49㎡からほぼ横ばいで、賃貸住宅の狭さが構造的に続いている。",
-      en: "Average total floor area of occupied dwellings rose from 73.86 m² (1968) to a 2013 peak of 94.42 m² before easing to 91.66 m² in 2023. Owned dwellings average 118.25 m² against 45.39 m² for rentals — a 2.6× gap that has barely moved since the late 1990s, reflecting the structural compactness of Japanese rental stock.",
+      ja: "居住世帯のある住宅の1住宅当たり延べ面積。全体では1968年の73.86㎡から拡大し、2003年の94.85㎡をピークに、以降は緩やかに縮小して2023年は91.66㎡。持ち家は2023年で118.25㎡、借家は45.39㎡と約2.6倍の差。借家の面積は1998年の44.49㎡からほぼ横ばいで、賃貸住宅の狭さが構造的に続いている。",
+      en: "Average total floor area of occupied dwellings rose from 73.86 m² (1968) to a 2003 peak of 94.85 m² before easing to 91.66 m² in 2023. Owned dwellings average 118.25 m² against 45.39 m² for rentals — a 2.6× gap that has barely moved since the late 1990s, reflecting the structural compactness of Japanese rental stock.",
     },
     years: years(AREA_TOTAL),
     series: [
@@ -226,8 +226,8 @@ export const chapter03Charts: ChartSpec[] = [
       en: "Monthly consumption expenditure, 2+ person households (2000–2025, nominal)",
     },
     description: {
-      ja: "家計調査（家計収支編）による1世帯当たり月平均の消費支出（名目）。2000年の31.7万円から2010年代は28〜29万円台で推移し、2020年に27.8万円へ落ち込んだ後、2025年には31.4万円と2000年を上回る水準に回復。ただし2025年の名目増加率+4.6%のうち物価上昇（+3.7%）を除いた実質増加は+0.9%にとどまる。",
-      en: "Average monthly consumption expenditure per household (nominal) from the FIES. After drifting from ¥317 thousand (2000) to the ¥280–290 thousand range through the 2010s and dipping to ¥278 thousand in 2020, spending reached ¥314 thousand in 2025 — back above the 2000 level. Of the +4.6% nominal rise in 2025, only +0.9% survives in real terms once +3.7% inflation is stripped out.",
+      ja: "家計調査（家計収支編）による1世帯当たり月平均の消費支出（名目）。2000年の31.7万円から2010年代は28〜29万円台で推移し、2020年に27.8万円へ落ち込んだ後、2025年には31.4万円と2000年の水準（31.7万円）にほぼ戻った。ただし2025年の名目増加率+4.6%のうち物価上昇（+3.7%）を除いた実質増加は+0.9%にとどまる。",
+      en: "Average monthly consumption expenditure per household (nominal) from the FIES. After drifting from ¥317 thousand (2000) to the ¥280–290 thousand range through the 2010s and dipping to ¥278 thousand in 2020, spending reached ¥314 thousand in 2025 — back to roughly the 2000 level. Of the +4.6% nominal rise in 2025, only +0.9% survives in real terms once +3.7% inflation is stripped out.",
     },
     years: years(FIES_EXPENDITURE),
     series: [
@@ -384,8 +384,8 @@ export const chapter03Charts: ChartSpec[] = [
       en: "Japan's price-to-income ratio and real house prices (1960–2025, both 2015=100 indices)",
     },
     description: {
-      ja: "OECD分析的住宅価格統計による2つの指数。住宅価格所得比は1970年代初頭に213.1（1973年）まで急上昇した後、1990年代から2000年代にかけて長期低下し、2005年頃には約106、リーマン後の2010年には97.4まで下落。その後緩やかに回復し2025年は114.6。実質住宅価格は1990年の163.3を頂点に、2010年代には100前後まで調整した後、2025年は118.0へ上昇。バブル期の水準にはまだ遠い。",
-      en: "Two indices from the OECD Analytical House Price Statistics. The price-to-income ratio surged to 213.1 in 1973, then ground lower for two decades to about 106 by 2005 and 97.4 in 2010, before recovering to 114.6 in 2025. Real house prices peaked at 163.3 in 1990, reset to around 100 through the 2010s, and reached 118.0 in 2025 — still far below bubble-era levels.",
+      ja: "OECD分析的住宅価格統計による2つの指数。住宅価格所得比は1970年代初頭に213.1（1973年）まで急上昇した後、1990年代から2000年代にかけて長期低下し、2005年頃には約106、リーマン後の2009年には96.0まで下落。その後緩やかに回復し2025年は114.6。実質住宅価格は1991年の165.8を頂点に、2010年代には100前後まで調整した後、2025年は118.0へ上昇。バブル期の水準にはまだ遠い。",
+      en: "Two indices from the OECD Analytical House Price Statistics. The price-to-income ratio surged to 213.1 in 1973, then ground lower for two decades to about 106 by 2005 and 96.0 in 2009, before recovering to 114.6 in 2025. Real house prices peaked at 165.8 in 1991, reset to around 100 through the 2010s, and reached 118.0 in 2025 — still far below bubble-era levels.",
     },
     years: years(OECD_PTI_JPN),
     series: [

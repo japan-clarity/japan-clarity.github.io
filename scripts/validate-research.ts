@@ -835,6 +835,55 @@ collectStrings(chapter03.sources, ch03Strings);
   ok("ch03 guard: 速報 (provisional 2023 stock 65,021千戸) never used as final",
     ch03Strings.every((t) => !t.includes("6,502.1万") && !t.includes("6502.1万") && !t.includes("899.5万")));
 }
+// G9. Narrative-peak guards (pre-merge audit 2026-10-26: prose had misstated
+// series peaks even though the data layer was correct — same failure class as
+// the Ch01 year-swap: a checkable claim, wrong in the gloss).
+{
+  // RHP series peak must be 165.8 in 1991 — NOT 1990/163.3.
+  const rhpPeak = OECD_RHP_JPN.reduce(
+    (best, [y, v]) =>
+      typeof v === "number" && (best[1] === null || v > (best[1] as number)) ? [y, v] : best,
+    [0, null] as [number, number | null],
+  );
+  ok("ch03 guard: RHP Japan series peak is 165.8 in 1991 (not 1990/163.3)",
+    rhpPeak[0] === 1991 && Math.abs((rhpPeak[1] ?? -1) - 165.8) < 0.05, String(rhpPeak));
+  ok("ch03 guard: text cites the 1991/165.8 RHP peak and never the wrong 1990/163.3 peak claim",
+    ch03Strings.some((t) => t.includes("165.8") && (t.includes("1991") || t.includes("1991年"))) &&
+    ch03Strings.every((t) => !t.includes("163.3を頂点") && !t.includes("163.3をピーク") && !t.includes("peaked at 163.3")));
+  // PTI post-1973 minimum must be 96.0 in 2009 — never claimed as 97.4/2010 trough.
+  const ptiPost73 = OECD_PTI_JPN.filter(([y]) => (y as number) >= 1974) as ReadonlyArray<[number, number]>;
+  const ptiMin = ptiPost73.reduce((best, [y, v]) => (v < best[1] ? [y, v] : best), [0, Infinity] as [number, number]);
+  ok("ch03 guard: PTI Japan post-1973 minimum is 96.0 in 2009 (2010/97.4 is not the trough)",
+    ptiMin[0] === 2009 && Math.abs(ptiMin[1] - 96.0) < 0.05, String(ptiMin));
+  // Floor-area series peak must be 94.85 in 2003 — NOT 2013/94.42.
+  const areaPeak = AREA_TOTAL.reduce(
+    (best, [y, v]) =>
+      typeof v === "number" && (best[1] === null || v > (best[1] as number)) ? [y, v] : best,
+    [0, null] as [number, number | null],
+  );
+  ok("ch03 guard: floor-area series peak is 94.85 m² in 2003 (not 2013/94.42)",
+    areaPeak[0] === 2003 && Math.abs((areaPeak[1] ?? -1) - 94.85) < 0.005, String(areaPeak));
+  ok("ch03 guard: text cites the 2003/94.85 floor-area peak; wrong 2013-peak claim absent",
+    ch03Strings.some((t) => t.includes("94.85") && (t.includes("2003") || t.includes("2003年"))) &&
+    ch03Strings.every((t) => !t.includes("2013年に94.42") && !t.includes("2013年の94.42㎡をピーク") && !t.includes("2013 peak of 94.42")));
+  // FIES 2025 nominal expenditure is BELOW the 2000 level (314,001 < 317,328).
+  const f2000 = FIES_EXPENDITURE.find(([y]) => y === 2000)?.[1] ?? 0;
+  const f2025 = FIES_EXPENDITURE.find(([y]) => y === 2025)?.[1] ?? 0;
+  ok("ch03 guard: FIES 2025 (314,001) is below the 2000 level (317,328)",
+    f2025 === 314001 && f2000 === 317328 && f2025 < f2000, `${f2000}/${f2025}`);
+  ok("ch03 guard: text never claims 2025 expenditure is above the 2000 level",
+    ch03Strings.every((t) => !t.includes("2000年を上回る") && !t.includes("above the 2000 level")));
+  // Vacancy-rate "≈4×" claim must be anchored to 1963→1993 (2.5→9.8).
+  const v1963 = VACANCY_RATE.find(([y]) => y === 1963)?.[1] ?? 0;
+  const v1993 = VACANCY_RATE.find(([y]) => y === 1993)?.[1] ?? 0;
+  ok("ch03 guard: vacancy rate 1963→1993 is ≈4× (2.5 → 9.8), the only valid 30-year window",
+    v1963 === 2.5 && v1993 === 9.8 && v1993 / v1963 < 4.2 && v1993 / v1963 > 3.7, `${v1963}→${v1993}`);
+  ok("ch03 guard: any four-fold vacancy claim is anchored to 1993, never to the post-1990s period",
+    ch03Strings.every((t) =>
+      !t.includes("約4倍") || t.includes("1993") || !t.includes("1990年代以降") || t.includes("1993年には約4倍")) &&
+    ch03Strings.every((t) =>
+      !/four-fold|quadrupled/.test(t) || t.includes("1993")));
+}
 
 // ---------------------------------------------------------------------------
 // 6. UI dictionary parity

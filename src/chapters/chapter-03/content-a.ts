@@ -129,8 +129,8 @@ export const chapter03SectionsA: ChapterSection[] = [
       {
         type: "p",
         text: {
-          ja: "日本の住宅価格所得比は、1973年に213.1と半世紀で最高となり、その後2000年代まで長い低下を続けました。リーマン・ショック後の2010年には97.4まで下落し、2015年を底に緩やかに回復して2025年は114.6です。実質住宅価格指数も1990年の163.3を頂点に、2010年代には100前後まで調整した後、2025年は118.0と上昇しています。つまり現在の水準は、バブル期の高値からは依然として大きく下であり、2015年比では中程度の上昇です。",
-          en: "Japan's price-to-income ratio peaked at 213.1 in 1973 and ground lower for three decades, bottoming at 97.4 in 2010 before recovering to 114.6 in 2025. The real house price index likewise peaked at 163.3 in 1990, reset to around 100 through the 2010s, and has risen to 118.0 in 2025. Today's levels therefore remain far below the bubble-era highs, with a moderate rise relative to 2015.",
+          ja: "日本の住宅価格所得比は、1973年に213.1と半世紀で最高となり、その後2000年代まで長い低下を続けました。リーマン・ショック後の2009年には96.0まで下落し、その後は低位で推移しながら2015年以降緩やかに回復して、2025年は114.6です。実質住宅価格指数は1991年の165.8を頂点に、2010年代には100前後まで調整した後、2025年は118.0へと上昇しています。つまり現在の水準は、バブル期の高値からは依然として大きく下であり、2015年比では中程度の上昇です。",
+          en: "Japan's price-to-income ratio peaked at 213.1 in 1973 and ground lower for three decades, bottoming at 96.0 in 2009 and staying near that low through the mid-2010s before recovering to 114.6 in 2025. The real house price index peaked at 165.8 in 1991, reset to around 100 through the 2010s, and has risen to 118.0 in 2025. Today's levels therefore remain far below the bubble-era highs, with a moderate rise relative to 2015.",
         },
       },
       {
