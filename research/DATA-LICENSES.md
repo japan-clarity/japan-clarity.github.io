@@ -36,6 +36,26 @@ Application code currently carries no license file; adding one (MIT, etc.) is
 deliberately left to the project owner. Until then, default copyright applies
 to code, while the data terms above govern the research content.
 
+## Per-source publication details (Chapter 03)
+
+| Source | Release used | Published |
+|---|---|---|
+| Statistics Bureau, MIC | 住宅・土地統計調査 2023 — 基本集計（確報）結果の概要 + e-Stat 時系列統計表 | 2024-09-25 / 2025-09-30 |
+| Statistics Bureau, MIC | 家計調査 家計収支編 2025 (概要 + e-Stat 詳細結果表 + 長期時系列表) | 2026-02-06 / 2026-10-09 |
+| Statistics Bureau, MIC | CPI 2025年平均 (2020 base); 2025年基準長期時系列データ; 2026年9月分 | 2026-01-23 / 2026-08-07 / 2026-10-23 |
+| OECD | Analytical House Price Statistics (SDMX DSD_AN_HOUSE_PRICES@DF_HOUSE_PRICES v1.0) | retrieved 2026-10-26 |
+| MLIT | 住宅着工統計 令和7年計 + 利用関係別時系列 1948–2025; 令和8年地価公示 | 2026-01-30 / 2026-03 |
+
+Chapter 03 redistribution follows the table at the top of this file: raw
+government files stay workspace-only (gitignored `research/chapter03/raw/`);
+extracted facts, short verbatim quotes with citations, and the extraction/
+fetch scripts are committed. MLIT content is licensed PDL1.0 (terms quoted in
+`research/chapter03/notes/oecd-mlit-summary.md` §6) with the required
+attribution 「出典：国土交通省ウェブサイト（URL）」 carried in the source
+register. The OECD reuse-terms page returned HTTP 403 (Cloudflare) from this
+environment — attribution follows the Chapter 02 convention and the failure
+is documented in the source register and audit report.
+
 ## Per-source publication details (Chapter 01)
 
 | Source | Release used | Published |

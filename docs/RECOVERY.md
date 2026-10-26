@@ -348,3 +348,84 @@ export:static && bun run verify:export`. The raw sources needed by the extractor
 re-fetchable from the official domains (URLs in the source register and in
 `research/chapter01/notes/*.md`); the re-fetch script pattern is documented in the
 audit report §2.2.
+
+---
+
+## Checkpoint 6 — Chapter 03: Housing & Cost of Living (2026-10-27)
+
+Branch `feature/chapter-03-housing-cost-of-living` from `origin/main = f7e1fee`
+(PR #3 merge). Two scoped commits: research pipeline + chapter module +
+guards/docs (see `git log --stat` on the branch). Nothing pushed; no history
+rewritten; Chapters 01/02 byte-identical to the audited baseline (verified by
+`git diff f7e1fee --stat -- src/chapters/chapter-01 src/chapters/chapter-02
+research/chapter01 research/chapter02` → empty).
+
+Research architecture (mirrors ch01/ch02, new in `research/chapter03/`):
+- `raw/{statb-housing,statb-fies,statb-cpi,oecd,mlit,review}/` — archived
+  official documents (gitignored) with MANIFEST.tsv; `raw/review/` holds the
+  independent reviewer's live re-fetches (25 files, ACCESS-LOG.md).
+- `notes/{statb-housing,statb-fies-cpi,oecd-mlit}-{summary,inventory}.md` —
+  verbatim-quoted source values with table anchors and checksums (committed).
+- `notes/extracted-series.json` — anchored extraction output (sha256-16
+  `66c6f5355fe7fcab`, pinned in data.ts + validate gate).
+- `scripts/extract-series.py` — 1,656 anchor checks; block-scoped parsers with
+  label anchors, 1973 double-row handling, era state machine for MLIT labels.
+- `scripts/fetch-*.sh` — reproducible curl commands for every raw file.
+
+Regenerate: `python3 research/chapter03/scripts/extract-series.py && bun run
+scripts/generate-chapter-03-data.ts && bun run validate:research`.
+
+Gates on the branch: extraction 1,656 anchors pass · validate:research
+**940/0** (was 528; §[4e] +412 with 5 negative-tested guard families) · tsc 0 ·
+eslint clean · contrast 58/0 · export **74/0** (18.6 MB) · browser acceptance
+complete (5 chart⇄table round-trips incl. EN+mobile, hover+touch tooltips
+verified against data, CSV attribution header, range filter, keyboard tabs,
+JA↔EN + deep links, viewports 320–1440, Ch01/Ch02 spot regressions, clean
+console; 16 screenshots at `research/ch03-screenshots/`) · independent
+falsification review **20/20 PASS on live re-fetches** (CONDITIONAL GO →
+its two one-word editorial conditions applied and re-verified → GO).
+
+If the sandbox resets: re-create the worktree
+`git worktree add /home/z/jc-ch03 feature/chapter-03-housing-cost-of-living`,
+`bun install`, `bun run dev` (port 3000), then re-run the regenerate command
+above and `bun run lint && bun run typecheck && bun run export:static && bun
+run verify:export`. All raw sources are re-fetchable from the official domains
+(URLs in the source register and `research/chapter03/notes/*.md`).
+
+---
+
+## Checkpoint 7 — Chapter 03 pre-merge audit + remediation (2026-10-26)
+
+Independent pre-merge audit of the Chapter 03 feature branch (delivered tip
+`b4f6c06`) performed in a fresh worktree with live re-fetches of every primary
+source. Data layer: **100% PASS** (all data-module values re-verified against
+freshly downloaded official files; extraction re-run was byte-identical,
+sha256-16 `66c6f5355fe7fcab`). Narrative layer: **five demonstrated prose
+defects** (RHP peak 1990/163.3 → 1991/165.8; PTI trough 2010/97.4 or
+「2015年を底に」 → 2009/96.0; floor-area peak 2013/94.42 → 2003/94.85; FIES
+2025 "above the 2000 level" → below; vacancy ≈4× misplaced onto the
+post-1990s period → anchored to 1963→1993) — all corrected in commit
+`37072e5` together with nine G9 regression guards (gate 940 → **949/0**,
+negative-tested by re-injecting the old prose). Full record:
+`docs/CH03-PREMERGE-INDEPENDENT-AUDIT.md` and
+`docs/remediation-ledger-ch03.csv`.
+
+Security/sanitization PASS (no secrets/env/PII/databases/dev artifacts in
+tracked files; workflows untouched and policy-compliant). Clean-worktree
+gates on `37072e5`: tsc 0 · eslint 0/0 · validate:research 949/0 · contrast
+58/0 · export 74/0 (18.6 MB) · Ch01/Ch02 byte-identical to `f7e1fee`.
+Browser verification: 13 figures JA/EN, five chart⇄table round-trips with
+exact cells, hover+touch tooltips, CSV attribution, range filters, keyboard
+tabs, JA↔EN + deep links, viewports 320–1440, sticky footer, 404, Ch01/Ch02
+spot regressions, clean console. Release recommendation: **GO** (owner
+imports `37072e5`, pushes the existing feature branch, CI re-runs green,
+then merge approval).
+
+If the sandbox resets: re-create the worktree
+`git worktree add /home/z/jc-ch03 feature/chapter-03-housing-cost-of-living`,
+`bun install`, `bun run dev` (port 3000), then re-run
+`python3 research/chapter03/scripts/extract-series.py && bun run
+scripts/generate-chapter-03-data.ts && bun run validate:research && bun run
+lint && bun run typecheck && bun run export:static && bun run verify:export`.
+The auditor's re-fetches reproduced the raw inputs byte-identically, so all
+gates are re-runnable from the official domains alone.
