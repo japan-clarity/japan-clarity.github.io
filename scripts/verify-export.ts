@@ -98,9 +98,22 @@ ok("chapter 02 (en) contains chart panels", ch02en.includes("figure-ch02-gdp-lev
 ok("chapter 02 (en) contains limitations section", ch02en.includes("Limitations and caveats"));
 ok("chapter 02 (en) contains the long title", ch02en.includes("Understanding Japan's Economy and Industrial Structure"));
 
-// Placeholder chapters (03+) are still clearly marked as unpublished.
+// Chapter 03 is now published (housing & cost of living) — assert real content.
 const ch03ja = readFileSync(resolve(OUT, "ja", "chapters", "housing-cost-of-living", "index.html"), "utf-8");
-ok("chapter 03 (ja) still marked not published", ch03ja.includes("この章はまだ公開されていません"));
+ok("chapter 03 (ja) contains chart panels", ch03ja.includes("figure-ch03-stock") && ch03ja.includes("figure-ch03-vacancy-rate"));
+ok("chapter 03 (ja) contains verified figure (2023 vacancy rate 13.8%)", ch03ja.includes("13.8"));
+ok("chapter 03 (ja) contains verified figure (2025 FIES expenditure 314,001円)", ch03ja.includes("314,001"));
+ok("chapter 03 (ja) contains source attribution", ch03ja.includes("総務省") && ch03ja.includes("国土交通省") && ch03ja.includes("OECD"));
+ok("chapter 03 (ja) contains limitations section", ch03ja.includes("限界と留意点"));
+ok("chapter 03 (ja) no longer shows the unpublished placeholder", !ch03ja.includes("この章はまだ公開されていません"));
+const ch03en = readFileSync(resolve(OUT, "en", "chapters", "housing-cost-of-living", "index.html"), "utf-8");
+ok("chapter 03 (en) contains chart panels", ch03en.includes("figure-ch03-stock") && ch03en.includes("figure-ch03-rent-burden"));
+ok("chapter 03 (en) contains limitations section", ch03en.includes("Limitations and caveats"));
+ok("chapter 03 (en) contains the OECD index-base disclosure", ch03en.includes("2015=100"));
+
+// Placeholder chapters (04+) are still clearly marked as unpublished.
+const ch04ja = readFileSync(resolve(OUT, "ja", "chapters", "labor-working-conditions", "index.html"), "utf-8");
+ok("chapter 04 (ja) still marked not published", ch04ja.includes("この章はまだ公開されていません"));
 
 // Metadata routes.
 ok(".build-export/sitemap.xml exists", existsSync(resolve(OUT, "sitemap.xml")));

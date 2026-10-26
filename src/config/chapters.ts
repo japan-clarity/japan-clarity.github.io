@@ -102,7 +102,7 @@ export const chapters: ChapterMeta[] = [
       ja: ["住宅費の負担", "持ち家・賃貸の構造", "空き家の動向", "地域間の価格差", "家計の支出構造"],
       en: ["Housing cost burden", "Ownership and rental structure", "Vacant housing trends", "Regional price differences", "Household expenditure structure"],
     },
-    status: "planned",
+    status: "published-limited",
   },
   {
     number: "04",

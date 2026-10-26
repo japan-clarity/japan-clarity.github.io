@@ -3,6 +3,7 @@ import { chapters as chapterMetaList } from "@/config/chapters";
 import type { ChapterModule } from "@/chapters/types";
 import { chapter01 } from "@/chapters/chapter-01";
 import { chapter02 } from "@/chapters/chapter-02";
+import { chapter03 } from "@/chapters/chapter-03";
 
 /**
  * Chapter registry — maps published chapter modules to their registry
@@ -14,6 +15,7 @@ import { chapter02 } from "@/chapters/chapter-02";
 const moduleRegistry: Record<string, ChapterModule> = {
   "population-family": chapter01,
   "economy-industry": chapter02,
+  "housing-cost-of-living": chapter03,
 };
 
 export interface RegisteredChapter {

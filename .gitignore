@@ -73,6 +73,7 @@ server.log
 # Notes, extraction scripts, and World Bank API responses (CC BY 4.0) ARE committed.
 /research/chapter01/raw/
 /research/chapter02/raw/
+/research/chapter03/raw/
 /research/reference-inspection/raw/
 
 # Development-environment tooling (sandbox-only, not part of the public project)

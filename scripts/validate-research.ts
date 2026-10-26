@@ -539,6 +539,304 @@ ok(
 );
 
 // ---------------------------------------------------------------------------
+// 4e. Data agreement + regression guards (Chapter 03 — Housing & Cost of
+//     Living, 2026-10-26). Two prior audit lessons drive the guards:
+//     (i)  Chapter 01's cross-table contamination — vacancy/homeownership
+//          series are pinned value-by-value and cross-checked against TWO
+//          independent raw tables (時系列 1-1 vs 4 vs 9-1), and the 速報
+//          (provisional) 2023 values are forbidden;
+//     (ii) Chapter 02's OECD unit mislabeling — the OECD price-to-income and
+//          real house price series are 2015=100 INDICES; guards pin the 2015
+//          anchor at exactly 100 and forbid index/level confusion in labels.
+//     FIES guards pin the 用途分類 structure (not the 品目分類 amounts) and
+//     recompute the DERIVED rent-burden shares from published amounts.
+// ---------------------------------------------------------------------------
+console.log("\n[4e] Data agreement + regression guards (chapter 03)");
+
+const extraction3Path = resolve(ROOT, "research/chapter03/notes/extracted-series.json");
+const extraction3 = JSON.parse(readFileSync(extraction3Path, "utf-8")) as Record<string, any>;
+
+const {
+  STOCK_TOTAL, STOCK_OCCUPIED, STOCK_VACANT, VACANCY_RATE,
+  TENURE_OWNED, TENURE_PUBLIC, TENURE_UR, TENURE_PRIVATE, TENURE_COMPANY,
+  TENURE_COUNT_OWNED, TENURE_COUNT_PRIVATE,
+  VAC_TYPE_RENTAL, VAC_TYPE_SALE, VAC_TYPE_SECONDARY, VAC_TYPE_OTHER,
+  AREA_TOTAL, AREA_OWNED, AREA_RENTED,
+  BUILT_PERIOD_2023, BUILT_PRE1971,
+  PREF_VACANCY,
+  FIES_EXPENDITURE, FIES_STRUCTURE, FIES_TENURE_2025, FIES_BURDEN,
+  FIES_SOLO_2025, FIES_KINROU_2025, FIES_TENURE_META, FIES_REGIONAL_2025,
+  CPI_LONG, CPI_G_ALL, CPI_G_FOOD, CPI_G_HOUSING, CPI_G_RENT, CPI_G_ENERGY,
+  CPI_YOY_GROUPS, CPI_RENT_PRIVATE_YOY, CPI_HEADLINE,
+  OECD_PTI_JPN, OECD_RHP_JPN, OECD_PTI_COMPARE, OECD_PTI_YEAR,
+  MLIT_STARTS_FULL, MLIT_STARTS_SELECTED, MLIT_LAND_PRICE,
+  DATA_SNAPSHOT_HASH: CH03_SNAPSHOT_HASH,
+} = await import("../src/chapters/chapter-03/data");
+
+function pairsAgree3(
+  name: string,
+  pairs: ReadonlyArray<[number | string, number | null]>,
+  expected: Record<string, any>,
+  field?: string,
+  transform: (v: number) => number = (v) => v,
+  tol = 1e-9,
+) {
+  let mismatches = 0;
+  for (const [year, value] of pairs) {
+    const row = expected[String(year)];
+    const expValue = field ? (row ? row[field] : undefined) : row;
+    const same = (value === null && (expValue === null || expValue === undefined)) ||
+      (value !== null && expValue !== null && expValue !== undefined &&
+        Math.abs(value - transform(expValue as number)) <= tol);
+    if (!same) mismatches += 1;
+  }
+  ok(`ch03 data agreement: ${name}`, mismatches === 0, `${mismatches} mismatching points`);
+}
+
+const man = (v: number) => v / 10000; // 戸 → 万戸 (generation rounds 1 dp); r1/r2 declared in §4b
+
+// — housing survey (時系列 tables) —
+pairsAgree3("housing stock total (万戸)", STOCK_TOTAL, extraction3.housing.stock, "total", man, 0.06);
+pairsAgree3("housing stock occupied (万戸)", STOCK_OCCUPIED, extraction3.housing.stock, "occupied", man, 0.06);
+pairsAgree3("housing stock vacant (万戸)", STOCK_VACANT, extraction3.housing.stock, "vacant", man, 0.06);
+pairsAgree3("vacancy rate (%)", VACANCY_RATE, extraction3.housing.vacancyRate, undefined, r1, 0.02);
+pairsAgree3("tenure owned share", TENURE_OWNED, extraction3.housing.tenureShare, "owned", r1, 0.02);
+pairsAgree3("tenure public share", TENURE_PUBLIC, extraction3.housing.tenureShare, "public", r1, 0.02);
+pairsAgree3("tenure UR share", TENURE_UR, extraction3.housing.tenureShare, "ur", r1, 0.02);
+pairsAgree3("tenure private share", TENURE_PRIVATE, extraction3.housing.tenureShare, "private", r1, 0.02);
+pairsAgree3("tenure company share", TENURE_COMPANY, extraction3.housing.tenureShare, "company", r1, 0.02);
+pairsAgree3("tenure owned count (万戸)", TENURE_COUNT_OWNED, extraction3.housing.tenureCount, "owned", man, 0.06);
+pairsAgree3("tenure private count (万戸)", TENURE_COUNT_PRIVATE, extraction3.housing.tenureCount, "private", man, 0.06);
+pairsAgree3("vac type rental (万戸)", VAC_TYPE_RENTAL, extraction3.housing.vacancyTypes, "rental", man, 0.06);
+pairsAgree3("vac type sale (万戸)", VAC_TYPE_SALE, extraction3.housing.vacancyTypes, "sale", man, 0.06);
+pairsAgree3("vac type secondary (万戸)", VAC_TYPE_SECONDARY, extraction3.housing.vacancyTypes, "secondary", man, 0.06);
+pairsAgree3("vac type other (万戸)", VAC_TYPE_OTHER, extraction3.housing.vacancyTypes, "other", man, 0.06);
+pairsAgree3("floor area total (㎡)", AREA_TOTAL, extraction3.housing.floorArea, "total");
+pairsAgree3("floor area owned (㎡)", AREA_OWNED, extraction3.housing.floorArea, "owned");
+pairsAgree3("floor area rented (㎡)", AREA_RENTED, extraction3.housing.floorArea, "rented");
+pairsAgree3("MLIT starts full (戸)", MLIT_STARTS_FULL, extraction3.mlit.starts);
+for (const [band, v] of Object.entries(BUILT_PERIOD_2023)) {
+  const exp = extraction3.housing.builtPeriod2023[band];
+  ok(`ch03 data agreement: built period ${band}`, exp === v, `${v} vs ${exp}`);
+}
+ok("ch03 data agreement: BUILT_PRE1971 = sum of the two pre-1971 bands",
+  BUILT_PRE1971 === BUILT_PERIOD_2023["1950 or earlier"] + BUILT_PERIOD_2023["1951 to 1970"]);
+
+// — FIES —
+pairsAgree3("FIES expenditure (円)", FIES_EXPENDITURE, extraction3.fies.expenditureTwoPlus);
+for (const [cat, amount, share] of FIES_STRUCTURE) {
+  const exp = extraction3.fies.structure2025[cat];
+  ok(`ch03 data agreement: FIES structure ${cat}`,
+    exp && exp.amount === amount && exp.share === share, `${amount}/${share} vs ${JSON.stringify(exp)}`);
+}
+for (const [label, [avg, owned, privateRent]] of Object.entries(FIES_TENURE_2025)) {
+  const exp = extraction3.fies.tenure2025twoPlus[label === "設備修繕維持" ? "設備修繕・維持" : label === "光熱水道" ? "光熱・水道" : label];
+  ok(`ch03 data agreement: FIES tenure ${label}`,
+    exp && exp.avg === avg && exp.owned === owned && exp.privateRent === privateRent,
+    `${avg}/${owned}/${privateRent} vs ${JSON.stringify(exp)}`);
+}
+{
+  const soloExp = extraction3.fies.solo2025;
+  const soloTenExp = extraction3.fies.soloTenure2025;
+  ok("ch03 data agreement: FIES solo 2025",
+    FIES_SOLO_2025.expenditure === soloExp.expenditure &&
+    FIES_SOLO_2025.housing === soloExp.housing &&
+    FIES_SOLO_2025.housingShare === soloExp.housingShare &&
+    FIES_SOLO_2025.expenditureOwned === soloTenExp.expenditureOwned &&
+    FIES_SOLO_2025.expenditurePrivateRent === soloTenExp.expenditurePrivateRent &&
+    FIES_SOLO_2025.housingOwned === soloTenExp.housingOwned &&
+    FIES_SOLO_2025.housingPrivateRent === soloTenExp.housingPrivateRent);
+  const kinExp = extraction3.fies.tenure2025kinrou;
+  ok("ch03 data agreement: FIES kinrou 2025",
+    FIES_KINROU_2025.income === kinExp.income &&
+    FIES_KINROU_2025.disposable === kinExp.disposable &&
+    FIES_KINROU_2025.housingPrivateRent === kinExp.housingPrivateRent);
+  const metaExp = extraction3.fies.tenure2025twoPlus._meta;
+  ok("ch03 data agreement: FIES tenure meta (87.3% frame rate; head ages)",
+    FIES_TENURE_META.ownedRate === metaExp.ownedRate &&
+    FIES_TENURE_META.headAgeAvg === metaExp.headAgeAvg &&
+    FIES_TENURE_META.headAgePrivateRent === metaExp.headAgePrivateRent);
+  // Derived burden shares recomputed from published amounts
+  const recompute = (h: number, e: number) => r1((h / e) * 100);
+  ok("ch03 derived burden: 2+ owned recomputed",
+    FIES_BURDEN.twoPlusOwned === recompute(FIES_TENURE_2025["住居"][1], FIES_TENURE_2025["消費支出"][1]),
+    `${FIES_BURDEN.twoPlusOwned}`);
+  ok("ch03 derived burden: 2+ private rent recomputed",
+    FIES_BURDEN.twoPlusPrivateRent === recompute(FIES_TENURE_2025["住居"][2], FIES_TENURE_2025["消費支出"][2]),
+    `${FIES_BURDEN.twoPlusPrivateRent}`);
+  ok("ch03 derived burden: solo owned recomputed",
+    FIES_BURDEN.soloOwned === recompute(FIES_SOLO_2025.housingOwned, FIES_SOLO_2025.expenditureOwned));
+  ok("ch03 derived burden: solo private rent recomputed",
+    FIES_BURDEN.soloPrivateRent === recompute(FIES_SOLO_2025.housingPrivateRent, FIES_SOLO_2025.expenditurePrivateRent));
+  ok("ch03 derived burden: solo-all matches published share",
+    FIES_BURDEN.soloAll === FIES_SOLO_2025.housingShare);
+}
+for (const [region, row] of Object.entries(FIES_REGIONAL_2025)) {
+  const exp = extraction3.fies.regional2025[region];
+  ok(`ch03 data agreement: FIES regional ${region}`,
+    exp && exp.expenditure === row.expenditure && exp.housingShare === row.housingShare && exp.utilities === row.utilities,
+    `${JSON.stringify(row)} vs ${JSON.stringify(exp)}`);
+}
+
+// — CPI —
+pairsAgree3("CPI long-run (2025=100)", CPI_LONG, extraction3.cpi.longRunAll, undefined, r1, 0.02);
+pairsAgree3("CPI group all", CPI_G_ALL, extraction3.cpi.groups, "総合", r1, 0.02);
+pairsAgree3("CPI group food", CPI_G_FOOD, extraction3.cpi.groups, "食料", r1, 0.02);
+pairsAgree3("CPI group housing", CPI_G_HOUSING, extraction3.cpi.groups, "住居", r1, 0.02);
+pairsAgree3("CPI group rent", CPI_G_RENT, extraction3.cpi.groups, "家賃", r1, 0.02);
+pairsAgree3("CPI group energy", CPI_G_ENERGY, extraction3.cpi.groups, "エネルギー", r1, 0.02);
+for (const [y, all, food, housing, rent, energy] of CPI_YOY_GROUPS) {
+  const exp = extraction3.cpi.yoyGroups[String(y)];
+  ok(`ch03 data agreement: CPI YoY ${y}`,
+    exp && exp["総合"] === all && exp["食料"] === food && exp["住居"] === housing &&
+    exp["家賃"] === rent && exp["エネルギー"] === energy,
+    `${[all, food, housing, rent, energy]} vs ${JSON.stringify(exp)}`);
+}
+pairsAgree3("CPI private rent YoY", CPI_RENT_PRIVATE_YOY, extraction3.cpi.yoyRentPrivate);
+{
+  const h = extraction3.cpi.headline;
+  ok("ch03 data agreement: CPI headline (2020-base 111.9 / Sep-2026 102.2)",
+    CPI_HEADLINE.avg2025Index2020base === h.avg2025Index2020base &&
+    CPI_HEADLINE.avg2025Yoy === h.avg2025Yoy &&
+    CPI_HEADLINE.sep2026Index === h.sep2026Index &&
+    CPI_HEADLINE.sep2026Yoy === h.sep2026Yoy);
+}
+
+// — OECD (2015=100 indices) —
+pairsAgree3("OECD PTI Japan (2015=100)", OECD_PTI_JPN, extraction3.oecd.ptiJpn, undefined, r1, 0.06);
+pairsAgree3("OECD RHP Japan (2015=100)", OECD_RHP_JPN, extraction3.oecd.rhpJpn, undefined, r1, 0.06);
+{
+  const latest = extraction3.oecd.ptiLatest;
+  let ptiBad = 0;
+  for (const [area, v] of OECD_PTI_COMPARE) {
+    const exp = latest[area];
+    if (exp === undefined || Math.abs(v - r1(exp)) > 0.06) ptiBad += 1;
+  }
+  ok("ch03 data agreement: OECD PTI comparison (2025)", ptiBad === 0 && OECD_PTI_COMPARE.length === 13,
+    `${ptiBad} bad of ${OECD_PTI_COMPARE.length}`);
+  ok("ch03 OECD year = 2025", OECD_PTI_YEAR === 2025);
+}
+const hash3 = createHash("sha256").update(readFileSync(extraction3Path)).digest("hex").slice(0, 16);
+ok("ch03 dataset snapshot hash unchanged", hash3 === CH03_SNAPSHOT_HASH, `${hash3} vs ${CH03_SNAPSHOT_HASH}`);
+
+// ---- regression guards (Ch01/Ch02 audit-lesson classes) -------------------
+
+// G1. Vacancy series pinned + monotonic (cross-table contamination guard)
+{
+  const vr = new Map<number, number | null>(VACANCY_RATE.map(([y, v]) => [y as number, v as number | null]));
+  const VR_EXPECTED: Record<number, number> = {
+    1963: 2.5, 1968: 4.0, 1973: 5.5, 1978: 7.6, 1983: 8.6, 1988: 9.4,
+    1993: 9.8, 1998: 11.5, 2003: 12.2, 2008: 13.1, 2013: 13.5, 2018: 13.6, 2023: 13.8,
+  };
+  const bad = Object.entries(VR_EXPECTED).filter(([y, v]) => vr.get(Number(y)) !== v);
+  ok("ch03 guard: vacancy-rate series pinned (13 survey years, final figures)",
+    bad.length === 0 && VACANCY_RATE.length === 13,
+    bad.map(([y, v]) => `${y}: ${vr.get(Number(y))} vs ${v}`).join("; "));
+  const seq = VACANCY_RATE.map(([, v]) => v as number);
+  ok("ch03 guard: vacancy rate monotonically non-decreasing 1963→2023",
+    seq.every((v, i) => i === 0 || seq[i - 1] <= v), seq.join(", "));
+}
+// G2. 2023 headline anchors (確報, NOT the 速報 values)
+{
+  const stockMap = new Map<number, number | null>(STOCK_TOTAL.map(([y, v]) => [y as number, v as number | null]));
+  const vacMap = new Map<number, number | null>(STOCK_VACANT.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch03 guard: 2023 stock = 6504.7万戸 (確報; 速報 6502.1 forbidden)",
+    stockMap.get(2023) === 6504.7, String(stockMap.get(2023)));
+  ok("ch03 guard: 2023 vacancies = 900.2万戸 (確報; 速報 899.5 forbidden)",
+    vacMap.get(2023) === 900.2, String(vacMap.get(2023)));
+  const rentMap = new Map<number, number | null>(VAC_TYPE_RENTAL.map(([y, v]) => [y as number, v as number | null]));
+  const otherMap = new Map<number, number | null>(VAC_TYPE_OTHER.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch03 guard: 2023 vacancy types pinned (rental 443.6 / other 385.6万戸)",
+    rentMap.get(2023) === 443.6 && otherMap.get(2023) === 385.6,
+    `${rentMap.get(2023)}/${otherMap.get(2023)}`);
+}
+// G3. Homeownership pinned + denominators distinct (87.3 FIES vs 60.9 survey)
+{
+  const ownMap = new Map<number, number | null>(TENURE_OWNED.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch03 guard: homeownership 1963=64.3, 2013=61.7, 2018=61.2, 2023=60.9 (occupied-dwelling denominator)",
+    ownMap.get(1963) === 64.3 && ownMap.get(2013) === 61.7 &&
+    ownMap.get(2018) === 61.2 && ownMap.get(2023) === 60.9,
+    `${ownMap.get(1963)}/${ownMap.get(2013)}/${ownMap.get(2018)}/${ownMap.get(2023)}`);
+  ok("ch03 guard: FIES frame owned-rate 87.3 ≠ survey 60.9 (both pinned, swap fails)",
+    FIES_TENURE_META.ownedRate === 87.3 && ownMap.get(2023) === 60.9);
+}
+// G4. Prefecture vacancy anchors (final figures)
+{
+  const pm = new Map<string, number>(PREF_VACANCY.map(([p, v]) => [p, v]));
+  ok("ch03 guard: prefecture anchors (徳島21.3/和歌山21.2/東京10.9/埼玉9.3/沖縄9.4/全国13.8)",
+    pm.get("徳島県") === 21.3 && pm.get("和歌山県") === 21.2 && pm.get("東京都") === 10.9 &&
+    pm.get("埼玉県") === 9.3 && pm.get("沖縄県") === 9.4 && pm.get("全国") === 13.8);
+  ok("ch03 guard: prefecture chart = top6 + national + bottom4 (11 categories)",
+    PREF_VACANCY.length === 11);
+}
+// G5. OECD base-year guard (the Chapter-02 mislabel class): 2015 = exactly 100
+{
+  const pti = new Map<number, number | null>(OECD_PTI_JPN.map(([y, v]) => [y as number, v as number | null]));
+  const rhp = new Map<number, number | null>(OECD_RHP_JPN.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch03 guard: OECD PTI JPN 2015 = 100 exactly (index base anchor)",
+    pti.get(2015) === 100, String(pti.get(2015)));
+  ok("ch03 guard: OECD RHP JPN 2015 = 100 exactly (index base anchor)",
+    rhp.get(2015) === 100, String(rhp.get(2015)));
+  ok("ch03 guard: OECD PTI 1973 peak 213.1 and 2025 114.6 pinned",
+    Math.abs((pti.get(1973) ?? 0) - 213.1) < 0.05 && Math.abs((pti.get(2025) ?? 0) - 114.6) < 0.05);
+  ok("ch03 guard: OECD PTI series length 66 (1960–2025, no gaps)",
+    OECD_PTI_JPN.length === 66 && pti.get(1960) !== undefined && pti.get(2025) !== undefined);
+}
+// G6. FIES classification guard (用途分類 shares, not 品目分類 amounts)
+{
+  const food = FIES_STRUCTURE.find(([k]) => k === "食料");
+  const hous = FIES_STRUCTURE.find(([k]) => k === "住居");
+  ok("ch03 guard: FIES structure uses 用途分類 (食料 89,754円/28.6% — not the 品目分類 94,895)",
+    food && food[1] === 89754 && food[2] === 28.6, String(food));
+  ok("ch03 guard: 住居 share = 5.9 (用途分類 published share)",
+    hous && hous[1] === 18665 && hous[2] === 5.9, String(hous));
+  const shareSum = FIES_STRUCTURE.reduce((s, [, , share]) => s + share, 0);
+  ok("ch03 guard: FIES structure shares sum to 100", Math.abs(shareSum - 100) < 0.15, String(shareSum));
+}
+// G7. CPI base guard: 2025=100 series vs the separately-published 2020-base headline
+{
+  const cl = new Map<number, number | null>(CPI_LONG.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch03 guard: CPI long-run 2025 = 100.0 (2025 base)", cl.get(2025) === 100, String(cl.get(2025)));
+  ok("ch03 guard: CPI long-run anchors (1970 27.6 / 2010 84.7)",
+    cl.get(1970) === 27.6 && cl.get(2010) === 84.7, `${cl.get(1970)}/${cl.get(2010)}`);
+  ok("ch03 guard: CPI headline 2020-base 111.9 ≠ chart series 100.0 (bases coexist by design)",
+    CPI_HEADLINE.avg2025Index2020base === 111.9 && cl.get(2025) === 100);
+  const rentYoY = new Map<number, number | null>(CPI_YOY_GROUPS.map(([y, , , , rent]) => [y as number, rent as number | null]));
+  ok("ch03 guard: rent YoY pinned (+0.1/+0.2/+0.3 for 2023/24/25)",
+    rentYoY.get(2023) === 0.1 && rentYoY.get(2024) === 0.2 && rentYoY.get(2025) === 0.3);
+}
+// G8. Text guards over the whole chapter 03 module
+const { chapter03 } = await import("../src/chapters/chapter-03/index");
+const ch03Strings: string[] = [];
+collectStrings(chapter03.sections, ch03Strings);
+collectStrings(chapter03.limitations, ch03Strings);
+collectStrings(chapter03.charts, ch03Strings);
+collectStrings(chapter03.sources, ch03Strings);
+{
+  const ptiCharts = chapter03.charts.filter((c) => c.sourceIds.includes("oecd-ahpi"));
+  ok("ch03 guard: every OECD chart states the 2015=100 index base in its title or unit",
+    ptiCharts.length === 2 && ptiCharts.every((c) =>
+      c.title.ja.includes("2015年=100") && c.unit.ja.includes("2015年=100")),
+    `${ptiCharts.length} OECD charts`);
+  ok("ch03 guard: OECD charts never labeled as price levels (水準/ドル/円/㎡ absent from unit)",
+    ptiCharts.every((c) => !/水準|ドル|円\/|㎡/.test(c.unit.ja)));
+  const burdenChart = chapter03.charts.find((c) => c.id === "ch03-rent-burden");
+  ok("ch03 guard: rent-burden chart discloses DERIVED status (派生/DERIVED)",
+    burdenChart ? burdenChart.note.ja.includes("派生計算") && burdenChart.note.en.includes("DERIVED") : false);
+  const vacancyChart = chapter03.charts.find((c) => c.id === "ch03-pref-vacancy");
+  ok("ch03 guard: prefecture chart discloses its selection rule",
+    vacancyChart ? vacancyChart.note.ja.includes("上位6県") && vacancyChart.note.en.includes("six highest") : false);
+  // Affirmative mislabels fail; explicit negations ("水準差ではない") pass.
+  ok("ch03 guard: chapter text never affirmatively calls OECD ratios 水準 (levels)",
+    ch03Strings.every((t) => !(t.includes("価格所得比") && t.includes("水準") &&
+      !t.includes("指数") && !/ではない|ではなく|意味しません|別物/.test(t))));
+  ok("ch03 guard: CPI base-year switch disclosed in limitations",
+    ch03Strings.some((t) => t.includes("2020年基準から2025年基準") || t.includes("2020 to the 2025 base")));
+  ok("ch03 guard: 速報 (provisional 2023 stock 65,021千戸) never used as final",
+    ch03Strings.every((t) => !t.includes("6,502.1万") && !t.includes("6502.1万") && !t.includes("899.5万")));
+}
+
+// ---------------------------------------------------------------------------
 // 6. UI dictionary parity
 // ---------------------------------------------------------------------------
 console.log("\n[6] UI dictionary parity");
