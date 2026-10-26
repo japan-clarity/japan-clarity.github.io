@@ -38,8 +38,8 @@ export const chapter01SectionsA: ChapterSection[] = [
           en: "Mind the statistical product",
         },
         text: {
-          ja: "同じ「人口」でも、国勢調査（全数調査・5年ごと・10月1日基準）、人口推計（月次・推計値）、人口動態統計（その年に発生した出生・死亡の登録）では、対象も基準日も異なります。例えば2020年10月1日の人口推計は126,226,568人、国勢調査確定値は126,146,099人です。本chapter（章）では各図表に出典と種類を明記し、混同しないようにします。",
-          en: "Even the word \"population\" refers to different products: the census (full enumeration, every five years, as of October 1), population estimates (monthly), and vital statistics (registered births and deaths during the year). For example, the October 1, 2020 population *estimate* was 126,226,568, while the census count is 126,146,099. Every figure here carries its source and product type.",
+          ja: "同じ「人口」でも、国勢調査（全数調査・5年ごと・10月1日基準）、人口推計（月次・推計値）、人口動態統計（その年に発生した出生・死亡の登録）では、対象も基準日も異なります。例えば2025年9月15日現在の人口推計では1億2,321万人、その16日後の10月1日の国勢調査（基本集計確定値）では1億2,297万2,528人と、製品ごとに値が異なります。本chapter（章）では各図表に出典と種類を明記し、混同しないようにします。",
+          en: "Even the word \"population\" refers to different products: the census (full enumeration, every five years, as of October 1), population estimates (monthly), and vital statistics (registered births and deaths during the year). For example, the population estimate as of September 15, 2025 was 123.21 million, while the census count sixteen days later (October 1, 2025, basic complete tabulation) was 122,972,528. Every figure here carries its source and product type.",
         },
       },
     ],

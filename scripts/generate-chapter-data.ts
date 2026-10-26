@@ -155,6 +155,10 @@ const header = `/**
  *
  * Source snapshot sha256 (first 16 hex): ${hash}
  * Access/verification date: 2026-10-22.
+ * Re-verified 2026-10-25 during the independent Chapter 01 research audit:
+ * all raw sources were re-fetched from their official domains and the
+ * extraction reproduced identical values except the corrected 1980
+ * household-size point (2.3 → 3.22; see docs/REMEDIATION-CH01-AUDIT.md).
  *
  * Pair arrays are [year, value]; null = value not published for that year.
  */

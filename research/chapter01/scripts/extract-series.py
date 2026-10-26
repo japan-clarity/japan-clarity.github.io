@@ -316,8 +316,22 @@ def extract_aging():
 
 def extract_households():
     handbook = (RAW / "statb/handbook2026_all.txt").read_text(encoding="utf-8")
+
+    # Parse ONLY the Table 2.3 block. A 2026-10-25 independent audit found that
+    # scanning the whole handbook let a Table 14.6 row (traffic accidents:
+    # 1980 → 2.3 fatalities per 10,000 motor vehicles owned) overwrite the
+    # 1980 household-size value (3.22) through the year-keyed dict, because it
+    # was the only other table whose 1980 row placed a float in (2, 5) at the
+    # same column offset. Restricting the scan to Table 2.3 removes this
+    # cross-table contamination class; every row is now anchor-checked.
+    all_lines = handbook.splitlines()
+    t23_start = next(i for i, l in enumerate(all_lines) if l.strip() == "Table 2.3")
+    t23_end = next(
+        i for i in range(t23_start + 1, len(all_lines))
+        if all_lines[i].strip().startswith("Source:")
+    )
     size = {}
-    for line in handbook.splitlines():
+    for line in all_lines[t23_start:t23_end]:
         line = strip_footnotes(line)
         m = re.match(r"^\s*(\d{4})\s+(\d[\d,]*)\s{2,}", line)
         if not m:
@@ -330,10 +344,23 @@ def extract_households():
         # [change, members(1k), size, population(1k), pop-change]
         if len(values) >= 4 and isinstance(values[2], float) and 2 < values[2] < 5:
             size[year] = values[2]
-    check("household size 1970 = 3.41", size.get(1970) == 3.41, str(size.get(1970)))
-    check("household size 2020 = 2.21", size.get(2020) == 2.21, str(size.get(2020)))
     check("household size 1960 = 4.14", size.get(1960) == 4.14, str(size.get(1960)))
+    check("household size 1970 = 3.41", size.get(1970) == 3.41, str(size.get(1970)))
+    check("household size 1975 = 3.28", size.get(1975) == 3.28, str(size.get(1975)))
+    check("household size 1980 = 3.22 (audit regression: traffic-table pollution)", size.get(1980) == 3.22, str(size.get(1980)))
+    check("household size 1985 = 3.14", size.get(1985) == 3.14, str(size.get(1985)))
+    check("household size 1990 = 2.99", size.get(1990) == 2.99, str(size.get(1990)))
+    check("household size 1995 = 2.82", size.get(1995) == 2.82, str(size.get(1995)))
+    check("household size 2000 = 2.67", size.get(2000) == 2.67, str(size.get(2000)))
+    check("household size 2005 = 2.55", size.get(2005) == 2.55, str(size.get(2005)))
+    check("household size 2010 = 2.42", size.get(2010) == 2.42, str(size.get(2010)))
+    check("household size 2015 = 2.33", size.get(2015) == 2.33, str(size.get(2015)))
+    check("household size 2020 = 2.21", size.get(2020) == 2.21, str(size.get(2020)))
     check("handbook size rows = 12 (no 1965: definition change)", len(size) == 12, f"got {len(size)}")
+    size_years = sorted(size)
+    monotonic = all(size[y0] >= size[y1] for y0, y1 in zip(size_years, size_years[1:]))
+    check("household size monotonically non-increasing 1960→2020", monotonic,
+          "; ".join(f"{y}:{size[y]}" for y in size_years))
 
     one_person = {}
     fig_start = handbook.find("Figure 2.3")
