@@ -116,7 +116,7 @@ export const chapters: ChapterMeta[] = [
       ja: ["労働時間と休労", "正規・非正規雇用の構造", "賃金格差", "職業性の安全", "キャリア形成の機会"],
       en: ["Working hours and rest", "Regular and non-regular employment", "Wage disparities", "Occupational safety", "Career development opportunities"],
     },
-    status: "planned",
+    status: "published-limited",
   },
   {
     number: "05",

@@ -81,3 +81,4 @@ server.log
 /Caddyfile
 /mini-services/
 /scripts/dev-daemon.py
+/research/chapter04/raw/

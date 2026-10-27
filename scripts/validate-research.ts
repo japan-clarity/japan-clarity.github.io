@@ -886,6 +886,474 @@ collectStrings(chapter03.sources, ch03Strings);
 }
 
 // ---------------------------------------------------------------------------
+// 4f. Data agreement + regression guards (Chapter 04 — Labor & Working
+//     Conditions, 2026-10-26). Audit lessons driving the guards:
+//     (i)  cross-table contamination (Ch01) — every LFS/MLS/wage series is
+//          compared field-by-field against the anchored extraction JSON;
+//     (ii) unit mislabeling (Ch02) — hours are hours/MONTH (MLS) vs
+//          hours/YEAR (OECD), ratios are indices (male=100 / regular=100),
+//          and the OECD's own "trend not level" caveat is enforced in text;
+//     (iii) prose ≠ data (Ch03) — narrative-peak/trough/claim guards (G9)
+//          for the unemployment peak, non-regular plateau, paid-leave record,
+//          accident minima and mental-comp multiple.
+// ---------------------------------------------------------------------------
+console.log("\n[4f] Data agreement + regression guards (chapter 04)");
+
+const extraction4Path = resolve(ROOT, "research/chapter04/notes/extracted-series.json");
+const extraction4 = JSON.parse(readFileSync(extraction4Path, "utf-8")) as Record<string, any>;
+
+const {
+  EMPLOYED_TOTAL, UNEMPLOYMENT_RATE, EMPLOYMENT_RATE,
+  STATUS_SELFEMPLOYED, STATUS_FAMILY, STATUS_EMPLOYEE,
+  OLDER_EMPRATE_65, OLDER_EMPRATE_6064,
+  NONREGULAR_SHARE_TOTAL, NONREGULAR_SHARE_MALE, NONREGULAR_SHARE_FEMALE,
+  NONREGULAR_COUNT, REGULAR_COUNT,
+  NONREGULAR_AGE_2025, NONREGULAR_REASONS_2025,
+  HOURS_TOTAL_30, HOURS_TOTAL_5, HOURS_OVERTIME_5,
+  HOURS_GENERAL, HOURS_PARTTIME, PARTTIME_RATIO,
+  LEAVE_RATE, LEAVE_GRANTED, LEAVE_TAKEN,
+  GENDER_WAGE_RATIO, FORM_WAGE_GAP,
+  WAGE_CURVE_MALE, WAGE_CURVE_FEMALE, WAGE_CURVE_AGES, FORM_GAP_BY_AGE,
+  ACCIDENT_DEATH, ACCIDENT_INJURY,
+  MENTAL_CLAIMS, MENTAL_DECISIONS, MENTAL_GRANTED,
+  OECD_HOURS_LATEST, OECD_HOURS_JPN, OECD_GWG_LATEST, OECD_GWG_JPN_MEDIAN,
+  OECD_TEMP_JPN, HEADLINE_2025,
+  DATA_SNAPSHOT_HASH: CH04_SNAPSHOT_HASH,
+} = await import("../src/chapters/chapter-04/data");
+
+const chapter04 = getChapterModule("labor-working-conditions");
+ok("ch04 registered with real module", chapter04 !== null);
+const ch04Strings: string[] = [];
+if (chapter04) {
+  for (const s of chapter04.sections) {
+    ch04Strings.push(s.heading.ja, s.heading.en);
+    for (const b of s.blocks) {
+      if (b.type === "p" || b.type === "callout") {
+        ch04Strings.push(b.text.ja, b.text.en);
+        if (b.type === "callout" && b.title) ch04Strings.push(b.title.ja, b.title.en);
+      } else if (b.type === "ul") {
+        for (const it of b.items) ch04Strings.push(it.ja, it.en);
+      } else if (b.type === "stats") {
+        for (const it of b.items) ch04Strings.push(it.value.ja, it.value.en, it.label.ja, it.label.en);
+      }
+    }
+  }
+  for (const l of chapter04.limitations) ch04Strings.push(l.ja, l.en);
+  for (const c of chapter04.charts) {
+    ch04Strings.push(c.title.ja, c.title.en, c.description.ja, c.description.en);
+    if (c.note) ch04Strings.push(c.note.ja, c.note.en);
+  }
+}
+
+function pairsAgree4(
+  name: string,
+  pairs: ReadonlyArray<[number | string, number | null]>,
+  expected: Record<string, any>,
+  field?: string,
+) {
+  let mismatches = 0;
+  for (const [y, v] of pairs) {
+    const exp = expected[String(y)];
+    const expVal = field ? exp?.[field] : exp;
+    if (expVal === undefined || expVal === null) continue;
+    if (v === null || Math.abs(v - expVal) > 1e-9) mismatches++;
+  }
+  ok(`ch04 data agreement: ${name}`, mismatches === 0, `${mismatches} mismatching points`);
+}
+
+const lfsMain4 = extraction4.lfs.main as Record<string, any>;
+const lfsStatus4 = extraction4.lfs.status as Record<string, any>;
+const lfsAge4 = extraction4.lfs.age as Record<string, any>;
+const lfsForm4 = extraction4.lfs.form as Record<string, Record<string, any>>;
+const mls4 = extraction4.mls as Record<string, Record<string, any>>;
+const pl4 = extraction4.paidLeave as Record<string, Record<string, number>>;
+const wage4 = extraction4.wage as Record<string, Record<string, any>>;
+const acc4 = extraction4.accidents as Record<string, Record<string, number>>;
+const oecd4 = extraction4.oecd as Record<string, Record<string, any>>;
+
+pairsAgree4("LFS employed", EMPLOYED_TOTAL, lfsMain4, "employed");
+pairsAgree4("LFS unemployment rate", UNEMPLOYMENT_RATE, lfsMain4, "unemprate");
+pairsAgree4("LFS status self-employed", STATUS_SELFEMPLOYED, lfsStatus4, "selfemployed");
+pairsAgree4("LFS status family", STATUS_FAMILY, lfsStatus4, "family");
+pairsAgree4("LFS status employee", STATUS_EMPLOYEE, lfsStatus4, "employee");
+pairsAgree4("LFS older emprate 65+", OLDER_EMPRATE_65, lfsAge4, "65+_rate");
+pairsAgree4("LFS older emprate 60-64", OLDER_EMPRATE_6064, lfsAge4, "60-64_rate");
+pairsAgree4("LFS nonregular share total", NONREGULAR_SHARE_TOTAL, lfsForm4.total, "nonregular_share");
+pairsAgree4("LFS nonregular share male", NONREGULAR_SHARE_MALE, lfsForm4.male, "nonregular_share");
+pairsAgree4("LFS nonregular share female", NONREGULAR_SHARE_FEMALE, lfsForm4.female, "nonregular_share");
+pairsAgree4("LFS nonregular count", NONREGULAR_COUNT, lfsForm4.total, "nonregular");
+pairsAgree4("MLS hours 30+", HOURS_TOTAL_30, mls4.scale30, "total");
+pairsAgree4("MLS hours 5+", HOURS_TOTAL_5, mls4.scale5, "total");
+pairsAgree4("MLS overtime 5+", HOURS_OVERTIME_5, mls4.scale5, "overtime");
+pairsAgree4("MLS general hours", HOURS_GENERAL, mls4.general, "total");
+pairsAgree4("MLS parttime hours", HOURS_PARTTIME, mls4.parttime, "total");
+pairsAgree4("Paid leave rate", LEAVE_RATE, pl4.rate);
+pairsAgree4("Paid leave granted", LEAVE_GRANTED, pl4.granted);
+pairsAgree4("Paid leave taken", LEAVE_TAKEN, pl4.taken);
+pairsAgree4("Wage gender ratio", GENDER_WAGE_RATIO, wage4.gender, "ratio");
+pairsAgree4("Wage form gap", FORM_WAGE_GAP, wage4.form, "gap");
+pairsAgree4("Accident death", ACCIDENT_DEATH, acc4.death);
+pairsAgree4("Accident injury", ACCIDENT_INJURY, acc4.injury);
+pairsAgree4("Mental claims", MENTAL_CLAIMS, acc4.mental, "claims");
+pairsAgree4("Mental decisions", MENTAL_DECISIONS, acc4.mental, "decisions");
+pairsAgree4("Mental granted", MENTAL_GRANTED, acc4.mental, "granted");
+pairsAgree4("OECD hours JPN", OECD_HOURS_JPN, oecd4.hours.JPN);
+pairsAgree4("OECD gwg JPN median", OECD_GWG_JPN_MEDIAN, oecd4.gwg.JPN.MEDIAN);
+pairsAgree4("OECD temp JPN", OECD_TEMP_JPN, oecd4.temp.JPN);
+
+// Headline anchors (verified verbatim in notes/mhlw-summary.md etc.)
+ok("ch04 headline 2025 employed 6828", HEADLINE_2025.employed === 6828);
+ok("ch04 headline 2025 unemployment rate 2.5", HEADLINE_2025.unemploymentRate === 2.5);
+ok("ch04 headline 2025 nonregular 2128 / 36.5",
+  HEADLINE_2025.nonregular === 2128 && HEADLINE_2025.nonregularShare === 36.5);
+ok("ch04 headline 2025 hours 135.1 / overtime 9.8",
+  HEADLINE_2025.hoursTotal5 === 135.1 && HEADLINE_2025.hoursOvertime5 === 9.8);
+ok("ch04 headline parttime ratio 31.3", HEADLINE_2025.parttimeRatio === 31.3);
+ok("ch04 headline leave 66.9 / 18.1 / 12.1",
+  HEADLINE_2025.leaveRate === 66.9 && HEADLINE_2025.leaveGranted === 18.1 && HEADLINE_2025.leaveTaken === 12.1);
+ok("ch04 headline gender ratio 76.6 / female 285.9 / male 373.4",
+  HEADLINE_2025.genderRatio === 76.6 && HEADLINE_2025.femaleWage === 285.9 && HEADLINE_2025.maleWage === 373.4);
+ok("ch04 headline form gap 67.4", HEADLINE_2025.formGap === 67.4);
+ok("ch04 headline accident death 700 / injury 135333",
+  HEADLINE_2025.accidentDeath === 700 && HEADLINE_2025.accidentInjury === 135333);
+ok("ch04 headline mental claims 4958", HEADLINE_2025.mentalClaims === 4958);
+
+// Age-gap recomputes (published gaps must recompute from published components)
+{
+  const ageMap = new Map(NONREGULAR_AGE_2025.map(([k, v]) => [k as string, v as number]));
+  ok("ch04 nonregular age 2025: 15-24=52.7, 25-34=20.7, 65+=76.1",
+    ageMap.get("15-24") === 52.7 && ageMap.get("25-34") === 20.7 && ageMap.get("65+") === 76.1);
+  ok("ch04 nonregular age U-shape (dip at 25-34, rise to 65+)",
+    (ageMap.get("25-34") as number) < (ageMap.get("15-24") as number) &&
+    (ageMap.get("25-34") as number) < (ageMap.get("45-54") as number) &&
+    (ageMap.get("65+") as number) > (ageMap.get("55-64") as number));
+  // reasons sum ≤ total (不詳 included)
+  const rsum = Math.round(NONREGULAR_REASONS_2025.reduce((s, [, v]) => s + v, 0) * 10) / 10;
+  ok("ch04 reasons 2025 sum ≤ 100.2 (不詳 remainder; 0.1 rounding)", rsum <= 100.2 && rsum >= 90, String(rsum));
+  const reasonMap = new Map(NONREGULAR_REASONS_2025);
+  ok("ch04 reason 自分の都合 36.6 / 正規の仕事がない 8.4",
+    reasonMap.get("自分の都合のよい時間に働きたいから") === 36.6 &&
+    reasonMap.get("正規の職員・従業員の仕事がないから") === 8.4);
+}
+
+// Paid-leave recompute + gap recompute
+{
+  let badRate = 0;
+  for (const [y, r] of LEAVE_RATE) {
+    const g = LEAVE_GRANTED.find(([yy]) => yy === y)?.[1];
+    const t = LEAVE_TAKEN.find(([yy]) => yy === y)?.[1];
+    if (g && t && r !== null && Math.abs(Math.round((t / g) * 1000) / 10 - r) > 0.6) badRate++;
+  }
+  ok("ch04 paid-leave rate ≈ taken/granted (0.6pt)", badRate === 0, `${badRate} bad years`);
+  let badGap = 0;
+  for (const [y, gap] of FORM_WAGE_GAP) {
+    const w = wage4.form[String(y)];
+    if (w && Math.abs(Math.round((w.nonregular / w.regular) * 1000) / 10 - (gap as number)) > 0.25) badGap++;
+  }
+  ok("ch04 form gap recomputes from 賃金構造 components", badGap === 0, `${badGap} bad years`);
+}
+
+// ---- regression guards (audit-lesson classes) -----------------------------
+
+// G-A. Unemployment peak must be 5.4 in 2002 (Ch03 narrative-peak pattern)
+{
+  const peak = UNEMPLOYMENT_RATE.reduce(
+    (best, [y, v]) => (typeof v === "number" && (best[1] === null || v > (best[1] as number)) ? [y, v] : best),
+    [0, null] as [number, number | null],
+  );
+  ok("ch04 guard: unemployment-rate peak is 5.4 in 2002", peak[0] === 2002 && Math.abs((peak[1] ?? -1) - 5.4) < 0.05, String(peak));
+  ok("ch04 guard: text cites the 2002/5.4 peak",
+    ch04Strings.some((t) => t.includes("5.4%") && (t.includes("2002") || t.includes("2002年"))));
+  // 2020 pandemic rate 2.8 — no dramatic-spike claim
+  const r1975 = UNEMPLOYMENT_RATE.find(([y]) => y === 1975)?.[1];
+  ok("ch04 guard: 1975 oil-shock unemployment 1.9 (not 2.0)", r1975 === 1.9);
+  const r2020 = UNEMPLOYMENT_RATE.find(([y]) => y === 2020)?.[1];
+  ok("ch04 guard: 2020 unemployment 2.8 (no pandemic-spike narrative)", r2020 === 2.8);
+  ok("ch04 guard: text never calls 2020 a surge in unemployment",
+    ch04Strings.every((t) => !t.includes("失業率が急騰") && !t.includes("unemployment surged")));
+}
+
+// G-B. Non-regular share: 2019 is the maximum; 2025 is NOT a record high
+{
+  const seq = NONREGULAR_SHARE_TOTAL.filter(([, v]) => v !== null) as ReadonlyArray<[number, number]>;
+  const max = seq.reduce((b, [y, v]) => (v > b[1] ? [y, v] : b), [0, 0] as [number, number]);
+  ok("ch04 guard: non-regular share max is 38.3 in 2019; 2025 (36.5) is 6 years past the peak",
+    max[0] === 2019 && Math.abs(max[1] - 38.3) < 0.05, String(max));
+  ok("ch04 guard: text never claims the non-regular share is at a record high",
+    ch04Strings.every((t) => !t.includes("非正規比率が過去最多") && !t.includes("非正規の割合が過去最高") &&
+      !t.includes("record high for non-regular") && !t.includes("non-regular share at a record")));
+  ok("ch04 guard: text states the post-2019 decline (頂点/低下/peak/eased)",
+    ch04Strings.some((t) => (t.includes("頂点") && t.includes("低下")) || (t.includes("peak") && (t.includes("eased") || t.includes("easing")))));
+}
+
+// G-C. Paid leave: 66.9 (2025 survey) IS the record — the direction opposite of G-B
+{
+  const seq = LEAVE_RATE.filter(([, v]) => v !== null) as ReadonlyArray<[number, number]>;
+  const max = seq.reduce((b, [y, v]) => (v > b[1] ? [y, v] : b), [0, 0] as [number, number]);
+  ok("ch04 guard: paid-leave rate max is 66.9 at the 2025 survey", max[0] === 2025 && Math.abs(max[1] - 66.9) < 0.05, String(max));
+  const min = seq.reduce((b, [y, v]) => (v < b[1] ? [y, v] : b), [2000, 100] as [number, number]);
+  ok("ch04 guard: post-2000 minimum is 46.6 in 2005-2006 window", min[1] <= 46.7, String(min));
+  ok("ch04 guard: 1989 absent from the series (no survey)",
+    LEAVE_RATE.every(([y]) => y !== 1989));
+  ok("ch04 guard: text never treats the survey-year axis as calendar-year for R7",
+    ch04Strings.some((t) => t.includes("2025年調査") && t.includes("2024年")));
+}
+
+// G-D. Accidents: death minimum is 700 in 2025; injury is NOT at its minimum
+{
+  const dmax = ACCIDENT_DEATH.reduce((b, [y, v]) => (typeof v === "number" && v > b[1] ? [y, v] : b), [0, 0] as [number, number]);
+  ok("ch04 guard: death maximum 4,330 in 1975 (not 1974)", dmax[0] === 1975 && dmax[1] === 4330, String(dmax));
+  const dmin = ACCIDENT_DEATH.reduce((b, [y, v]) => (typeof v === "number" && v < b[1] ? [y, v] : b), [0, Infinity] as [number, number]);
+  ok("ch04 guard: death minimum 700 in 2025 (genuine record low)", dmin[0] === 2025 && dmin[1] === 700, String(dmin));
+  const imax = ACCIDENT_INJURY.reduce((b, [y, v]) => (typeof v === "number" && v > b[1] ? [y, v] : b), [0, 0] as [number, number]);
+  ok("ch04 guard: injury maximum 348,826 in 1978", imax[0] === 1978 && imax[1] === 348826, String(imax));
+  const imin = ACCIDENT_INJURY.reduce((b, [y, v]) => (typeof v === "number" && v < b[1] ? [y, v] : b), [0, Infinity] as [number, number]);
+  ok("ch04 guard: injury minimum 105,718 in 2009 (the Lehman trough)", imin[0] === 2009 && imin[1] === 105718, String(imin));
+  const i2009 = ACCIDENT_INJURY.find(([y]) => y === 2009)?.[1];
+  const i2008 = ACCIDENT_INJURY.find(([y]) => y === 2008)?.[1];
+  ok("ch04 guard: injury Lehman drop 2008→2009 (119,291→105,718)", i2008 === 119291 && i2009 === 105718);
+  const iLast = ACCIDENT_INJURY[ACCIDENT_INJURY.length - 1];
+  ok("ch04 guard: injury 2025 (135,333) is well above its 2011-era minimum — no 'record low' claim possible",
+    iLast[1] === 135333 && (iLast[1] as number) > 110000);
+  ok("ch04 guard: text does not claim injuries are at a record low",
+    ch04Strings.every((t) => !t.includes("死傷者数が過去最少") && !t.includes("injuries at a record low")));
+  // 2009 Lehman drop mirrors the anchored death drop
+  const d2008 = ACCIDENT_DEATH.find(([y]) => y === 2008)?.[1];
+  const d2009 = ACCIDENT_DEATH.find(([y]) => y === 2009)?.[1];
+  ok("ch04 guard: death Lehman drop 2008→2009 (1,268→1,075)", d2008 === 1268 && d2009 === 1075);
+}
+
+// G-E. Mental comp: FY2025 claims 4,958 = ~2.7× FY2018; recognition rate recompute
+{
+  const c2018 = MENTAL_CLAIMS.find(([y]) => y === 2018)?.[1];
+  const c2025 = MENTAL_CLAIMS.find(([y]) => y === 2025)?.[1];
+  ok("ch04 guard: mental claims FY2018 1,820 → FY2025 4,958 (≈2.7×)",
+    c2018 === 1820 && c2025 === 4958 && (c2025 / c2018 > 2.6) && (c2025 / c2018 < 2.8));
+  const g25 = MENTAL_GRANTED.find(([y]) => y === 2025)?.[1];
+  const d25 = MENTAL_DECISIONS.find(([y]) => y === 2025)?.[1];
+  ok("ch04 guard: FY2025 recognition rate recomputes to 28.2%",
+    g25 === 1082 && d25 === 3839 && Math.abs(Math.round((g25 / d25) * 1000) / 10 - 28.2) < 0.15);
+  ok("ch04 guard: text never equates rising claims with rising illness",
+    ch04Strings.some((t) => t.includes("そのまま") && (t.includes("訳す") || t.includes("読み")) || t.includes("cannot be translated directly") || t.includes("cannot be read as")));
+}
+
+// G-F. Units: MLS hours are monthly; OECD hours are annual — no conflation
+{
+  const h5_2025 = HOURS_TOTAL_5.find(([y]) => y === 2025)?.[1];
+  const oecdJ25 = OECD_HOURS_JPN.find(([y]) => y === 2025)?.[1];
+  ok("ch04 guard: MLS 135.1 h/month vs OECD 1597.5 h/year kept distinct",
+    h5_2025 === 135.1 && Math.abs((oecdJ25 as number) - 1597.507) < 0.01);
+  ok("ch04 guard: text labels MLS hours as 月平均/月 every time and OECD as 年間",
+    ch04Strings.some((t) => t.includes("月平均") && t.includes("135.1")) &&
+    ch04Strings.some((t) => t.includes("1,597.5") && t.includes("年間")));
+  ok("ch04 guard: OECD trend-not-level caveat present in text",
+    ch04Strings.some((t) => t.includes("水準比較には適さない") || t.includes("unsuitable for level comparisons") || t.includes("not directly comparable")));
+  ok("ch04 guard: OECD temporary ≠ Japan non-regular disclosed",
+    ch04Strings.some((t) => t.includes("概念") && t.includes("同一") && (t.includes("臨時雇用") || t.includes("temporary"))));
+}
+
+// G-G. Wage-gap guards: 1976 floor 58.8; 2025 76.6; curve peaks
+{
+  const ratioMin = GENDER_WAGE_RATIO.reduce((b, [y, v]) => (typeof v === "number" && v < b[1] ? [y, v] : b), [0, Infinity] as [number, number]);
+  const ratioMax = GENDER_WAGE_RATIO.reduce((b, [y, v]) => (typeof v === "number" && v > b[1] ? [y, v] : b), [0, 0] as [number, number]);
+  ok("ch04 guard: gender ratio — series starts 58.8 (1976), minimum 58.6 (1982), maximum 76.6 (2025)",
+    GENDER_WAGE_RATIO[0][1] === 58.8 && ratioMin[0] === 1982 && Math.abs(ratioMin[1] - 58.6) < 0.05 &&
+    Math.abs(ratioMax[1] - 76.6) < 0.05 && ratioMax[0] === 2025,
+    `min=${ratioMin} max=${ratioMax} first=${GENDER_WAGE_RATIO[0]}`);
+  const malePeak = Math.max(...(WAGE_CURVE_MALE.filter((v) => v !== null) as number[]));
+  const femalePeak = Math.max(...(WAGE_CURVE_FEMALE.filter((v) => v !== null) as number[]));
+  ok("ch04 guard: male wage-curve peak 445.6 (55-59) vs female 305.7",
+    malePeak === 445.6 && femalePeak === 305.7);
+  ok("ch04 guard: text presents the gaps as UNADJUSTED (未調整/unadjusted)",
+    ch04Strings.some((t) => t.includes("未調整") || t.includes("unadjusted")));
+  ok("ch04 guard: text does not attribute gaps wholly to discrimination or choice",
+    ch04Strings.some((t) => t.includes("差別") && t.includes("選択")) || ch04Strings.some((t) => t.includes("discrimination") && t.includes("choice")));
+}
+
+// G-H. Hours guards: 1970 series start for 30+; 1990 for 5+; part-ratio 31.3
+{
+  ok("ch04 guard: hours-30 starts 1970; hours-5 starts 1990",
+    HOURS_TOTAL_30[0][0] === 1970 && HOURS_TOTAL_5[0][0] === 1990);
+  ok("ch04 guard: MLS 30+ 1970=186.6 and 2025=141.1 (narrative anchors)",
+    HOURS_TOTAL_30[0][1] === 186.6 && HOURS_TOTAL_30[HOURS_TOTAL_30.length - 1][1] === 141.1);
+  ok("ch04 guard: hours 1990 172.0 (30+: 200.4-ish long-run high) — 2025 135.1",
+    HOURS_TOTAL_5[0][1] === 172.0 && HOURS_TOTAL_5[HOURS_TOTAL_5.length - 1][1] === 135.1);
+  const pr25 = PARTTIME_RATIO.find(([y]) => y === 2025)?.[1];
+  ok("ch04 guard: part-time ratio 2025 31.3 / 1990 12.3", pr25 === 31.3 && PARTTIME_RATIO[0][1] === 12.3);
+  ok("ch04 guard: composition-effect disclosure present (構成効果/composition effect)",
+    ch04Strings.some((t) => t.includes("構成効果") || t.includes("composition effect")));
+}
+
+// G-I. Chart-spec sanity for ch04 (ids unique, years/values aligned)
+{
+  const ids = new Set<string>();
+  let dup = 0, misaligned = 0, badSource = 0;
+  const sourceIds = new Set<string>(chapter04?.sources.map((s) => s.id) ?? []);
+  for (const c of chapter04?.charts ?? []) {
+    if (ids.has(c.id)) dup++;
+    ids.add(c.id);
+    for (const s of c.series) {
+      if (s.values.length !== c.years.length) misaligned++;
+    }
+    for (const sid of c.sourceIds) {
+      if (!sourceIds.has(sid)) badSource++;
+    }
+    if (c.csv === false) badSource++; // CSV downloads must stay enabled
+  }
+  ok("ch04 chart ids unique", dup === 0);
+  ok("ch04 chart series aligned with years", misaligned === 0);
+  ok("ch04 chart source ids resolve", badSource === 0);
+  ok("ch04 chart count is 15", (chapter04?.charts.length ?? 0) === 15);
+}
+
+// G-J. 2023→2024→2025 accident continuity + OECD comparator sanity
+{
+  const d23 = ACCIDENT_DEATH.find(([y]) => y === 2023)?.[1];
+  const d24 = ACCIDENT_DEATH.find(([y]) => y === 2024)?.[1];
+  const d25b = ACCIDENT_DEATH.find(([y]) => y === 2025)?.[1];
+  ok("ch04 guard: death 755 → 746 → 700 (2023-2025 continuity)", d23 === 755 && d24 === 746 && d25b === 700);
+  const oecdMap = new Map(OECD_HOURS_LATEST.map(([a, y, v]) => [a as string, v as number]));
+  ok("ch04 guard: OECD hours JPN 1597.5 < OECD avg 1736.1 < KOR 1833",
+    (oecdMap.get("JPN") as number) < (oecdMap.get("OECD") as number) &&
+    (oecdMap.get("OECD") as number) < (oecdMap.get("KOR") as number));
+  const gwgMap = new Map(OECD_GWG_LATEST.map(([a, y, v]) => [a as string, v as number]));
+  ok("ch04 guard: OECD gwg JPN 20.1 ≈ 2× OECD avg 10.1",
+    Math.abs((gwgMap.get("JPN") as number) - 20.1) < 0.05 && Math.abs((gwgMap.get("OECD") as number) - 10.07) < 0.1);
+  ok("ch04 guard: text does not rank OECD hours as a league table",
+    ch04Strings.some((t) => t.includes("序列としてではなく") || t.includes("not a ranking") || t.includes("not a league")));
+}
+
+// G-K. Section-structure guard: 10 sections, bilingual parity of chart refs
+{
+  const nSections = chapter04?.sections.length ?? 0;
+  ok("ch04 has 10 sections", nSections === 10);
+  const chartRefs = new Set<string>();
+  for (const s of chapter04?.sections ?? []) {
+    for (const b of s.blocks) {
+      if (b.type === "chart") chartRefs.add(b.chartId);
+    }
+  }
+  const chartIds = new Set((chapter04?.charts ?? []).map((c) => c.id));
+  const missing = [...chartIds].filter((id) => !chartRefs.has(id));
+  ok("ch04 every chart is referenced by content", missing.length === 0, missing.join(","));
+}
+
+// G-L. Prose-number agreement (negative-test N5 gap): key figures cited in
+// narrative prose must match the data layer verbatim. Co-occurrence checks
+// trip when a citation is altered or removed; the mental-comp allow-list
+// trips on ANY fabricated number in a 精神障害/mental-disorder string (the
+// self-audit lesson: fabricated 複数業務要因 2,733/635 vs actual 17/4).
+{
+  ok("ch04 guard: prose accident figures match data (347,407 → 105,718 minimum; deaths 4,330 → 700)",
+    ch04Strings.some((t) => t.includes("347,407") && t.includes("105,718")) &&
+    ch04Strings.some((t) => /700人|to 700|700 deaths/.test(t)) &&
+    ch04Strings.some((t) => t.includes("4,330")));
+  ok("ch04 guard: prose headline figures match data (6,828万 employed; 2,128万 non-regular)",
+    ch04Strings.some((t) => t.includes("6,828万")) && ch04Strings.some((t) => t.includes("2,128万")));
+  ok("ch04 guard: prose leave figures match data (66.9 / 18.1 / 12.1 in one citation)",
+    ch04Strings.some((t) => t.includes("66.9") && t.includes("18.1") && t.includes("12.1")));
+  ok("ch04 guard: prose wage figures match data (58.8 floor and 76.6 latest in one series citation)",
+    ch04Strings.some((t) => t.includes("58.8") && t.includes("76.6")));
+  // Mental-comp allow-list: every non-year number in a mental-disorder string
+  // must resolve to the data layer (MENTAL_CLAIMS/DECISIONS/GRANTED), the
+  // recomputed aggregates (2.7×, 28.2%), or the verbatim note anchors from
+  // the same MHLW release (1,254 brain/heart claims, 217 granted, 17
+  // multi-employer mental decisions).
+  const mentalNums = new Set<string>();
+  for (const [y, v] of MENTAL_CLAIMS) if (v !== null) { mentalNums.add(String(v)); mentalNums.add(v.toLocaleString("en-US")); }
+  for (const [y, v] of MENTAL_DECISIONS) if (v !== null) { mentalNums.add(String(v)); mentalNums.add(v.toLocaleString("en-US")); }
+  for (const [y, v] of MENTAL_GRANTED) if (v !== null) { mentalNums.add(String(v)); mentalNums.add(v.toLocaleString("en-US")); }
+  for (const n of ["2.7", "28.2", "1,254", "1254", "217", "17"]) mentalNums.add(n);
+  let mentalBad = 0; const mentalBadList: string[] = [];
+  for (const t of ch04Strings) {
+    if (!/精神障害の労災請求件数|精神障害の件数|work-related mental disorders/.test(t)) continue;
+    for (const m of t.matchAll(/\d{1,3}(?:,\d{3})+|\d+\.\d+|\b\d{2,4}\b/g)) {
+      const n = m[0];
+      if (/^(19|20)\d{2}$/.test(n)) continue; // years
+      if (!mentalNums.has(n) && !mentalNums.has(n.replace(/,/g, ""))) { mentalBad++; mentalBadList.push(n); }
+    }
+  }
+  ok("ch04 guard: every number in mental-comp text resolves to the data layer or verified note anchors",
+    mentalBad === 0, mentalBadList.join(","));
+}
+
+// G-M. Survey-year framing (negative-test N6 gap): the R7 (2025-round)
+// 就労条件総合調査 leave figures cover calendar 2024 — no string may
+// attribute 66.9% to calendar 2025. JA: a 2025年 mention in a 66.9 string
+// must be part of 2025年調査 (unless the calendar-2024 form is used); EN: a
+// 2025 mention requires survey/round/calendar-2024 framing.
+{
+  ok("ch04 guard: 66.9% never attributed to calendar 2025 (survey-year framing required)",
+    ch04Strings.every((t) => {
+      if (!t.includes("66.9")) return true;
+      if (/[\u3040-\u30ff\u4e00-\u9fff]/.test(t)) {
+        return !/2025年(?!調査)/.test(t) || /2024年暦年/.test(t);
+      }
+      return !/\b2025\b/.test(t) || /survey|round|calendar[- ]?2024/i.test(t);
+    }));
+}
+
+// G-N. 1973 Okinawa double-row convention (audit D1): the kept 1973 values
+// must be the Okinawa-INCLUDED rows (forward-continuous with 1974+), per the
+// LFS handbook's dual-publication note (解説 (3)ア). The excluded row is
+// 5223/1.2/3591/961/662/56.8 — any of those in the delivered series is a
+// regression to the pre-audit bug.
+{
+  const e1973 = EMPLOYED_TOTAL.find(([y]) => y === 1973)?.[1];
+  const r1973 = UNEMPLOYMENT_RATE.find(([y]) => y === 1973)?.[1];
+  const emp1973 = STATUS_EMPLOYEE.find(([y]) => y === 1973)?.[1];
+  const self1973 = STATUS_SELFEMPLOYED.find(([y]) => y === 1973)?.[1];
+  const fam1973 = STATUS_FAMILY.find(([y]) => y === 1973)?.[1];
+  ok("ch04 guard: 1973 = Okinawa-included row (5259 / 1.3 / 3615 / 970 / 665)",
+    e1973 === 5259 && r1973 === 1.3 && emp1973 === 3615 && self1973 === 970 && fam1973 === 665,
+    `${e1973}/${r1973}/${emp1973}/${self1973}/${fam1973}`);
+}
+
+// G-O. Non-regular category-basis guard (audit D2): 嘱託 became a separate
+// survey category only in 2013 (表10-1 col M empty 2002-2012) — no prose may
+// compose a 2002 契約社員・嘱託 combined figure, and the break must be
+// disclosed with the correct 230万/2.30 million 2002 contract value.
+{
+  ok("ch04 guard: no 355万/3.55 million 2002 contract-total claim (嘱託 separate only from 2013)",
+    ch04Strings.every((t) => !t.includes("355万") && !t.includes("3.55 million")));
+  ok("ch04 guard: contract-category break disclosed with correct 2002 basis (230万 / 2.30 million, 2013 change)",
+    ch04Strings.some((t) => t.includes("230万") && t.includes("2013")) &&
+    ch04Strings.some((t) => t.includes("2.30 million") && t.includes("2013")));
+}
+
+// G-P. 65+ employment-rate trough guard (audit D3): the trough is 19.2% in
+// 2011 — the text must anchor it there, never to "around 2000 / 約20%".
+{
+  const seq = OLDER_EMPRATE_65.filter(([, v]) => v !== null) as ReadonlyArray<[number, number]>;
+  const min = seq.reduce((b, [y, v]) => (v < b[1] ? [y, v] : b), [0, Infinity] as [number, number]);
+  ok("ch04 guard: 65+ employment-rate minimum 19.2 in 2011",
+    min[0] === 2011 && Math.abs(min[1] - 19.2) < 0.05, String(min));
+  ok("ch04 guard: text anchors the 65+ trough to 2011/19.2 (both languages), never 約20%-around-2000",
+    ch04Strings.some((t) => t.includes("19.2%") && t.includes("2011")) &&
+    ch04Strings.some((t) => t.includes("19.2% trough")) &&
+    ch04Strings.every((t) => !/約20%まで下がり/.test(t) && !/(about|roughly) 20% around 2000/.test(t)));
+}
+
+// G-Q. Unverifiable-claim guard (audit D4): the 15-24 student-excluded
+// non-regular share has no published 2025 value (series ends 2022 = 24.4) —
+// the claim must not appear in either language.
+{
+  ok("ch04 guard: no student-excluded 24.3% claim (no published 2025 value)",
+    ch04Strings.every((t) => !/在学中を除くと\s*24\.3/.test(t) && !/excluding students[^.]*24\.3/.test(t)));
+}
+
+// G-R. Bilingual year-anchor guard (audit D5): EN must anchor the 1.9%
+// unemployment value to 1975 exactly as JA does (1973's value is 1.3).
+{
+  ok("ch04 guard: EN anchors the 1.9% unemployment value to 1975 (not 1973)",
+    ch04Strings.some((t) => t.includes("1.9% in 1975")) &&
+    ch04Strings.every((t) => !/1\.9% after the 1973/.test(t)));
+}
+
+const hash4 = createHash("sha256").update(readFileSync(extraction4Path)).digest("hex").slice(0, 16);
+ok("ch04 dataset snapshot hash unchanged", hash4 === CH04_SNAPSHOT_HASH, `${hash4} vs ${CH04_SNAPSHOT_HASH}`);
+
+// ---------------------------------------------------------------------------
 // 6. UI dictionary parity
 // ---------------------------------------------------------------------------
 console.log("\n[6] UI dictionary parity");
