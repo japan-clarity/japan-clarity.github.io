@@ -4,10 +4,11 @@ import type { ChapterModule } from "@/chapters/types";
 import { chapter01 } from "@/chapters/chapter-01";
 import { chapter02 } from "@/chapters/chapter-02";
 import { chapter03 } from "@/chapters/chapter-03";
+import { chapter04 } from "@/chapters/chapter-04";
 
 /**
  * Chapter registry — maps published chapter modules to their registry
- * entries. Chapters 03–14 have no module yet and render as clearly-labeled
+ * entries. Chapters 05–14 have no module yet and render as clearly-labeled
  * placeholders. Adding a chapter = creating its module folder + registering
  * it here; it must then pass `bun run validate:research` before release.
  */
@@ -16,6 +17,7 @@ const moduleRegistry: Record<string, ChapterModule> = {
   "population-family": chapter01,
   "economy-industry": chapter02,
   "housing-cost-of-living": chapter03,
+  "labor-working-conditions": chapter04,
 };
 
 export interface RegisteredChapter {

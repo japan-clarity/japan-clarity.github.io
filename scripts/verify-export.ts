@@ -111,9 +111,16 @@ ok("chapter 03 (en) contains chart panels", ch03en.includes("figure-ch03-stock")
 ok("chapter 03 (en) contains limitations section", ch03en.includes("Limitations and caveats"));
 ok("chapter 03 (en) contains the OECD index-base disclosure", ch03en.includes("2015=100"));
 
-// Placeholder chapters (04+) are still clearly marked as unpublished.
+// Chapter 04 is now PUBLISHED — verify the real chapter rendered (charts + tables).
 const ch04ja = readFileSync(resolve(OUT, "ja", "chapters", "labor-working-conditions", "index.html"), "utf-8");
-ok("chapter 04 (ja) still marked not published", ch04ja.includes("この章はまだ公開されていません"));
+ok("chapter 04 (ja) published (no placeholder marker)", !ch04ja.includes("この章はまだ公開されていません"));
+ok("chapter 04 (ja) contains employment-status chart", ch04ja.includes("従業上の地位別就業者数"));
+ok("chapter 04 (ja) contains mental-comp chart", ch04ja.includes("精神障害の労災"));
+ok("chapter 04 (ja) contains limitations section", ch04ja.includes("限界") || ch04ja.includes("本章が検証していない主題"));
+const ch04en = readFileSync(resolve(OUT, "en", "chapters", "labor-working-conditions", "index.html"), "utf-8");
+ok("chapter 04 (en) published (no placeholder marker)", !ch04en.includes("has not been published yet"));
+ok("chapter 04 (en) contains OECD hours chart", ch04en.includes("Average annual hours actually worked"));
+ok("chapter 04 (en) contains the trend-not-level caveat", ch04en.includes("unsuitable for level comparisons") || ch04en.includes("not directly comparable"));
 
 // Metadata routes.
 ok(".build-export/sitemap.xml exists", existsSync(resolve(OUT, "sitemap.xml")));
