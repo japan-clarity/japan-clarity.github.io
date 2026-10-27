@@ -481,3 +481,78 @@ If the sandbox resets: re-create the worktree
 bunx tsc --noEmit && bunx eslint src scripts && bun run export:static && bun run
 verify:export`. The auditor's re-fetches (OECD byte-identical; e-Stat/MHLW
 re-parsed fresh) are documented in `research/chapter04/notes/audit-findings.md`.
+
+## Checkpoint 9 — Chapter 05 (Education & Talent) development + pre-merge audit
+
+Chapter 05 was built end-to-end on `feature/chapter-05-education-talent`
+(from `origin/main = a4fefde`) and audited in the same pass: anchored
+extraction (**991 checks / 0 failures**, snapshot `b223943072ca13e2`), data
+generation (47 exports), **16 bilingual figures across 10 sections, 11
+source records**, then the independent adversarial audit with live
+re-fetches from mext.go.jp / nier.go.jp / e-Stat / OECD SDMX (fresh-parser
+comparison vs the delivered data.ts).
+
+Coverage highlights: PISA full trend 2000–2025 including the **2025 cycle
+(published 2026-09-08: Japan science 538 / reading 503 / math 525 — first
+among OECD-38 in all three domains; reading −13 significant)**, science
+proficiency distributions, questionnaire measures (life satisfaction,
+belonging, family support, ICT use); 生徒指導調査 R6 (いじめ 769,022 /
+不登校 353,970 / 新規 153,828 first decline in 9 years / 自殺 413 with the
+5.6% investigation caveat / ネットいじめ 27,365); the **34-year nonattendance
+series joining the 1991–2013 K014 basis with the 2014+ unified basis**
+(junction gap 122,650 vs 122,897 disclosed); 学校基本調査 long-run tables
+(進学率 1950–, 大学在籍 1948–, 専修 1976–), R7 確報 headlines (61.4 /
+85.4 / 14.4 / 13.8) and R8 速報 labeled preliminary; 学習費 R5 by stage and
+sector; PIAAC Round 1 (296/288/294; equity 129 vs 152) with **Round 2
+(2023) disclosed as INCONCLUSIVE** — unverifiable from any accessible
+primary channel (attempts documented); OECD EAG via SDMX (attainment 9
+economies 1995–2025, per-FTE-student PPP by level, employment by
+attainment with the absent JPN 0T2 rows disclosed, ECEC 3–5).
+
+Audit findings and remediation:
+- **R1** (fixed pre-delivery): a negative-test residue in the pristine
+  charts.ts JA note ("OECD平均は図に表示した国の平均値である") was caught by
+  the N12 guard during the pre-audit gate run; corrected to the member-
+  average wording matching the EN note.
+- **A0** (auditor-side): the audit script's first SDMX query used a flow id
+  missing the `_EA` suffix (HTTP 404) and its first comparison keyed live
+  rows without the AGE dimension (25–34 overwrote 25–64); both fixed in the
+  audit tooling — the delivered chapter data was correct throughout
+  (58/58 live values matched after the fix).
+- No data-value or narrative defects found: every independently re-parsed
+  value (SDMX 58, PDF anchors いじめ/不登校/自殺/新規/ネット/PISA 2025
+  headline+CIs+−13 significance/R7 headline/学習費×6/PIAAC×8) matched the
+  delivered series exactly.
+
+Guard hardening: validate-research.ts grew to **1,866 checks / 0 failures**
+([5f] section incl. negative-test-hardened round-2 guards); the negative
+suite N1–N12 (+N3b) — **13/13 fixtures CAUGHT** with byte-identical
+restore, including two historical defect classes per lesson bank (Ch01
+contamination, Ch02 unit conflation, Ch03 narrative-peak fabrication, Ch04
+category/basis error) plus PIAAC-fabrication, bilingual year mismatch,
+record-year, significance erasure, series-basis erasure, score-to-percent,
+school-level contamination, and OECD-average recompute claims.
+
+Gates on the final tip: tsc 0 · eslint 0/0 · validate:research **1866/0** ·
+contrast 58/0 · export verify **94/0 (22.1 MB)** · Ch01–04/lib/app
+**zero-diff** vs `a4fefde` (diff touches only ch05 files + registry/config
+status + validate/verify scripts + package.json scripts). Browser
+verification (agent-browser): JA/EN render, chart⇄table round-trip (77-row
+long series), range filters, CSV blob download, deep links, 320–1440 px no
+overflow, sticky footer (short pages perfect-stick; long pages natural
+push), Ch01–04 regressions clean, zero console errors. Sanitization PASS
+(no secrets/keys/absolute paths; raw/ gitignored per DATA-LICENSES;
+workflows untouched). Full record: `docs/CH05-PREMERGE-INDEPENDENT-AUDIT.md`,
+`docs/remediation-ledger-ch05.csv`, `research/chapter05/notes/` (oecd /
+estat-mext summaries, audit findings, negative tests, browser
+verification). Release recommendation: **GO**.
+
+If the sandbox resets: re-create the worktree
+`git worktree add /home/z/jc-ch05 feature/chapter-05-education-talent`,
+`bun install`, then re-run `python3 research/chapter05/scripts/extract-series.py
+&& bun run scripts/generate-chapter-05-data.ts && bash
+research/chapter05/scripts/negative-tests.sh && bun run validate:research &&
+bunx tsc --noEmit && bunx eslint src scripts && bun run export:static && bun run
+verify:export`. The auditor's re-fetches (six MEXT/NIER PDFs byte-identical;
+OECD SDMX live values matching the archive) are documented in
+`research/chapter05/notes/audit-findings.md`.

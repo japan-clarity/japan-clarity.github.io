@@ -130,7 +130,7 @@ export const chapters: ChapterMeta[] = [
       ja: ["学力と教育の質", "教育機会の格差", "生徒の幸福度", "高等教育と職業訓練", "生涯学習とデジタルスキル"],
       en: ["Learning outcomes and quality", "Disparities in access", "Student well-being", "Higher and vocational education", "Lifelong learning and digital skills"],
     },
-    status: "planned",
+    status: "published-limited",
   },
   {
     number: "06",

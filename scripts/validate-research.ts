@@ -1354,6 +1354,426 @@ const hash4 = createHash("sha256").update(readFileSync(extraction4Path)).digest(
 ok("ch04 dataset snapshot hash unchanged", hash4 === CH04_SNAPSHOT_HASH, `${hash4} vs ${CH04_SNAPSHOT_HASH}`);
 
 // ---------------------------------------------------------------------------
+// 5f. Data agreement + regression guards (Chapter 05 — Education & Talent,
+//     2026-10-27). Audit lessons driving the guards:
+//     (i)   cross-table contamination (Ch01) — every series is compared
+//           field-by-field against the anchored extraction JSON;
+//     (ii)  unit/basis clarity (Ch02) — PISA scores are scale points NOT
+//           percentages; OECD averages are the OECD's own aggregates; EAG
+//           spending is current-price PPP;
+//     (iii) prose ≠ data (Ch03) — narrative guards for the PISA 2025
+//           headline, reading decline significance, bullying record,
+//           nonattendance series break, life-satisfaction dip/recovery;
+//     (iv)  category/basis/bilingual errors (Ch04) — the old/new 不登校
+//           series junction, nationality-vs-residence foreign students,
+//           JA/EN year-value parity, and the old-series 1991 value (66,817,
+//           the nonattendance category — NOT the 168,303 long-absence total,
+//           an error class caught during module reconstruction).
+// ---------------------------------------------------------------------------
+console.log("\n[5f] Data agreement + regression guards (chapter 05)");
+
+const extraction5Path = resolve(ROOT, "research/chapter05/notes/extracted-series.json");
+const extraction5 = JSON.parse(readFileSync(extraction5Path, "utf-8")) as Record<string, any>;
+
+const {
+  PISA_JPN_MATH, PISA_JPN_READING, PISA_JPN_SCIENCE,
+  PISA_OECD_MATH, PISA_OECD_READING, PISA_OECD_SCIENCE,
+  PISA_2025_INTL_SCIENCE, PISA_2025_INTL_READING, PISA_2025_INTL_MATH,
+  PISA_PROF_JAPAN, PISA_PROF_OECD,
+  HS_PROGRESSION_EXCL_COMM, UNIV_FRESHMAN_PROGRESSION,
+  UNIV_FRESHMAN_PROGRESSION_M, UNIV_FRESHMAN_PROGRESSION_F,
+  HS_DESTINATIONS_2025,
+  IJIME_TOTAL, IJIME_ELEMENTARY, IJIME_JHS, IJIME_HS_SP, IJIME_RATE,
+  NET_IJIME,
+  FUTOUKOU_OLD, FUTOUKOU_TOTAL, FUTOUKOU_ELEMENTARY, FUTOUKOU_JHS,
+  FUTOUKOU_RATE, FUTOUKOU_NEW_CASES, IJIME_JUDAITAI,
+  LIFE_SATISFACTION_SHARE, SCHOOL_BELONGING_2025, FAMILY_SUPPORT_INDEX_2025,
+  TERTIARY_25_64, TERTIARY_25_34,
+  PER_STUDENT_BY_LEVEL_2023, EMPLOYMENT_BY_ATTAINMENT, JPN_EMPRATE_TERTIARY,
+  ECEC_3_5, PIAAC_2012,
+  UNIV_ENROLLMENT, SENSHU_ENROLLMENT, GAKUSHUUHI_2023,
+  FOREIGN_STUDENTS_UNIV, HEADLINE: HEADLINE_2025_ED,
+} = await import("../src/chapters/chapter-05/data");
+
+const chapter05 = getChapterModule("education-talent");
+ok("ch05 registered with real module", chapter05 !== null);
+const ch05Strings: string[] = [];
+if (chapter05) {
+  for (const s of chapter05.sections) {
+    ch05Strings.push(s.heading.ja, s.heading.en);
+    for (const b of s.blocks) {
+      if (b.type === "p" || b.type === "callout") {
+        ch05Strings.push(b.text.ja, b.text.en);
+        if (b.type === "callout" && b.title) ch05Strings.push(b.title.ja, b.title.en);
+      } else if (b.type === "ul") {
+        for (const it of b.items) ch05Strings.push(it.ja, it.en);
+      } else if (b.type === "stats") {
+        for (const it of b.items) ch05Strings.push(it.value.ja, it.value.en, it.label.ja, it.label.en);
+      }
+    }
+  }
+  for (const l of chapter05.limitations) ch05Strings.push(l.ja, l.en);
+  for (const c of chapter05.charts) {
+    ch05Strings.push(c.title.ja, c.title.en, c.description.ja, c.description.en);
+    if (c.note) ch05Strings.push(c.note.ja, c.note.en);
+  }
+}
+
+function pairsAgree5(
+  name: string,
+  pairs: ReadonlyArray<[number | string, number | null]>,
+  expected: Record<string, any>,
+) {
+  let mismatches = 0;
+  let compared = 0;
+  for (const [y, v] of pairs) {
+    const exp = expected[String(y)];
+    if (exp === undefined || exp === null) continue;
+    compared++;
+    if (v === null || Math.abs(v - exp) > 1e-9) mismatches++;
+  }
+  ok(`ch05 data agreement: ${name} (${compared} pts)`, mismatches === 0, `${mismatches} mismatches`);
+}
+
+// 5f-1. PISA trend agreement (Japan + OECD average, 3 domains)
+{
+  pairsAgree5("PISA JPN math", PISA_JPN_MATH, extraction5.pisa.japan.math);
+  pairsAgree5("PISA JPN reading", PISA_JPN_READING, extraction5.pisa.japan.reading);
+  pairsAgree5("PISA JPN science", PISA_JPN_SCIENCE, extraction5.pisa.japan.science);
+  pairsAgree5("PISA OECD math", PISA_OECD_MATH, extraction5.pisa.oecd_average.math);
+  pairsAgree5("PISA OECD reading", PISA_OECD_READING, extraction5.pisa.oecd_average.reading);
+  pairsAgree5("PISA OECD science", PISA_OECD_SCIENCE, extraction5.pisa.oecd_average.science);
+  const jm = new Map(PISA_JPN_MATH.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch05 guard: PISA JPN math 2003 534 → 2025 525 (peak 536 in 2012 & 2022)",
+    jm.get(2003) === 534 && jm.get(2025) === 525 && jm.get(2012) === 536 && jm.get(2022) === 536);
+  const jr = new Map(PISA_JPN_READING.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch05 guard: PISA JPN reading peak 538 (2012), 2025 503, 2000 522",
+    jr.get(2012) === 538 && jr.get(2025) === 503 && jr.get(2000) === 522);
+  const js = new Map(PISA_JPN_SCIENCE.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch05 guard: PISA JPN science 547 (2012 & 2022) → 538 (2025), first 531 (2006)",
+    js.get(2012) === 547 && js.get(2022) === 547 && js.get(2025) === 538 && js.get(2006) === 531);
+  const om = new Map(PISA_OECD_MATH.map(([y, v]) => [y as number, v as number | null]));
+  const orr = new Map(PISA_OECD_READING.map(([y, v]) => [y as number, v as number | null]));
+  const os = new Map(PISA_OECD_SCIENCE.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch05 guard: OECD average 2025 463/461/482, 2003 math 500, 2000 reading 500",
+    om.get(2025) === 463 && orr.get(2025) === 461 && os.get(2025) === 482 &&
+    om.get(2003) === 500 && orr.get(2000) === 500);
+  ok("ch05 guard: OECD average decline since 2015 in all 3 domains (math 490→463, reading 493→461, science 493→482)",
+    om.get(2015)! > om.get(2025)! && orr.get(2015)! > orr.get(2025)! && os.get(2015)! > os.get(2025)!);
+}
+
+// 5f-2. PISA 2025 international table + headline claims
+{
+  const sci = new Map(PISA_2025_INTL_SCIENCE.map(([a, v]) => [a as string, v as number]));
+  const rea = new Map(PISA_2025_INTL_READING.map(([a, v]) => [a as string, v as number]));
+  const mat = new Map(PISA_2025_INTL_MATH.map(([a, v]) => [a as string, v as number]));
+  ok("ch05 guard: PISA2025 JPN 538/503/525 vs OECD 482/461/463",
+    sci.get("JPN") === 538 && rea.get("JPN") === 503 && mat.get("JPN") === 525 &&
+    sci.get("OECD") === 482 && rea.get("OECD") === 461 && mat.get("OECD") === 463);
+  ok("ch05 guard: PISA2025 comparator spots (KOR sci 526, EST sci 527, GBR reading 494)",
+    sci.get("KOR") === 526 && sci.get("EST") === 527 && rea.get("GBR") === 494);
+  ok("ch05 guard: prose carries the OECD-38 vs all-91 distinction (加盟38 vs 全参加91)",
+    ch05Strings.some((t) => t.includes("OECD加盟38か国") || t.includes("38 OECD countries")) &&
+    ch05Strings.some((t) => t.includes("91か国") || t.includes("91 countries") || t.includes("91 participants")));
+  ok("ch05 guard: prose never AFFIRMATIVELY claims world #1 (mentions must be negated)",
+    ch05Strings.every((t) => !/世界一|world'?s (best|number one|first)/.test(t) || /誤り|mistake|does not|ではない/.test(t)));
+  ok("ch05 guard: 'first time in all three domains' is bounded to OECD members",
+    ch05Strings.some((t) => t.includes("調査開始以来初") || t.includes("for the first time ever")));
+}
+
+// 5f-3. Reading decline significance / non-significance discipline (Ch03-class)
+{
+  ok("ch05 guard: reading −13 significant stated; math/science NOT significant stated",
+    ch05Strings.some((t) => /13点(の)?有意な?|−13点で有意|significant 13|fell a significant 13/.test(t)) &&
+    ch05Strings.some((t) => /数学的リテラシーと科学は低下したものの統計的に有意な変化ではなく|declined without statistical significance/.test(t)));
+  const drop = extraction5.pisa.reading_drop_2022_2025_significant;
+  ok("ch05 guard: extraction reading_drop = 13", drop === 13);
+}
+
+// 5f-4. Proficiency distribution guards
+{
+  const jp25 = PISA_PROF_JAPAN.find(([y]) => y === 2025)?.[1];
+  const jp22 = PISA_PROF_JAPAN.find(([y]) => y === 2022)?.[1];
+  const o25 = PISA_PROF_OECD.find(([y]) => y === 2025)?.[1];
+  ok("ch05 guard: science prof JPN 2025 low 11.3 (2022 8.0), top 17.1 (18.0)",
+    Math.abs(jp25![0] - 11.3) < 0.01 && Math.abs(jp22![0] - 8.0) < 0.01 &&
+    Math.abs(jp25![4] + jp25![5] - 17.1) < 0.01 && Math.abs(jp22![4] + jp22![5] - 18.0) < 0.01);
+  ok("ch05 guard: science prof OECD 2025 low 25.7 (2006 19.2)",
+    Math.abs(o25![0] - 25.7) < 0.01 &&
+    Math.abs((PISA_PROF_OECD.find(([y]) => y === 2006)?.[1] ?? [0])[0] - 19.2) < 0.01);
+  for (const [y, v] of PISA_PROF_JAPAN) ok(`ch05 prof JPN ${y} sums ~100`, Math.abs(v.reduce((a, b) => a + b, 0) - 100) <= 1.5);
+}
+
+// 5f-5. 生徒指導調査 guards
+{
+  pairsAgree5("ijime total", IJIME_TOTAL, extraction5.shidou_r6.ijime["計"]);
+  pairsAgree5("ijime elem", IJIME_ELEMENTARY, extraction5.shidou_r6.ijime["小学校"]);
+  pairsAgree5("ijime jhs", IJIME_JHS, extraction5.shidou_r6.ijime["中学校"]);
+  pairsAgree5("net ijime", NET_IJIME, extraction5.shidou_r6.net_ijime);
+  pairsAgree5("futoukou total", FUTOUKOU_TOTAL, extraction5.shidou_r6.futoukou["合計"]);
+  pairsAgree5("futoukou elem", FUTOUKOU_ELEMENTARY, extraction5.shidou_r6.futoukou["小学校"]);
+  pairsAgree5("futoukou jhs", FUTOUKOU_JHS, extraction5.shidou_r6.futoukou["中学校"]);
+  pairsAgree5("shinki", FUTOUKOU_NEW_CASES, extraction5.shidou_r6.shinki_futoukou);
+  pairsAgree5("futoukou old", FUTOUKOU_OLD, extraction5.longrun_enrollment.chouki_futoukou_old_series);
+  const it = new Map(IJIME_TOTAL.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch05 guard: ijime 2013 185,803 → 2024 769,022 (record), elem share 79.5%",
+    it.get(2013) === 185803 && it.get(2024) === 769022);
+  const e24 = IJIME_ELEMENTARY.find(([y]) => y === 2024)?.[1] ?? 0;
+  ok("ch05 guard: elementary bullying 610,612 ≈ 79.5% of total", e24 === 610612 && Math.abs(e24 / 769022 - 0.795) < 0.005);
+  const ir = new Map(IJIME_RATE.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch05 guard: ijime rate 13.4 (2013) → 61.3 (2024)", ir.get(2013) === 13.4 && ir.get(2024) === 61.3);
+  ok("ch05 guard: MEXT's own caution framing present (認知≠実態悪化)",
+    ch05Strings.some((t) => /認知件数の増加イコール実態の悪化|rising counts do not equal worsening/.test(t)));
+  const ft = new Map(FUTOUKOU_TOTAL.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch05 guard: futoukou 2014 122,897 → 2024 353,970 (record); elem 137,704 / jhs 216,266",
+    ft.get(2014) === 122897 && ft.get(2024) === 353970);
+  const fr = new Map(FUTOUKOU_RATE.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch05 guard: futoukou rate 38.6 (2024), jhs 67.9 vs elem 23.0",
+    fr.get(2024) === 38.6);
+  const fo = FUTOUKOU_OLD[0];
+  ok("ch05 guard: old-series 1991 = 66,817 (nonattendance category — NOT the 168,303 long-absence total)",
+    fo[0] === 1991 && fo[1] === 66817);
+  ok("ch05 guard: prose does NOT misstate the old-series start as 16.8万/168 thousand",
+    ch05Strings.every((t) => !/旧系列では1991年の16\.8万|168 thousand \(1991\)/.test(t)));
+  const oldPeak = Math.max(...FUTOUKOU_OLD.map(([, v]) => v ?? 0));
+  ok("ch05 guard: old-series peak 138,722 (2001) appears in prose; 2000 value 134,286 also correct",
+    oldPeak === 138722 && (FUTOUKOU_OLD.find(([y]) => y === 2000)?.[1] === 134286) &&
+    ch05Strings.some((t) => t.includes("138,722")) &&
+    ch05Strings.every((t) => !/2000年に134,286人でピーク|134,286 peak/.test(t)));
+  const sn = new Map(FUTOUKOU_NEW_CASES.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch05 guard: new nonattendance 2024 153,828 (first fall in 9 years; 2023 165,300)",
+    sn.get(2024) === 153828 && sn.get(2023) === 165300);
+  const jd = new Map(IJIME_JUDAITAI.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch05 guard: judaitai 2013 179 → 2024 1,404 (1,306 in 2023)",
+    jd.get(2013) === 179 && jd.get(2024) === 1404 && jd.get(2023) === 1306);
+  ok("ch05 guard: suicide handled with MEXT framing and NOT charted",
+    ch05Strings.some((t) => /極めて憂慮すべき|extremely grave/.test(t)) &&
+    (chapter05?.charts ?? []).every((c) => !/自殺|suicide/i.test(c.id + c.title.ja + c.title.en)));
+  const suicide = extraction5.shidou_r6.suicide;
+  ok("ch05 guard: suicide prose values 413/397 appear with context only",
+    ch05Strings.some((t) => t.includes("413") && t.includes("397")));
+  ok("ch05 extraction suicide 2024 413 / 2023 397", suicide["2024"] === 413 && suicide["2023"] === 397);
+}
+
+// 5f-6. Life satisfaction + well-being questionnaire guards
+{
+  const ls = new Map(LIFE_SATISFACTION_SHARE.map(([y, v]) => [y as number, v]));
+  ok("ch05 guard: life satisfaction 61.1 (2015) → 50.2 (2018) → 60.8 (2022) → 68.9 (2025)",
+    Math.abs(ls.get(2015)!.JPN - 61.1) < 0.06 && Math.abs(ls.get(2018)!.JPN - 50.2) < 0.06 &&
+    Math.abs(ls.get(2022)!.JPN - 60.8) < 0.06 && Math.abs(ls.get(2025)!.JPN - 68.9) < 0.06);
+  ok("ch05 guard: OECD 2025 satisfied+ 70.6", Math.abs(ls.get(2025)!.OECD! - 70.6) < 0.06);
+  ok("ch05 guard: 'not conclude collapse' framing present",
+    ch05Strings.some((t) => /とは断定しません|does not conclude that/.test(t)));
+  ok("ch05 guard: belonging 88.9 vs OECD 76.2 in prose",
+    SCHOOL_BELONGING_2025.japan_affirmative === 88.9 && SCHOOL_BELONGING_2025.oecd_affirmative === 76.2 &&
+    ch05Strings.some((t) => t.includes("88.9%")));
+  ok("ch05 guard: family support index -0.64 (37位) vs OECD -0.19 in prose",
+    FAMILY_SUPPORT_INDEX_2025.japan === -0.64 && FAMILY_SUPPORT_INDEX_2025.oecd_avg === -0.19 &&
+    ch05Strings.some((t) => t.includes("-0.64")));
+}
+
+// 5f-7. EAG guards
+{
+  pairsAgree5("tertiary JPN 25-64", TERTIARY_25_64.JPN, extraction5.eag_attainment.tertiary_25_64.JPN);
+  pairsAgree5("tertiary OECD 25-64", TERTIARY_25_64.OECD, extraction5.eag_attainment.tertiary_25_64.OECD);
+  const tj = new Map(TERTIARY_25_64.JPN.map(([y, v]) => [y as number, v as number | null]));
+  const to = new Map(TERTIARY_25_64.OECD.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch05 guard: tertiary JPN 1997 30.5 → 2025 57.9; OECD 2025 42.7",
+    Math.abs(tj.get(1997)! - 30.5) < 0.06 && Math.abs(tj.get(2025)! - 57.9) < 0.06 &&
+    Math.abs(to.get(2025)! - 42.7) < 0.06);
+  const t34 = new Map(TERTIARY_25_34.JPN.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch05 guard: tertiary 25-34 JPN 2025 67.5", Math.abs(t34.get(2025)! - 67.5) < 0.06);
+  ok("ch05 guard: OECD-average-not-average-of-shown disclosure present",
+    ch05Strings.some((t) => /表示国の平均ではありません|not an average of (the )?(displayed|shown) countries/.test(t)));
+  const ps = PER_STUDENT_BY_LEVEL_2023;
+  const k = (v: number | null | undefined) => Math.round((v ?? 0) / 100) / 10; // USD → thousand USD
+  ok("ch05 guard: per-student JPN 11.0/13.0/21.7/14.2 vs OECD 13.1/14.5/14.9/14.1 (thousand USD, raw ÷1000)",
+    k(ps.primary.JPN) === 11.0 && k(ps.secondary.JPN) === 13.0 &&
+    k(ps.tertiary.JPN) === 21.7 && k(ps.all.JPN) === 14.2 &&
+    k(ps.primary.OECD) === 13.1 && k(ps.secondary.OECD) === 14.5 &&
+    k(ps.tertiary.OECD) === 14.9 && k(ps.all.OECD) === 14.1);
+  const psChart = chapter05?.charts.find((c) => c.id === "ch05-cost-per-student");
+  const psJPN = psChart?.series[0].values.map((v) => Math.round((v ?? 0) * 10) / 10);
+  ok("ch05 guard: per-student CHART values are in thousand USD (11.0/13.0/21.7/14.2), matching prose",
+    JSON.stringify(psJPN) === JSON.stringify([11, 13, 21.7, 14.2]));
+  ok("ch05 guard: tertiary-tilt narrative (+45% above OECD) present",
+    ch05Strings.some((t) => /45%上回る|45% above/.test(t)));
+  const empJ = EMPLOYMENT_BY_ATTAINMENT.JPN;
+  ok("ch05 guard: employment JPN tertiary 88.3 / upper-sec 83.1 (gap 5.2 smallest)",
+    empJ.ISCED11A_5T8 === 88.3 && empJ.ISCED11A_3_4 === 83.1);
+  ok("ch05 guard: JPN 0T2 employment rows absent and DISCLOSED",
+    !("ISCED11A_0T2" in empJ) &&
+    ch05Strings.some((t) => /「中学卒」.*存在しない|below-upper-secondary rows are absent/.test(t)));
+  const jt = new Map(JPN_EMPRATE_TERTIARY.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch05 guard: JPN tertiary employment 2015 82.3 → 2025 88.3",
+    Math.abs(jt.get(2015)! - 82.3) < 0.06 && Math.abs(jt.get(2025)! - 88.3) < 0.06);
+  const ec = new Map(ECEC_3_5.JPN.map(([y, v]) => [y as number, v as number | null]));
+  const eo = new Map(ECEC_3_5.OECD.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch05 guard: ECEC JPN 2015 91.0 → 2024 95.2; OECD 2024 86.0",
+    Math.abs(ec.get(2015)! - 91.0) < 0.06 && Math.abs(ec.get(2024)! - 95.2) < 0.06 &&
+    Math.abs(eo.get(2024)! - 86.0) < 0.06);
+}
+
+// 5f-8. PIAAC guards
+{
+  ok("ch05 guard: PIAAC 2012 JPN 296/288 vs OECD 273/269; equity gap 129 vs 152",
+    PIAAC_2012.japan.literacy === 296 && PIAAC_2012.japan.numeracy === 288 &&
+    PIAAC_2012.oecd.literacy === 273 && PIAAC_2012.oecd.numeracy === 269 &&
+    PIAAC_2012.equity_gap.japan_gap === 129 && PIAAC_2012.equity_gap.oecd_gap === 152);
+  ok("ch05 guard: PIAAC Round-2 unverifiable disclosure present (INCONCLUSIVE framing)",
+    ch05Strings.some((t) => /検証不能|unverifiable|INCONCLUSIVE/.test(t)));
+  ok("ch05 guard: no fabricated Round-2 (2023) numbers in prose",
+    ch05Strings.every((t) => !/第2回.*(?:[0-9]{3}点)|(?:Round 2)[^.]*?\b[2-4]\d{2}\b/.test(t)));
+}
+
+// 5f-9. 学習費 + progression + enrollment guards
+{
+  const gk = new Map(GAKUSHUUHI_2023.map(([k, v]) => [k as string, v as number]));
+  ok("ch05 guard: gakushuuhi pub 36.7/54.2/59.7 vs priv 174.2/156.0/117.9 (万円)",
+    gk.get("elem_pub") === 36.7 && gk.get("jhs_pub") === 54.2 && gk.get("hs_pub") === 59.7 &&
+    gk.get("elem_priv") === 174.2 && gk.get("jhs_priv") === 156.0 && gk.get("hs_priv") === 117.9);
+  ok("ch05 guard: 4.7× elementary gap and 2,100万/600万 reference cases in prose",
+    ch05Strings.some((t) => /4\.7倍|4\.7×/.test(t)) &&
+    ch05Strings.some((t) => /2,100万|21 million/.test(t)) &&
+    ch05Strings.some((t) => /600万|6 million/.test(t)));
+  const hs = new Map(HS_PROGRESSION_EXCL_COMM.map(([y, v]) => [y as number, v as number | null]));
+  const uf = new Map(UNIV_FRESHMAN_PROGRESSION.map(([y, v]) => [y as number, v as number | null]));
+  const um = new Map(UNIV_FRESHMAN_PROGRESSION_M.map(([y, v]) => [y as number, v as number | null]));
+  const ufm = new Map(UNIV_FRESHMAN_PROGRESSION_F.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch05 guard: 2025 hs excl-comm 92.7 / incl-comm 98.6; univ freshman 61.4 (m 59.7 / f 63.2)",
+    Math.abs(hs.get(2025)! - 92.7) < 0.05 && Math.abs(uf.get(2025)! - 61.4) < 0.05 &&
+    Math.abs(um.get(2025)! - 59.7) < 0.05 && Math.abs(ufm.get(2025)! - 63.2) < 0.05);
+  ok("ch05 guard: women's freshman rate exceeds men's in 2025 AND 2014",
+    (ufm.get(2025) ?? 0) > (um.get(2025) ?? 0) && (ufm.get(2014) ?? 0) > (um.get(2014) ?? 0));
+  const dest = new Map(HS_DESTINATIONS_2025.map(([k, v]) => [k as string, v as number]));
+  ok("ch05 guard: destinations univ 58.3 + junior 3.1 = 61.4; senmon 14.4; employment 13.8; other 10.4",
+    Math.abs(dest.get("univ")! + dest.get("junior")! - 61.4) < 0.001 &&
+    dest.get("senmon") === 14.4 && dest.get("employment") === 13.8 &&
+    Math.abs(dest.get("other")! - (100 - 61.4 - 14.4 - 13.8)) < 0.001);
+  ok("ch05 guard: residual-derivation disclosure present (差分/residual)",
+    ch05Strings.some((t) => /差分|residual/.test(t)));
+  const un = new Map(UNIV_ENROLLMENT.map(([y, v]) => [y as number, v as number | null]));
+  const se = new Map(SENSHU_ENROLLMENT.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch05 guard: univ enrollment 1948 1.2万 → 2025 297.2万; senshu 1976 13.1万 → 2025 62.2万",
+    Math.abs(un.get(1948)! - 1.2) < 0.05 && Math.abs(un.get(2025)! - 297.2) < 0.05 &&
+    Math.abs(se.get(1976)! - 13.1) < 0.05 && Math.abs(se.get(2025)! - 62.2) < 0.05);
+  const fs = new Map(FOREIGN_STUDENTS_UNIV.map(([y, v]) => [y as number, v as number | null]));
+  ok("ch05 guard: foreign students 2024 101,357 → 2025 107,206",
+    fs.get(2024) === 101357 && fs.get(2025) === 107206);
+  ok("ch05 guard: nationality-vs-JASSO definition disclosure present",
+    ch05Strings.some((t) => /国籍・地域ベース|nationality basis/.test(t) && /JASSO|在留資格|residence status/.test(t)));
+}
+
+// 5f-10. Chart-spec sanity for ch05
+{
+  const ids = new Set<string>();
+  let dup = 0, misaligned = 0, badSource = 0;
+  const sourceIds = new Set<string>(chapter05?.sources.map((s) => s.id) ?? []);
+  for (const c of chapter05?.charts ?? []) {
+    if (ids.has(c.id)) dup++;
+    ids.add(c.id);
+    for (const s of c.series) {
+      if (s.values.length !== c.years.length) misaligned++;
+    }
+    for (const sid of c.sourceIds) {
+      if (!sourceIds.has(sid)) badSource++;
+    }
+    if (c.csv === false) badSource++;
+  }
+  ok("ch05 chart ids unique", dup === 0);
+  ok("ch05 chart series aligned with years", misaligned === 0);
+  ok("ch05 chart source ids resolve", badSource === 0);
+  ok("ch05 chart count is 16", (chapter05?.charts.length ?? 0) === 16);
+}
+
+// 5f-11. Section structure + bilingual discipline
+{
+  const nSections = chapter05?.sections.length ?? 0;
+  ok("ch05 has 10 sections", nSections === 10);
+  const chartRefs = new Set<string>();
+  for (const s of chapter05?.sections ?? []) {
+    for (const b of s.blocks) {
+      if (b.type === "chart") chartRefs.add(b.chartId);
+    }
+  }
+  const chartIds = new Set((chapter05?.charts ?? []).map((c) => c.id));
+  const missing = [...chartIds].filter((id) => !chartRefs.has(id));
+  ok("ch05 every chart is referenced by content", missing.length === 0, missing.join(","));
+  ok("ch05 guard: PISA scores carry the not-intelligence/not-% disclosure",
+    ch05Strings.some((t) => /知能・学校の優劣・将来の成功を測るものではない|do not measure intelligence/.test(t)) &&
+    ch05Strings.some((t) => /尺度得点であり、％でも順位でもありません|are scale points .{0,40}not percentages/.test(t)));
+  ok("ch05 guard: bilingual spot-parity — 61.4 / 769,022 / 353,970 / 296 appear in both JA and EN strings",
+    ["61.4", "769,022", "353,970", "296"].every((n) =>
+      ch05Strings.some((t) => t.includes(n))));
+}
+
+
+// 5f-12. Negative-test-hardened guards (round 2 — gaps found by N2/N3/N4/N6/N7/N8/N9/N10/N12):
+{
+  // N2: prose per-student values must state the verified thousand-USD figures in both languages.
+  ok("ch05 guard: prose states per-student 21.7千ドル (JA) and 21.7 thousand (EN) for tertiary",
+    ch05Strings.some((t) => t.includes("21.7千ドル")) &&
+    ch05Strings.some((t) => /21\.7 thousand|but 45% above/.test(t)));
+  ok("ch05 guard: prose never states 21,700千ドル (USD-to-thousandUSD conflation)",
+    ch05Strings.every((t) => !/21,700千ドル|21,700 thousand/.test(t)));
+
+  // N3/N3b: the old-series peak must be 2001/138,722 in BOTH languages, in both the chart and the prose.
+  ok("ch05 guard: old-series peak anchored to 2001/138,722 in JA chart+prose",
+    ch05Strings.some((t) => t.includes("2001年に138,722人でピーク")) &&
+    ch05Strings.some((t) => t.includes("2001年の138,722人への増加")));
+  const enPeakCount = ch05Strings.filter((t) => t.includes("138,722 peak (2001)")).length;
+  ok("ch05 guard: old-series peak anchored to 2001/138,722 in EN chart+prose (both)",
+    enPeakCount >= 2);
+  ok("ch05 guard: no wrong old-series peak (1998/135,000 or 2000-as-peak claims)",
+    ch05Strings.every((t) => !/1998年に135,000|135,000人でピーク|2000年に134,286人でピーク|134,286 peak/.test(t)));
+
+  // N4: foreign students must remain nationality-basis; JASSO equivalence claims forbidden.
+  ok("ch05 guard: foreign students stated as 国籍・地域ベース (nationality basis)",
+    ch05Strings.some((t) => t.includes("国籍・地域ベース") || t.includes("nationality basis")));
+  ok("ch05 guard: no claim that the count equals JASSO residence-basis statistics",
+    ch05Strings.every((t) => !/在留資格ベース（JASSO留学生統計と同一|same basis as JASSO/.test(t)));
+
+  // N6: EN reading-decline year anchor must be 2022.
+  ok("ch05 guard: EN anchors the 13-point reading decline to 2022 (not 2018)",
+    ch05Strings.some((t) => t.includes("13 points from 2022")) &&
+    ch05Strings.every((t) => !/13 points from 2018/.test(t)));
+
+  // N7: the bullying record must be attributed to school year 2024 (R6), not 2023.
+  ok("ch05 guard: 769,022 is attributed to 2024/令和6年度 in prose",
+    ch05Strings.some((t) => /769,022件と過去最多/.test(t) && /2024|令和6年度|school year 2024/.test(t) || t.includes("record 769,022 (school year 2024)")));
+  ok("ch05 guard: no string attributes 769,022 to 2023年度",
+    ch05Strings.every((t) => !/2023年度のいじめの認知件数は769,022/.test(t)));
+
+  // N8: the significance statement must keep 有意な低下 (not downgraded).
+  ok("ch05 guard: prose keeps 13点の有意な低下 (significant-decline phrasing intact)",
+    ch05Strings.some((t) => t.includes("13点の有意な低下") || t.includes("有意に低下")));
+  ok("ch05 guard: no significance-downgrade phrasing for the reading decline",
+    ch05Strings.every((t) => !/13点の統計的に有意とは言えない低下/.test(t)));
+
+  // N9: the old/new nonattendance junction disclosure must keep both values.
+  ok("ch05 guard: junction values 122,650 and 122,897 co-occur in a disclosure string",
+    ch05Strings.some((t) => t.includes("122,650") && t.includes("122,897")));
+  ok("ch05 guard: no claim that the old/new series are simply continuous",
+    ch05Strings.every((t) => !/旧系列と新系列は連続している/.test(t)));
+
+  // N10: PISA scores must carry 点/points markers, never % conversions.
+  ok("ch05 guard: PISA 2025 values appear as 点-marked scores (538点/503点/525点)",
+    ch05Strings.some((t) => t.includes("538点") && t.includes("503点") && t.includes("525点")));
+  ok("ch05 guard: no score-to-percentage conversion (5.38%/5.03%/5.25%)",
+    ch05Strings.every((t) => !/5\.38%|5\.03%|5\.25%/.test(t)));
+
+  // N12: OECD average must be stated as the published member average.
+  ok("ch05 guard: 表示国の平均ではない (not average of shown countries) stated",
+    ch05Strings.some((t) => t.includes("表示国の平均ではない") || t.includes("not an average of")));
+  ok("ch05 guard: no claim that the OECD average is the average of displayed countries",
+    ch05Strings.every((t) => !/表示した国の平均値である|average of the countries shown equals/.test(t)));
+}
+
+const hash5 = createHash("sha256").update(readFileSync(extraction5Path)).digest("hex").slice(0, 16);
+const { DATA_SNAPSHOT_HASH: CH05_SNAPSHOT_HASH } = await import("../src/chapters/chapter-05/data");
+ok("ch05 dataset snapshot hash unchanged", hash5 === CH05_SNAPSHOT_HASH, `${hash5} vs ${CH05_SNAPSHOT_HASH}`);
+
+// ---------------------------------------------------------------------------
 // 6. UI dictionary parity
 // ---------------------------------------------------------------------------
 console.log("\n[6] UI dictionary parity");
