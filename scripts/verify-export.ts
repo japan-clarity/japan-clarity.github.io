@@ -122,6 +122,24 @@ ok("chapter 04 (en) published (no placeholder marker)", !ch04en.includes("has no
 ok("chapter 04 (en) contains OECD hours chart", ch04en.includes("Average annual hours actually worked"));
 ok("chapter 04 (en) contains the trend-not-level caveat", ch04en.includes("unsuitable for level comparisons") || ch04en.includes("not directly comparable"));
 
+// Chapter 05 is now PUBLISHED — verify the real chapter rendered (charts + tables).
+const ch05ja = readFileSync(resolve(OUT, "ja", "chapters", "education-talent", "index.html"), "utf-8");
+ok("chapter 05 (ja) published (no placeholder marker)", !ch05ja.includes("この章はまだ公開されていません"));
+ok("chapter 05 (ja) contains PISA trend chart", ch05ja.includes("PISA平均得点の推移"));
+ok("chapter 05 (ja) contains bullying chart", ch05ja.includes("いじめの認知件数の推移"));
+ok("chapter 05 (ja) contains nonattendance chart", ch05ja.includes("不登校児童生徒数の推移"));
+ok("chapter 05 (ja) contains verified figure (いじめ 769,022)", ch05ja.includes("769,022"));
+ok("chapter 05 (ja) contains verified figure (不登校 353,970)", ch05ja.includes("353,970"));
+ok("chapter 05 (ja) contains verified figure (PISA2025 science 538)", ch05ja.includes("538"));
+ok("chapter 05 (ja) contains source attribution", ch05ja.includes("文部科学省") && ch05ja.includes("国立教育政策研究所") && ch05ja.includes("OECD"));
+ok("chapter 05 (ja) contains limitations section", ch05ja.includes("限界") || ch05ja.includes("本章が検証していない主題"));
+ok("chapter 05 (ja) contains the PIAAC Round-2 disclosure", ch05ja.includes("検証不能") || ch05ja.includes("INCONCLUSIVE"));
+const ch05en = readFileSync(resolve(OUT, "en", "chapters", "education-talent", "index.html"), "utf-8");
+ok("chapter 05 (en) published (no placeholder marker)", !ch05en.includes("has not been published yet"));
+ok("chapter 05 (en) contains PISA trend chart", ch05en.includes("PISA mean scores over time"));
+ok("chapter 05 (en) contains the not-a-ranking framing", ch05en.includes("not a ranking") || ch05en.includes("read as levels, not orders") || ch05en.includes("rather than league tables"));
+ok("chapter 05 (en) contains limitations section", ch05en.includes("Limitations and caveats"));
+
 // Metadata routes.
 ok(".build-export/sitemap.xml exists", existsSync(resolve(OUT, "sitemap.xml")));
 const sitemap = readFileSync(resolve(OUT, "sitemap.xml"), "utf-8");

@@ -12,7 +12,9 @@
     "generate:chapter-data": "bun run scripts/generate-chapter-data.ts",
     "generate:chapter02-data": "bun run scripts/generate-chapter-02-data.ts",
     "extract:series": "python3 research/chapter01/scripts/extract-series.py",
-    "extract:series:ch02": "python3 research/chapter02/scripts/extract-series.py"
+    "extract:series:ch02": "python3 research/chapter02/scripts/extract-series.py",
+    "extract:series:ch05": "python3 research/chapter05/scripts/extract-series.py",
+    "generate:chapter05-data": "bun run scripts/generate-chapter-05-data.ts"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",
