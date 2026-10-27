@@ -429,3 +429,55 @@ scripts/generate-chapter-03-data.ts && bun run validate:research && bun run
 lint && bun run typecheck && bun run export:static && bun run verify:export`.
 The auditor's re-fetches reproduced the raw inputs byte-identically, so all
 gates are re-runnable from the official domains alone.
+
+---
+
+## Checkpoint 8 — Chapter 04 (Labor & Working Conditions) development + pre-merge audit
+
+Chapter 04 was built end-to-end on `feature/chapter-04-labor-working-conditions`
+(from `origin/main = 5b3a847`) and audited in the same pass: anchored extraction
+(192→196 checks), data generation (snapshot `7e27634ebb7e62c9`), 15 bilingual
+figures across 10 sections, then the independent adversarial audit with live
+re-fetches from e-Stat/MHLW/stat.go.jp/OECD SDMX (42-check fresh-parser
+comparison vs the delivered data.ts).
+
+Audit findings and remediation (all FIXED+VERIFIED, negative-tested):
+- **D1** (data layer): LFS 1973 double-row — extraction kept the
+  Okinawa-EXCLUDED row against its own documented convention; fixed to the
+  included row (1973: employed 5,259 / rate 1.3 / self 970 / family 665 /
+  employee 3,615 / 60-64 rate 56.9); guard G-N.
+- **D2** (narrative): 契約社員・嘱託 2002 "355万" was 契約社員230 + その他125
+  mislabeled (嘱託 is a separate category only since 2013); rewritten with the
+  category-break disclosure; guard G-O.
+- **D3**: 65+ employment-rate trough was claimed at "around 2000 / 約20%" —
+  actual trough 19.2% in 2011; corrected (prose + chart description, JA+EN);
+  guard G-P.
+- **D4**: unverifiable student-excluded 24.3% claim (no published 2025 value;
+  series ends 2022) removed; guard G-Q.
+- **D5**: EN attached the 1.9% unemployment value to 1973 instead of 1975;
+  corrected; guard G-R.
+- Guard hardening from negative testing: G-L (prose-number allow-list for
+  mental-comp) and G-M (survey-year framing) closed two discovered gaps; the
+  gate grew 1345 → **1358 checks, 0 failures**, with 11 negative fixtures
+  (N1–N11) all failing as designed.
+
+Gates on the final tip: tsc 0 · eslint 0/0 · validate:research 1358/0 ·
+contrast 58/0 · export 80/0 (20.4 MB) · Ch01–Ch03/components/lib zero-diff vs
+`5b3a847`. Browser verification: 15 figures JA/EN, five chart⇄table
+round-trips with exact cells (unemployment 1973 = 1.3 post-fix), tooltips,
+CSV attribution, keyboard, range filters, JA↔EN, deep links, 320–1440 px,
+sticky footer, 404, Ch01–03 regressions (Ch01 1980 = 3.22 re-confirmed),
+clean console. Security/sanitization PASS (raw/ gitignored per
+DATA-LICENSES; workflows untouched, validation-only CI + main-only deploy).
+Full record: `docs/CH04-PREMERGE-INDEPENDENT-AUDIT.md`,
+`docs/remediation-ledger-ch04.csv`, `research/chapter04/notes/` (audit
+findings, negative tests, browser verification). Release recommendation:
+**GO**.
+
+If the sandbox resets: re-create the worktree
+`git worktree add /home/z/jc-ch04 feature/chapter-04-labor-working-conditions`,
+`bun install`, then re-run `python3 research/chapter04/scripts/extract-series.py
+&& bun run scripts/generate-chapter-04-data.ts && bun run validate:research &&
+bunx tsc --noEmit && bunx eslint src scripts && bun run export:static && bun run
+verify:export`. The auditor's re-fetches (OECD byte-identical; e-Stat/MHLW
+re-parsed fresh) are documented in `research/chapter04/notes/audit-findings.md`.
